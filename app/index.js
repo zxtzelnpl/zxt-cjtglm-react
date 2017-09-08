@@ -9,6 +9,7 @@ import Perf from 'react-addons-perf'
 import {Provider} from 'react-redux'
 
 import './static/css/public.less'
+import Banner from './components/Banner'
 import ProductList from './components/ProductList'
 
 
@@ -20,6 +21,7 @@ if(__DEV__){
 
 render(
     <div>
+        <Banner />
         <ProductList />
     </div>,
     document.getElementById('root')

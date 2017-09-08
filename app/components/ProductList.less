@@ -1,0 +1,364 @@
+.left{
+  float:left;
+}
+.right{
+  float:right;
+}
+.bannerZxt{
+  width:100%;
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  .carousel{
+    height:100%;
+    transition:margin 2s;
+    -webkit-transition:margin 2s ease;
+    overflow: hidden;
+    position: relative;
+    div{
+      height:100%;
+      float:left;
+      position: relative;
+      img{
+        display:block;
+        width:100%;
+        height:100%;
+      }
+    }
+  }
+}
+body{
+  background:#E9EAEC;
+}
+.titleZxt{
+  margin:10px 10px 0;
+  padding-left:40px;
+  width:auto;
+  height:30px;
+  line-height:30px;
+  color:#F46A63;
+  font-size:16px;
+  font-weight:bold;
+  box-shadow: 1px 1px 3px 1px #ddd;
+  background: #fff url(../static/img/niuren.png) 10px 3px no-repeat;
+  background-size:24px 24px;
+  position:relative;
+  &.win{
+    background: #fff url(../static/img/winniuren.png) 10px 3px no-repeat;
+    background-size:24px 24px;
+  }
+  .noticeZxt{
+    position:absolute;
+    top:0;
+    right:0;
+    width:~"calc( 100% - 110px)";
+    height:100%;
+    overflow:hidden;
+    .carousel{
+      height:100%;
+    }
+    span{
+      float:left;
+      display:block;
+      height:100%;
+      font-size:12px;
+      font-weight:normal;
+      b{
+        color:#e84c3e;
+      }
+    }
+  }
+
+}
+.niurenbox{
+  display:block;
+  margin:10px;
+  height:100px;
+  box-shadow: 1px 1px 3px 1px #ddd;
+  background:#fff;
+  .left{
+    padding:10px;
+    width:100px;
+    height:100px;
+    text-align:center;
+    img{
+      display:block;
+      margin:10px auto 0;
+      width:44px;
+      height:44px;
+    }
+    .name{
+      height:20px;
+      line-height:20px;
+      font-size:14px;
+    }
+    &.hasHonor{
+      img{
+        margin-top:0;
+      }
+      .honor{
+        height:16px;
+        line-height:16px;
+        font-size:12px;
+        color:#fff;
+        background:#f6554b;
+      }
+    }
+  }
+  .right{
+    position:relative;
+    width:~"calc( 100% - 100px)";
+    .up{
+      padding:10px 10px 10px 0;
+      font-size:12px;
+      height:40px;
+      line-height:20px;
+      .up1{
+        padding:0 5px;
+        display:inline-block;
+        color:#fff;
+        background:#c9a084;
+      }
+      .up2{
+        display:inline-block;
+        padding-left:5px;
+      }
+      span.link{
+        position:absolute;
+        top:10px;
+        right:5px;
+        padding:0 5px;
+        height:20px;
+        line-height:18px;
+        color:#f24c4c;
+        border:1px solid #f24c4c;
+        border-radius:5px;
+      }
+    }
+    .down{
+      height:60px;
+      font-size:12px;
+      text-align: center;
+      >div{
+        float:left;
+        span:nth-child(2){
+          font-weight:bold;
+          font-size:16px;
+        }
+      }
+      span{
+        display:block;
+        height:25px;
+        line-height:25px;
+      }
+      .down1{
+        height:50px;
+        width:90px;
+        span:nth-child(2){
+          color:red;
+        }
+      }
+      .down2{
+        display:none;
+        height:50px;
+        width:60px;
+        border-left:1px solid #bbb;
+      }
+      .down3{
+        height:50px;
+        width:90px;
+        border-left:1px solid #bbb;
+        span:nth-child(2){
+          color:red;
+        }
+      }
+    }
+  }
+}
+.niurenboxWin{
+  display:block;
+  margin:10px;
+  height:100px;
+  box-shadow: 1px 1px 3px 1px #ddd;
+  background:#fff;
+  position:relative;
+  .left{
+    padding:10px;
+    height:100px;
+    &.one{
+      width:80px;
+      img{
+        display:block;
+        width:60px;
+        height:80px;
+      }
+    }
+    &.two{
+      padding-left:0;
+      .up{
+        height:16px;
+        line-height:16px;
+        .up1{
+          float:left;
+          padding-right:20px;
+          font-weight:bold;
+          font-size:14px;
+          font-family: Simsun, serif;
+          background:url(../static/img/v.jpg) right top no-repeat;
+          background-size: 16px 16px;
+        }
+        .up2{
+          padding:1px 5px;
+          background:#f8913e;
+          font-size:12px;
+          color:#fff;
+        }
+      }
+      .down{
+        padding-top:4px;
+        height:64px;
+        span{
+          display:block;
+          text-align:center;
+          &.stock{
+            height:18px;
+            line-height:18px;
+            border-bottom:1px solid #fff;
+            font-size:12px;
+          }
+          &.time{
+            height:14px;
+            line-height:14px;
+            font-size:10px;
+          }
+          &.words{
+            height: 14px;
+            line-height: 14px;
+            font-size: 10px;
+          }
+          &.result{
+            height:16px;
+            line-height:16px;
+            font-weight:bold;
+            font-size:12px;
+          }
+        }
+        .down1{
+          float:left;
+          height:61px;
+          width:100px;
+          padding:0 5px;
+          border-radius:5px;
+          box-shadow:4px 4px 10px 0 #fe7f55;
+          background:#fe7f55;
+          span{
+            color:#fff;
+          }
+        }
+        .down2{
+          margin-left:10px;
+          float:left;
+          height:61px;
+          width:100px;
+          padding:0 5px;
+          border-radius:5px;
+          box-shadow:4px 4px 10px 0 #fc5e55;
+          background:#fc5e55;
+          span{
+            color:#fff;
+          }
+        }
+        .down3{
+          padding:5px 2px 0;
+          margin-left:15px;
+          height:61px;
+          width:100px;
+          border-radius:5px;
+          float:left;
+          span{
+            display: block;
+            height: 25px;
+            line-height: 25px;
+            font-size:12px;
+            color:#fff;
+            &:nth-child(2){
+              border-top:1px solid #fff;
+              font-weight: 700;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+  span.link{
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    padding: 0 5px;
+    height: 20px;
+    line-height: 18px;
+    font-size:12px;
+    color: #f24c4c;
+    border: 1px solid #f24c4c;
+    border-radius: 5px;
+  }
+}
+@media screen and (max-width:375px){
+  .niurenbox{
+    .left{
+      width:90px;
+      padding:10px 0;
+      &.hasHonor{
+        .honor{
+          margin:0 5px;
+        }
+      }
+    }
+    .right{
+      width:~"calc( 100% - 90px)";
+    }
+  }
+}
+@media screen and (max-width:320px){
+  .niurenboxWin{
+    .left{
+      &.two{
+        padding:5px 0;
+        .up{
+          .up2{
+            display:none;
+          }
+        }
+      }
+    }
+    span{
+      &.link{
+        top:1px;
+        right:1px;
+      }
+    }
+  }
+  .niurenbox{
+    .right{
+      .up{
+        .up1{
+          display:none;
+        }
+        .up2{
+          display:none;
+        }
+
+      }
+    }
+  }
+  .titleZxt{
+    &.win{
+      background: #fff;
+      padding-left:0;
+    }
+    .noticeZxt{
+      width: ~"calc( 100% - 70px)";
+    }
+  }
+}

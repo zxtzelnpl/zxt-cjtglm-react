@@ -55,30 +55,33 @@ class Product extends React.Component {
     render() {
         let {id, name, style, title, record, pic, pic_s} = this.props.data
         return (
-            <a className="niurenbox" href={id}>
-                <div className="left hasHonor">
-                    <img src={pic_s}/>
-                    <p className="name">{name}</p>
-                    <p className="honor">{title}</p>
-                </div>
-                <div className="right">
-                    <div className="up">
-                        <span className="up1">操作风格</span>
-                        <span className="up2">{style}</span>
-                        <span className="link">查看详情 ></span>
+            <li>
+                <a className="box" href={id}>
+                    <div className="teacher-img">
+                        <img src={pic_s}/>
+                        <p className="name">{name}</p>
+                        <p className="honor">{title}</p>
                     </div>
-                    <div className="down">
-                        <div className="down1 crpjzf">
-                            <span>{record[0][0]}</span>
-                            <span>{record[0][1]}</span>
+                    <div className="teacher-data">
+                        <div className="up">
+                            <span className="up1">操作风格</span>
+                            <span className="up2">{style}</span>
+                            <span className="link">查看详情 ></span>
                         </div>
-                        <div className="down3 ggzdzf">
-                            <span>{record[1][0]}</span>
-                            <span>{record[1][1]}</span>
+                        <div className="down">
+                            <div className="down1">
+                                <span>{record[0][0]}</span>
+                                <span>{record[0][1]}</span>
+                            </div>
+                            <div className="down3">
+                                <span>{record[1][0]}</span>
+                                <span>{record[1][1]}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </li>
+
         )
     }
 
@@ -97,12 +100,16 @@ class ProductList extends React.Component {
         ))
         return (
 
-            <div>
-                <div className="titleZxt">
-                    选股牛人
+            <div className="product-normal">
+                <div className="title">
+                    <span className="word">
+                        选股牛人
+                    </span>
                 </div>
-                <div className="niurenboxes">
-                    {productHtml}
+                <div className="list">
+                    <ul>
+                        {productHtml}
+                    </ul>
                 </div>
             </div>
         )

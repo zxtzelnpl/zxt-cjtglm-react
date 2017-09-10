@@ -2,6 +2,12 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import ReactSwipe from 'react-swipe'
 
+import './Banner.less'
+
+import img5 from '../static/img/junyinniuren5.jpg'
+import img6 from '../static/img/junyinniuren6.jpg'
+import img7 from '../static/img/junyinniuren7.jpg'
+
 class Banner extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -14,7 +20,7 @@ class Banner extends React.Component {
     render() {
         return (
             <ReactSwipe
-                className="carousel111"
+                className="carousel"
                 swipeOptions={
                     {
                         speed: 400,
@@ -23,9 +29,15 @@ class Banner extends React.Component {
                     }
                 }
             >
-                <div>PANE 1</div>
-                <div>PANE 2</div>
-                <div>PANE 3</div>
+                <div>
+                    <img src={img5} alt=""/>
+                </div>
+                <div>
+                    <img src={img6} alt=""/>
+                </div>
+                <div>
+                    <img src={img7} alt=""/>
+                </div>
             </ReactSwipe>
         );
     }

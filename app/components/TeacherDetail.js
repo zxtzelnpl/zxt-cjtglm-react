@@ -13,6 +13,7 @@ import img_result from '../static/img/teacher/img-result.jpg'
 class TeacherDetail extends React.Component{
     constructor(props,content){
         super(props,content)
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
 
     componentDidMount(){

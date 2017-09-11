@@ -1,47 +1,10 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import pic from '../static/img/product/lvxiangzhao.jpg'
-import pic_s from '../static/img/product/lvxiangzhao-s.png'
-import './ProductList.less'
+import {Link} from 'react-router-dom'
 
-const datas = [
-    {
-        id: '10000029',
-        name: '吕向召',
-        style: '善于挖掘牛股亮点',
-        title: '五日概率牛人',
-        record: [
-            ['三日最大涨幅', '17.04%'],
-            ['次日上涨概率', '90%'],
-        ],
-        pic: pic,
-        pic_s: pic_s
-    },
-    {
-        id: '10000030',
-        name: '吕向召',
-        style: '善于挖掘牛股亮点',
-        title: '五日概率牛人',
-        record: [
-            ['三日最大涨幅', '17.04%'],
-            ['次日上涨概率', '90%'],
-        ],
-        pic: pic,
-        pic_s: pic_s
-    },
-    {
-        id: '10000031',
-        name: '吕向召',
-        style: '善于挖掘牛股亮点',
-        title: '五日概率牛人',
-        record: [
-            ['三日最大涨幅', '17.04%'],
-            ['次日上涨概率', '90%'],
-        ],
-        pic: pic,
-        pic_s: pic_s
-    }
-]
+import {formatDate} from '../static/js/tools'
+
+import './ProductList.less'
 
 class Product extends React.Component {
     constructor(props, context) {
@@ -53,10 +16,10 @@ class Product extends React.Component {
     }
 
     render() {
-        let {id, name, style, title, record, pic, pic_s} = this.props.data
+        let {id, name, special, title, records, pic_s} = this.props.data
         return (
             <li>
-                <a className="box" href={id}>
+                <Link to={"/teacher/"+id} className="box">
                     <div className="teacher-img">
                         <img src={pic_s}/>
                         <p className="name">{name}</p>
@@ -65,21 +28,21 @@ class Product extends React.Component {
                     <div className="teacher-data">
                         <div className="up">
                             <span className="up1">操作风格</span>
-                            <span className="up2">{style}</span>
+                            <span className="up2">{special}</span>
                             <span className="link">查看详情 ></span>
                         </div>
                         <div className="down">
                             <div className="down1">
-                                <span>{record[0][0]}</span>
-                                <span>{record[0][1]}</span>
+                                <span>{records[0].title}</span>
+                                <span>{formatDate(records[0])}</span>
                             </div>
                             <div className="down3">
-                                <span>{record[1][0]}</span>
-                                <span>{record[1][1]}</span>
+                                <span>{records[1].title}</span>
+                                <span>{formatDate(records[1])}</span>
                             </div>
                         </div>
                     </div>
-                </a>
+                </Link>
             </li>
 
         )
@@ -95,7 +58,7 @@ class ProductList extends React.Component {
     }
 
     render() {
-        let productHtml = datas.map(data => (
+        let productHtml = this.props.list.map(data => (
             <Product key={data.id} data={data}/>
         ))
         return (

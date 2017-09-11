@@ -8,9 +8,8 @@ import echarts from '../../static/js/echarts.min'
 
 let record = {
     title: '五日平均涨幅',
-    dates: ['12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日'],
-    datas1: ['7.71', '15.64', '12.66', '9.12', '14.05', '19.67', '7.73', '5.41', '10.61', '14.16'],
-    datas2: ['7.71', '15.64', '12.66', '9.12', '14.05', '19.67', '7.73', '5.41', '10.61', '14.16']
+    date: ['12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日'],
+    data: ['7.71', '15.64', '12.66', '9.12', '14.05', '19.67', '7.73', '5.41', '10.61', '14.16']
 }
 
 class AverageRise extends React.Component {
@@ -32,13 +31,13 @@ class AverageRise extends React.Component {
     componentDidMount(){
         this.setState({data:{
             title:record.title,
-            dates:record.dates,
-            datas : [].concat(record.datas1,record.datas2),
-            date_len : record.dates.length,
-            data_len : record.datas1.length+record.datas1.length,
-            data_max : Math.max(...[].concat(record.datas1,record.datas2)),
-            data_min : Math.min(...[].concat(record.datas1,record.datas2)),
-            data_aver : average([].concat(record.datas1,record.datas2))
+            date:record.date,
+            data: record.data,
+            date_len : record.date.length,
+            data_len : record.data.length,
+            data_max : Math.max(...record.data),
+            data_min : Math.min(...record.data),
+            data_aver : average(record.data)
         }})
 
     }
@@ -64,7 +63,7 @@ class AverageRise extends React.Component {
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: this.state.data.dates,
+                data: this.state.data.date,
                 axisLabel: {
                     show: false
                 },
@@ -96,7 +95,7 @@ class AverageRise extends React.Component {
                     },
                     edgeSymbol: ['circle', 'arrow'],
                     edgeSymbolSize: [2, 4],
-                    data: record.datas1,
+                    data: this.state.data.data,
                     lineStyle: {
                         normal: {
                             color: '#2f4554'
@@ -116,6 +115,7 @@ class AverageRise extends React.Component {
             <div className="average-rise charts">
                 <div className="main" ref={(main)=>{this.main=main}}/>
                 <div className="text">
+                    <p>数据统计：</p>
                     <p>
                         1、统计阶段：最近
                         <span>{date_len}</span>

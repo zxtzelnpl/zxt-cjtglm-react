@@ -4,9 +4,9 @@ import ReactSwipe from 'react-swipe'
 
 import './Banner.less'
 
-import img5 from '../static/img/junyinniuren5.jpg'
-import img6 from '../static/img/junyinniuren6.jpg'
-import img7 from '../static/img/junyinniuren7.jpg'
+import img5 from '../static/img/banner/junyinniuren5.jpg'
+import img6 from '../static/img/banner/junyinniuren6.jpg'
+import img7 from '../static/img/banner/junyinniuren7.jpg'
 
 class Banner extends React.Component {
     constructor(props, context) {

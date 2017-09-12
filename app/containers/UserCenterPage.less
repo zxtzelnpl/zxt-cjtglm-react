@@ -1,0 +1,105 @@
+.usercenter-page{
+    .hidden{
+        visibility: hidden;
+    }
+    section{
+        margin-bottom: .4rem;
+        padding:0 .2rem;
+        background-color: #fff;
+    }
+    .head{
+        display:flex;
+        align-items:center;
+
+        height:2.5rem;
+        width: 7.5rem;
+
+        img{
+            height: 1.7rem;
+            width: 1.7rem;
+            border-radius: 50% 50%;
+        }
+        p{
+            padding-left:.2rem;
+            font-size:.32rem;
+            line-height: 1.7rem;
+        }
+    }
+    .info-box{
+        width:7.1rem;
+        height: .8rem;
+        line-height: .8rem;
+        border-bottom: 1px solid #eee;
+        font-size:.36rem;
+        overflow: hidden;
+        &:last-child{
+            border-bottom: none;
+        }
+        .box{
+            width:14.2rem;
+            display:flex;
+            transition:transform 1s;
+            &.moved{
+                transform:translateX(-50%);
+            }
+            .show{
+                width:50%;
+                .single-word{
+                    padding:0 .1rem;
+                }
+            }
+            .input{
+                width:50%;
+                input{
+                    vertical-align: top;
+                    width:5rem;
+                    height:.8rem;
+                    font-size:.36rem;
+                }
+            }
+            .btn{
+                float: right;
+                width:1rem;
+                height: .8rem;
+                line-height:.8rem;
+                text-align: right;
+                &.fa:before{
+                    display:block;
+                    width:1rem;
+                    height: .8rem;
+                    line-height:.8rem;
+                    font-size:.6rem;
+                }
+            }
+        }
+    }
+    .link-box{
+        width:7.1rem;
+        height: .8rem;
+        line-height: .8rem;
+        border-bottom: 1px solid #eee;
+        font-size:.36rem;
+        overflow: hidden;
+        &:last-child{
+            border-bottom: none;
+        }
+        .single-word{
+            padding:0 .1rem;
+        }
+        .btn{
+            float: right;
+            width:1rem;
+            height: .8rem;
+            line-height:.8rem;
+            text-align: right;
+            &.fa:before{
+                display:block;
+                width:1rem;
+                height: .8rem;
+                line-height:.8rem;
+                font-size:.6rem;
+            }
+        }
+
+    }
+}

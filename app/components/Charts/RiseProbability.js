@@ -98,7 +98,6 @@ function myCanvas(main,record){
         let angle=endAngle+(startAngle-endAngle)/4*index;
         let x=X+cos(angle)*RADIUS;
         let y=Y+sin(angle)*RADIUS;
-        console.log(x,y);
 
         ctx.save();
 

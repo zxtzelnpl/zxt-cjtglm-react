@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Banner from '../components/Banner'
 import ProductList from '../components/ProductList'
 import ProductListHot from '../components/ProductListHot'
+import Footer from '../components/Footer'
 
 class ProductPage extends  React.Component{
     constructor(props,content){
@@ -31,6 +32,7 @@ class ProductPage extends  React.Component{
                 <Banner/>
                 <ProductListHot list={hot}/>
                 <ProductList list={normal}/>
+                <Footer footerIndex={1}/>
             </div>
         )
     }

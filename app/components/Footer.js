@@ -8,9 +8,6 @@ import user_center_active from '../static/img/footer/user-center-active.png'
 
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as footerActionsFromOtherFile from '../actions/footer'
 import {Link} from 'react-router-dom'
 
 class Footer extends React.Component {

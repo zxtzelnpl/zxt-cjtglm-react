@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import TeachaerBrief from '../components/TeacherBrief'
 import DownImage from '../components/DownImage'
 import Subscribe from '../components/Subscribe'
+import Footer from '../components/Footer'
 /*Charts*/
 import Charts from '../components/Charts'
 
@@ -29,6 +30,7 @@ class TeacherPage extends  React.Component{
                 <Charts records = {teacher_data.records}/>
                 <DownImage pic={teacher_data.img3}/>
                 <Subscribe productID = {this.props.match.params.id}/>
+                <Footer footerIndex={1} />
             </div>
         )
     }

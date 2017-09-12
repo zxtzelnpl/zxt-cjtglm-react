@@ -5,8 +5,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
-import InfoBox from '../components/InfoBox'
 import {Link} from 'react-router-dom'
+import InfoBox from '../components/InfoBox'
+import Footer from '../components/Footer'
 
 class UserCenterPage extends React.Component{
     constructor(props,content){
@@ -92,6 +93,7 @@ class UserCenterPage extends React.Component{
                         </Link>
                     </div>
                 </section>
+                <Footer footerIndex={2}/>
             </div>
         )
     }

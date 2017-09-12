@@ -16,41 +16,24 @@ class AverageRise extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-        this.state={
-            data : {
-                title:'图标',
-                date_len : '***',
-                data_len : '***',
-                data_max : '***',
-                data_min : '***',
-                data_aver : '***'
-            }
-        }
     }
 
     componentDidMount(){
-        this.setState({data:{
-            title:record.title,
-            date:record.date,
-            data: record.data,
-            date_len : record.date.length,
-            data_len : record.data.length,
-            data_max : Math.max(...record.data),
-            data_min : Math.min(...record.data),
-            data_aver : average(record.data)
-        }})
-
+        this.showChart(this.main,this.props.record)
     }
 
-    componentDidUpdate(){
-        this.showChart()
-    }
-
-    showChart(){
-        this.charts = echarts.init(this.main)
+    showChart(main,record){
+        this.charts = echarts.init(main)
+        let links = record.data.map(function (item, i) {
+            return {
+                source: i,
+                target: i + 1
+            };
+        });
+        links.pop();
         let option = {
             title: {
-                text: '五日平均涨幅',
+                text: record.title,
                 x: 'center'
             },
             grid: {
@@ -63,7 +46,7 @@ class AverageRise extends React.Component {
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: this.state.data.date,
+                data: record.date,
                 axisLabel: {
                     show: false
                 },
@@ -88,6 +71,7 @@ class AverageRise extends React.Component {
                     label: {
                         normal: {
                             show: true,
+                            position:[5,5],
                             formatter: function (data) {
                                 return data.value + '%'
                             }
@@ -95,7 +79,8 @@ class AverageRise extends React.Component {
                     },
                     edgeSymbol: ['circle', 'arrow'],
                     edgeSymbolSize: [2, 4],
-                    data: this.state.data.data,
+                    data: record.data,
+                    links: links,
                     lineStyle: {
                         normal: {
                             color: '#2f4554'
@@ -109,8 +94,13 @@ class AverageRise extends React.Component {
     }
 
     render() {
-        let {date_len,data_len,data_max,data_min,data_aver} = this.state.data
-
+        let {date,data} = this.props.record
+        let date_len,data_len,data_max,data_min,data_aver;
+        date_len = date.length
+        data_len = data.length
+        data_max = Math.max(...data)
+        data_min = Math.min(...data)
+        data_aver = average(data)
         return (
             <div className="average-rise charts">
                 <div className="main" ref={(main)=>{this.main=main}}/>

@@ -1,16 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import echarts from '../../static/js/echarts.min'
 
 import './Charts.less'
 import chart_bg from '../../static/img/teacher/rise-probability.png'
-
-
-let record = {
-    title: '次日上涨概率',
-    date: ['2017-8-31', '2017-8-31', '2017-8-31', '2017-8-31', '2017-8-31'],
-    data: [2, 1, 1, 2, 1]
-}
 
 function myCanvas(main,record){
     let {title,date,data} = record
@@ -43,8 +35,8 @@ function myCanvas(main,record){
     function middleImage(ctx){
         ctx.save();
         ctx.beginPath();
-        var image=new Image();
-        var dwidth=140
+        let image=new Image();
+        let dwidth=140
             ,dheight=133
             ,dx=(WIDTH-dwidth)/2
             ,dy=(HEIGHT-dheight)/2+50;//后期修正
@@ -64,15 +56,15 @@ function myCanvas(main,record){
         ctx.font = "bold 18px Microsoft YaHei";
         ctx.textBaseline='top';
         ctx.textAlign='center';
-        ctx.fillText(title,WIDTH/2,5*dpr);
+        ctx.fillText(title,WIDTH/2,5);
         ctx.restore();
     }
 
     /*画上大圆环*/
     function bigArc(ctx){
-        var startAngle=-1/8*PI
+        let startAngle=-1/8*PI
             ,endAngle=-7/8*PI
-            ,x=150
+            ,x=WIDTH/2
             ,y=190
             ,radius=130;
 
@@ -150,16 +142,15 @@ function myCanvas(main,record){
         ctx.textBaseline='top';
         ctx.textAlign='center';
         ctx.fillStyle="black";
-        if(index==0){
+        if(index===0){
             x+=5;
-        }else if(index==4){
+        }else if(index===4){
             x-=5;
         }
         ctx.fillText(text,x,y+radius*1.2);
 
         ctx.restore();
     }
-
 
     /*上涨概率数字*/
     function totalNum(ctx,dx,dy,dwidth,dheight){
@@ -176,7 +167,7 @@ function myCanvas(main,record){
         ctx.textBaseline='middle';
         ctx.textAlign='center';
         ctx.fillStyle="#f17d62";
-        ctx.fillText(totalRise+'0%',x,y);
+        ctx.fillText(risePercent,x,y);
         ctx.restore();
     }
 }
@@ -185,32 +176,30 @@ class RiseProbability extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-        this.state = {
-            index: 0
-        }
     }
 
     componentDidMount() {
-        myCanvas(this.main,record)
-    }
-
-    showChart(){
-
+        myCanvas(this.main,this.props.record)
     }
 
     render() {
-        let date_len=record.date.length
-        let word = record.title.slice(0,1)
+        let date_len=this.props.record.date.length
+        let word = this.props.record.title.slice(0,1)
+        let totalRise = this.props.record.data.reduce(function (previousValue, currentValue) {
+            currentValue = currentValue < 1 ? 0 : currentValue;
+            return Number(previousValue) + Number(currentValue);
+        }, 0);
+        let risePercent = parseInt(totalRise * 100 / (this.props.record.data.length * 2)) + '%';
         return (
             <div className="rise-probabilty charts">
                 <div className="main" ref={(main)=>{this.main=main}} />
                 <div className="text">
                     <p>数据统计：</p>
-                    <p>1、统计阶段：最近<span>{date_len}</span>个交易日，共计<span>10</span>只标的；</p>
+                    <p>1、统计阶段：最近<span>{date_len}</span>个交易日，共计<span>{this.props.record.data.length * 2}</span>只标的；</p>
                     <p>2、统计数字：</p>
                     <p>(1)数字“1”表示推出2只标的中{word}日有1只上涨;</p>
                     <p>(2)数字“2”表示推出2只标的中{word}日有2只上涨;</p>
-                    <p>3、统计结果：统计期间上涨标的总数为 <span className="red">9</span>只，上涨率为 <span className="red">90%</span>。</p>
+                    <p>3、统计结果：统计期间上涨标的总数为 <span className="red">{totalRise}</span>只，上涨率为 <span className="red">{risePercent}</span>。</p>
                 </div>
             </div>
         )

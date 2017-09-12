@@ -14,7 +14,6 @@ class DownImage extends React.Component{
     }
 
     render(){
-        console.log(this.props.pic)
         if(this.props.pic){
             return (
                 <div className="down-img">
@@ -23,7 +22,7 @@ class DownImage extends React.Component{
             )
         }
         else{
-            return (<div className="no-img"/>)
+            return (<div className="none"/>)
         }
 
     }

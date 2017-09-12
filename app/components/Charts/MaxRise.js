@@ -5,14 +5,6 @@ import {numToChinese} from "../../static/js/tools";
 
 import './Charts.less'
 
-
-let record = {
-    title: '五日最大涨幅',
-    date: ['12月1日', '12月1日', '12月1日', '12月1日', '12月1日'],
-    data1: ['6.61', '10.43', '7.41', '13.13', '4.61'],
-    data2: ['5.64', '11.11', '8.46', '20.06', '7.43']
-}
-
 class MaxRise extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -20,12 +12,17 @@ class MaxRise extends React.Component {
     }
 
     componentDidMount(){
-        this.showChart()
+        this.showChart(this.main,this.props.record)
     }
 
-    showChart(){
-        this.charts = echarts.init(this.main)
-        let {title,date,data1,data2,data3} = record
+    showChart(main,record){
+        this.charts = echarts.init(main)
+        let {title,date,data1,data2} = record
+        let data3 = []
+        record.data1.forEach((item,index)=>{
+            let num = (parseInt(item)+parseInt(record.data2[index]))/2
+            data3.push(num)
+        })
         let option = {
             title: {
                 text: title,
@@ -91,18 +88,19 @@ class MaxRise extends React.Component {
     }
 
     render() {
-        record.data = record.data1.concat(record.data2)
-        record.data3 = []
+        let record = this.props.record;
+        let data = record.data1.concat(record.data2)
+        let data3 = []
         record.data1.forEach((item,index)=>{
             let num = (parseInt(item)+parseInt(record.data2[index]))/2
-            record.data3.push(num)
+            data3.push(num)
         })
         let date_len = record.date.length
         let date_len_chinese = numToChinese(date_len)
-        let data_len = record.data.length
-        let data_max = Math.max.apply(undefined,record.data)
+        let data_len = data.length
+        let data_max = Math.max.apply(undefined,data)
         let data_l_5=0,data_l_10=0,data_o_10=0;
-        record.data.forEach((num)=>{
+        data.forEach((num)=>{
             let _num = parseInt(num)
             if(_num<5){
                 data_l_5++

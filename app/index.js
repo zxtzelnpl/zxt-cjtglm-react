@@ -17,6 +17,7 @@ import {
 import ProductPage from './containers/ProductPage' //投顾列表页面
 import TeacherPage from './containers/TeacherPage' //投顾详情页面
 import UserCenterPage from './containers/UserCenterPage' //投顾详情页面
+import Protocol from './containers/Protocol' //投顾详情页面
 
 import RegisterStatement from './containers/RegisterStatement' //注册声明组件
 
@@ -36,6 +37,7 @@ let App = () => (
             <Route path="/teacher/:id" component={TeacherPage} />
             <Route path="/product" component={ProductPage} />
             <Route path="/center" component={UserCenterPage} />
+            <Route path="/protocol" component={Protocol} />
             <RegisterStatement />
         </div>
     </BrowserRouter>

@@ -9,7 +9,7 @@ import Footer from '../components/Footer'
 class ArticleDetailPage extends React.Component{
     constructor(props,context){
         super(props,context)
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
     }
     render(){
         let article_data = this.props.articlelist.get(this.props.match.params.id);

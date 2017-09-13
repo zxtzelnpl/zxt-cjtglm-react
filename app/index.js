@@ -23,6 +23,8 @@ import ArticleDetailPage from './containers/ArticleDetailPage' //文章列表页
 
 import RegisterStatement from './containers/RegisterStatement' //注册声明弹出框
 
+import WeiXin0 from './containers/WeiXin0' //微信模版1
+
 const store = configureStore()
 
 if (__DEV__) {
@@ -42,6 +44,7 @@ let App = () => (
             <Route path="/protocol" component={ProtocolPage} />
             <Route path="/articlelist" component={ArticleListPage} />
             <Route path="/article/:id" component={ArticleDetailPage} />
+            <Route path="/weixin0" component={WeiXin0} />
             <RegisterStatement />
         </div>
     </BrowserRouter>

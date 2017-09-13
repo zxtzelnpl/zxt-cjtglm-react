@@ -21,7 +21,7 @@ export default function userinfo (state = initialState, action) {
         case actionTypes.USERINFO_SCORE:
             let _state = Object.assign({},state)
             _state.score = action.score
-            return action.data
+            return _state
         default:
             return state
     }

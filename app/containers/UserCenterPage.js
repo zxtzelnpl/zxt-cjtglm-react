@@ -19,7 +19,6 @@ class UserCenterPage extends React.Component{
     }
 
     render(){
-        console.log(this.props.userinfo)
         let {img,nickname,name,phone,account,ID,customer} = this.props.userinfo
         return(
             <div className="usercenter-page">
@@ -81,7 +80,7 @@ class UserCenterPage extends React.Component{
                     </div>
                     <div className="link-box">
                         协<span className="hidden">空空</span>议
-                        <Link to="/product">
+                        <Link to="/protocol">
                             <span className="btn fa fa-angle-right" />
                         </Link>
                     </div>

@@ -1,0 +1,1 @@
+export const ARTICLELIST_LOAD = 'ARTICLELIST_LOAD'

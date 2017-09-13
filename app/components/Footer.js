@@ -20,7 +20,7 @@ class Footer extends React.Component {
         let num = this.props.footerIndex
         return (
             <footer>
-                <Link className="box" to="/product">
+                <Link className="box" to="/articlelist">
                     <div>
                         <img src={num===0?article_list_active:article_list} alt="超级内参"/>
                         <p className={num===0?"active":""}>超级内参</p>

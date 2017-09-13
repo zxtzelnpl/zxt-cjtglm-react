@@ -16,10 +16,12 @@ import {
 } from 'react-router-dom'
 import ProductPage from './containers/ProductPage' //投顾列表页面
 import TeacherPage from './containers/TeacherPage' //投顾详情页面
-import UserCenterPage from './containers/UserCenterPage' //投顾详情页面
-import ProtocolPage from './containers/ProtocolPage' //投顾详情页面
+import UserCenterPage from './containers/UserCenterPage' //用户中心页面
+import ProtocolPage from './containers/ProtocolPage' //用户协议页面
+import ArticleListPage from './containers/ArticleListPage' //文章列表页面
+import ArticleDetailPage from './containers/ArticleDetailPage' //文章列表页面
 
-import RegisterStatement from './containers/RegisterStatement' //注册声明组件
+import RegisterStatement from './containers/RegisterStatement' //注册声明弹出框
 
 const store = configureStore()
 
@@ -38,6 +40,8 @@ let App = () => (
             <Route path="/product" component={ProductPage} />
             <Route path="/center" component={UserCenterPage} />
             <Route path="/protocol" component={ProtocolPage} />
+            <Route path="/articlelist" component={ArticleListPage} />
+            <Route path="/article/:id" component={ArticleDetailPage} />
             <RegisterStatement />
         </div>
     </BrowserRouter>

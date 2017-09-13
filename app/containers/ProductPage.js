@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as productListActionsFromOtherFile from '../actions/productlist'
 
 import Banner from '../components/Banner'
 import ProductList from '../components/ProductList'
@@ -12,11 +14,26 @@ class ProductPage extends  React.Component{
     }
 
     componentDidMount(){
-
+        fetch('/api/productlist',{
+            method:'get'
+        })
+            .then((response)=>{
+                return response.json()
+            })
+            .then((json)=>{
+                console.log('****json****')
+                console.log(json)
+                this.props.productListActions.load(json)
+                console.log('****json****')
+            })
+            .catch((err)=>{
+                console.log('****err****')
+                console.log(err)
+                console.log('****err****')
+            })
     }
 
     render(){
-        let list = this.props.productlist;
         let normal = [];
         let hot = [];
         [...this.props.productlist.values()].forEach((item)=>{
@@ -48,7 +65,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-
+        productListActions:bindActionCreators(productListActionsFromOtherFile, dispatch)
     }
 }
 export default connect(

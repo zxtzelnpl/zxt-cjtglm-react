@@ -6,3 +6,10 @@ export function change_score(score) {
         score
     }
 }
+
+export function load(data) {
+    return {
+        type: actionTypes.USERINFO_LOAD,
+        data
+    }
+}

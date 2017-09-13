@@ -16,38 +16,44 @@ class ArticleListPage extends  React.Component{
     }
 
     componentDidMount(){
-
+        fetch('/api/articlelist',{
+            method:'get'
+        })
+            .then((response)=>{
+                return response.json()
+            })
+            .then((json)=>{
+                console.log('****json****')
+                console.log(json)
+                this.props.articleListmentActions.load(json)
+                console.log('****json****')
+            })
+            .catch((err)=>{
+                console.log('****err****')
+                console.log(err)
+                console.log('****err****')
+            })
     }
 
     load(){
-        console.log('The loaddddd')
-        this.props.articleListmentActions.load([
-            {
-                id:'5',
-                description: '大幅下挫时仍是短期加仓良机',
-                createTime: '2017-09-13 09:57'
-            },
-            {
-                id:'6',
-                description: '新能源板块为什么难能成为领涨旗帜?',
-                createTime: '2017-09-13 09:57'
-            },
-            {
-                id:'7',
-                description: '逻辑分享——“取缔燃油车”谁最受益',
-                createTime: '2017-09-13 09:57'
-            },
-            {
-                id:'8',
-                description: '当下市场机会大于风险，投资者应保持积极参与',
-                createTime: '2017-09-13 09:57'
-            },
-            {
-                id:'9',
-                description: '操作上控制仓位，不宜追高',
-                createTime: '2017-09-13 09:57'
-            }
-        ])
+
+        fetch('/api/load',{
+            method:'get'
+        })
+            .then((response)=>{
+                return response.json()
+            })
+            .then((json)=>{
+                console.log('****json****')
+                console.log(json)
+                this.props.articleListmentActions.load(json)
+                console.log('****json****')
+            })
+            .catch((err)=>{
+                console.log('****err****')
+                console.log(err)
+                console.log('****err****')
+            })
     }
 
     render(){

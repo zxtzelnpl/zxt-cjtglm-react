@@ -85,23 +85,31 @@ class ProductListHot extends React.Component {
     }
 
     render() {
-        let productHtml = this.props.list.map(data => (
-            <Product key={data.id} data={data}/>
-        ))
-        return (
+        if(this.props.list.length>0){
+            let productHtml = this.props.list.map(data => (
+                <Product key={data.id} data={data}/>
+            ))
+            return (
 
-            <div className="product-hot">
-                <div className="title">
-                    <span className="word">明星牛人</span>
-                    <ScrollText list = {this.props.list}/>
+                <div className="product-hot">
+                    <div className="title">
+                        <span className="word">明星牛人</span>
+                        <ScrollText list = {this.props.list}/>
+                    </div>
+                    <div className="list">
+                        <ul>
+                            {productHtml}
+                        </ul>
+                    </div>
                 </div>
-                <div className="list">
-                    <ul>
-                        {productHtml}
-                    </ul>
-                </div>
-            </div>
-        )
+            )
+        }
+        else{
+            return (
+                <div className="none"/>
+            )
+        }
+
 
     }
 }

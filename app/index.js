@@ -25,13 +25,30 @@ import RegisterStatement from './containers/RegisterStatement' //注册声明弹
 
 import WeiXin0 from './containers/WeiXin0' //微信模版1
 
-const store = configureStore()
-
 if (__DEV__) {
     console.info('__DEV__是' + __DEV__ + '这里是测试环境')
     window.Perf = Perf
 }
 
+fetch('/api/articlelist',{
+    method:'get'
+})
+    .then((response)=>{
+        return response.json()
+    })
+    .then((json)=>{
+        console.log('****json****')
+        console.log(json)
+        console.log('****json****')
+        window.initialState = json.initialState
+    })
+    .catch((err)=>{
+        console.log('****err****')
+        console.log(err)
+        console.log('****err****')
+    })
+
+const store = configureStore()
 let App = () => (
     <BrowserRouter>
         <div className="container">
@@ -49,7 +66,6 @@ let App = () => (
         </div>
     </BrowserRouter>
 )
-
 render(
     <Provider  store={store}>
         <App/>
@@ -57,3 +73,4 @@ render(
     ,
     document.getElementById('root')
 )
+

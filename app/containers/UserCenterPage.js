@@ -4,6 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
+import * as userInfoActionsFromOtherFile from '../actions/userinfo'
 import {Link} from 'react-router-dom'
 import InfoBox from '../components/InfoBox'
 import Footer from '../components/Footer'
@@ -15,6 +16,26 @@ class UserCenterPage extends React.Component{
 
     showRegisterStatement(){
         this.props.registerStatementActions.change({show:true})
+    }
+
+    componentDidMount(){
+        fetch('/api/userinfo',{
+            method:'get'
+        })
+            .then((response)=>{
+                return response.json()
+            })
+            .then((json)=>{
+                console.log('****json****')
+                console.log(json)
+                this.props.userInfoActions.load(json)
+                console.log('****json****')
+            })
+            .catch((err)=>{
+                console.log('****err****')
+                console.log(err)
+                console.log('****err****')
+            })
     }
 
     render(){
@@ -107,7 +128,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        registerStatementActions:bindActionCreators(registerStatementActionsFromOtherFile, dispatch)
+        registerStatementActions:bindActionCreators(registerStatementActionsFromOtherFile, dispatch),
+        userInfoActions:bindActionCreators(userInfoActionsFromOtherFile, dispatch)
     }
 }
 export default connect(

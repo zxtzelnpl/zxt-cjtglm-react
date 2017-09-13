@@ -1,1 +1,2 @@
 export const USERINFO_SCORE = 'USERINFO_SCORE'
+export const USERINFO_LOAD = 'USERINFO_LOAD'

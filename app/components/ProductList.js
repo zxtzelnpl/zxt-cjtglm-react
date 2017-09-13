@@ -58,24 +58,32 @@ class ProductList extends React.Component {
     }
 
     render() {
-        let productHtml = this.props.list.map(data => (
-            <Product key={data.id} data={data}/>
-        ))
-        return (
+        if(this.props.list.length>0){
+            let productHtml = this.props.list.map(data => (
+                <Product key={data.id} data={data}/>
+            ))
+            return (
 
-            <div className="product-normal">
-                <div className="title">
+                <div className="product-normal">
+                    <div className="title">
                     <span className="word">
                         选股牛人
                     </span>
+                    </div>
+                    <div className="list">
+                        <ul>
+                            {productHtml}
+                        </ul>
+                    </div>
                 </div>
-                <div className="list">
-                    <ul>
-                        {productHtml}
-                    </ul>
-                </div>
-            </div>
-        )
+            )
+        }
+        else{
+            return (
+                <div className="none" />
+            )
+        }
+
 
     }
 }

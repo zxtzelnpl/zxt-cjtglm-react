@@ -10,19 +10,27 @@ class ArticleList extends React.Component {
     }
 
     render() {
-        let list_html=[...this.props.articlelist.values()].map((article)=>{
-            return (
+        if(this.props.articlelist.size>0){
+            let list_html=[...this.props.articlelist.values()].map((article)=>{
+                return (
                     <Link className="box" key={article.id} to={"/article/"+article.id}>
                         <p className="description">{article.description}</p>
                         <span className="createTime">{article.createTime}</span>
                     </Link>
+                )
+            })
+            return (
+                <div className="article-list">
+                    {list_html}
+                </div>
             )
-        })
-        return (
-            <div className="article-list">
-                {list_html}
-            </div>
-        )
+        }
+        else{
+            return (
+                <div className="none" />
+            )
+        }
+
     }
 }
 

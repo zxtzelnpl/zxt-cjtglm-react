@@ -2,6 +2,7 @@ import * as actionTypes from '../constants/userinfo'
 import img from '../static/img/user/img.jpg'
 
 const initialState = {
+    inline:false,
     userid: '**********',
     openid: '******************',
     img: img,

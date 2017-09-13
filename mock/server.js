@@ -16,6 +16,10 @@ const img_result='1'
 let initialState = {
     articlelist:[
         {
+          id:'img',
+          url:'url'
+        },
+        {
             id:'0',
             description: '大幅下挫时仍是短期加仓良机',
             createTime: '2017-09-13 09:57'
@@ -226,6 +230,7 @@ let initialState = {
         }
     ],
     userinfo:{
+        inline:true,
         userid:'**********',
         openid:'******************',
         img:img,
@@ -236,7 +241,6 @@ let initialState = {
         ID:'******************',
         orders:[],
         subscribe:[],
-        score:[1,1,1,1,1,1,1,1,1,1],
         customer:'021-51572550'
     }
 }
@@ -278,8 +282,76 @@ router.get('/api/productlist',function(ctx,next){
 router.get('/api/userinfo',function(ctx,next){
     ctx.body = initialState.userinfo
 })
-router.get('/api/load',function(ctx,next){
+router.get('/api/articlelist/load',function(ctx,next){
     ctx.body = articleMore
+})
+router.get('/api/article/:id',function(ctx,next){
+    let article = {};
+    if(parseInt(ctx.params.id)<100){
+
+        article = {
+            id:ctx.params.id,
+            description: '如果找不到文章就是这个',
+            createTime: '2017-09-13 09:57'
+        }
+    }
+    else{
+        article = {
+            fail:true,
+            reason:'can not found the page'
+        }
+    }
+
+    ctx.body = article
+})
+router.get('/api/product/:id',function(ctx,next){
+    let teacher
+    if(parseInt(ctx.params.id)<10000050){
+        teacher ={
+            id: ctx.params.id,
+            rank: '111',
+            name: '赵学通',
+            title: '次日涨股牛人',
+            special: '事件博弈',
+            position: '高级投资经理',
+            pic: pic,
+            pic_s: pic_s,
+            brief: '资深投资顾问，多年证券从业经历，具有丰富的市场投资经验，对市场、行业和公司均有深入的分析研究，同时对市场信息和股价反应之间的联系具有深刻的理解，总结了一套行之有效的操作策略；曾在湖北卫视“天生我财”节目中担任嘉宾，专门对于市场的最新信息进行解读和投资机会的发掘。',
+            img1: img1,
+            img2: img2,
+            img3: img3,
+            img_result: img_result,
+            records: [
+                {
+                    title: '五日平均涨幅',
+                    date: ['12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日', '12月1日'],
+                    data: ['7.71', '15.64', '12.66', '9.12', '14.05', '19.67', '7.73', '5.41', '10.61', '14.16']
+                },
+                {
+                    title: '五日最大涨幅',
+                    date: ['12月1日', '12月1日', '12月1日', '12月1日', '12月1日'],
+                    data1: ['6.61', '10.43', '7.41', '13.13', '4.61'],
+                    data2: ['5.64', '11.11', '8.46', '20.06', '7.43']
+                }
+            ],
+            stock: {
+                name: '汉王科技',
+                time: '2017.08.16',
+                word: '阶段涨幅',
+                rise: '71.40%'
+            },
+            pirce: '39'
+        }
+    }
+    else{
+        teacher = {
+            fail:true,
+            reason:'找不到这个老师啊'
+        }
+    }
+
+    ctx.body = teacher
+
 })
 // 开始服务并生成路由
 app.use(router.routes())

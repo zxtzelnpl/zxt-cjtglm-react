@@ -19,23 +19,25 @@ class UserCenterPage extends React.Component{
     }
 
     componentDidMount(){
-        fetch('/api/userinfo',{
-            method:'get'
-        })
-            .then((response)=>{
-                return response.json()
+        if(!this.props.userinfo.inline){
+            fetch('/api/userinfo',{
+                method:'get'
             })
-            .then((json)=>{
-                console.log('****json****')
-                console.log(json)
-                this.props.userInfoActions.load(json)
-                console.log('****json****')
-            })
-            .catch((err)=>{
-                console.log('****err****')
-                console.log(err)
-                console.log('****err****')
-            })
+                .then((response)=>{
+                    return response.json()
+                })
+                .then((json)=>{
+                    console.log('****json****')
+                    console.log(json)
+                    this.props.userInfoActions.load(json)
+                    console.log('****json****')
+                })
+                .catch((err)=>{
+                    console.log('****err****')
+                    console.log(err)
+                    console.log('****err****')
+                })
+        }
     }
 
     render(){

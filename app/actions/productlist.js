@@ -6,3 +6,10 @@ export function load(data) {
         data
     }
 }
+
+export function add(data) {
+    return {
+        type: actionTypes.PRODUCTLIST_ADD,
+        data
+    }
+}

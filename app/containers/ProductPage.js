@@ -14,44 +14,54 @@ class ProductPage extends  React.Component{
     }
 
     componentDidMount(){
-        fetch('/api/productlist',{
-            method:'get'
-        })
-            .then((response)=>{
-                return response.json()
+        if(this.props.productlist.size<3){
+            fetch('/api/productlist',{
+                method:'get'
             })
-            .then((json)=>{
-                console.log('****json****')
-                console.log(json)
-                this.props.productListActions.load(json)
-                console.log('****json****')
-            })
-            .catch((err)=>{
-                console.log('****err****')
-                console.log(err)
-                console.log('****err****')
-            })
+                .then((response)=>{
+                    return response.json()
+                })
+                .then((json)=>{
+                    console.log('****json****')
+                    console.log(json)
+                    this.props.productListActions.load(json)
+                    console.log('****json****')
+                })
+                .catch((err)=>{
+                    console.log('****err****')
+                    console.log(err)
+                    console.log('****err****')
+                })
+        }
     }
 
     render(){
-        let normal = [];
-        let hot = [];
-        [...this.props.productlist.values()].forEach((item)=>{
-            if(parseInt(item.rank)<=3){
-                hot.push(item)
-            }
-            else{
-                normal.push(item)
-            }
-        })
-        return (
-            <div className="product-page">
-                <Banner/>
-                <ProductListHot list={hot}/>
-                <ProductList list={normal}/>
-                <Footer footerIndex={1}/>
-            </div>
-        )
+        if(this.props.productlist.size>0){
+            let normal = [];
+            let hot = [];
+            [...this.props.productlist.values()].forEach((item)=>{
+                if(parseInt(item.rank)<=3){
+                    hot.push(item)
+                }
+                else{
+                    normal.push(item)
+                }
+            })
+            return (
+                <div className="product-page">
+                    <Banner/>
+                    <ProductListHot list={hot}/>
+                    <ProductList list={normal}/>
+                    <Footer footerIndex={1}/>
+                </div>
+            )
+        }
+        else{
+            return(
+                <div className="none"/>
+            )
+        }
+
     }
 }
 

@@ -1,7 +1,5 @@
 import './ArticleListPage.less'
 
-import header_img from '../static/img/article/header.png'
-
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import * as articleListmentActionsFromOtherFile from '../actions/articlelist'
@@ -16,38 +14,33 @@ class ArticleListPage extends  React.Component{
     }
 
     componentDidMount(){
-        fetch('/api/articlelist',{
-            method:'get'
-        })
-            .then((response)=>{
-                return response.json()
+        if(this.props.articlelist.size<6){
+            fetch('/api/articlelist',{
+                method:'get'
             })
-            .then((json)=>{
-                console.log('****json****')
-                console.log(json)
-                this.props.articleListmentActions.load(json)
-                console.log('****json****')
-            })
-            .catch((err)=>{
-                console.log('****err****')
-                console.log(err)
-                console.log('****err****')
-            })
+                .then((response)=>{
+                    return response.json()
+                })
+                .then((json)=>{
+                    this.props.articleListmentActions.first(json)
+                })
+                .catch((err)=>{
+                    console.log('****err****')
+                    console.log(err)
+                    console.log('****err****')
+                })
+        }
     }
 
     load(){
-
-        fetch('/api/load',{
+        fetch('/api/articlelist/load',{
             method:'get'
         })
             .then((response)=>{
                 return response.json()
             })
             .then((json)=>{
-                console.log('****json****')
-                console.log(json)
                 this.props.articleListmentActions.load(json)
-                console.log('****json****')
             })
             .catch((err)=>{
                 console.log('****err****')
@@ -57,18 +50,36 @@ class ArticleListPage extends  React.Component{
     }
 
     render(){
-        return (
-            <div className="article-list-page">
-                <div className="header">
-                    <img src={header_img}/>
+        if(this.props.articlelist.size<6){
+            return (
+                <div className="none" />
+            )
+        }
+        else{
+            let url = this.props.articlelist.get('img').url
+            let list = [];
+            this.props.articlelist.forEach((article)=>{
+                if(article.id!=='img'){
+                    list.push(article)
+                }
+            })
+            console.log('*******url*******')
+            console.log(url)
+            console.log('*******url*******')
+            return (
+                <div className="article-list-page">
+                    <div className="header">
+                        <img src={url}/>
+                    </div>
+                    <div className="content">
+                        <ArticleList articlelist={list}/>
+                        <span onClick={this.load.bind(this)}>加载</span>
+                    </div>
+                    <Footer footerIndex={0}/>
                 </div>
-                <div className="content">
-                    <ArticleList articlelist={this.props.articlelist}/>
-                    <span onClick={this.load.bind(this)}>加载</span>
-                </div>
-                <Footer footerIndex={0}/>
-            </div>
-        )
+            )
+
+        }
     }
 }
 

@@ -35,7 +35,7 @@ if (__DEV__) {
 
 const store = configureStore()
 let App = () => (
-    <HashRouter>
+    <BrowserRouter>
         <div className="container">
             <Route exact path="/" render={() => (
                 <Redirect to="/product"/>
@@ -50,7 +50,7 @@ let App = () => (
             <Route path="/notfound/:reason" component={NotFound} />
             <RegisterStatement />
         </div>
-    </HashRouter>
+    </BrowserRouter>
 )
 render(
     <Provider  store={store}>

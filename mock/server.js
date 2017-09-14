@@ -244,8 +244,7 @@ let initialState = {
         customer:'021-51572550'
     }
 }
-
-let articleMore =[
+let articleLoad =[
     {
         id:'5',
         description: '大幅下挫时仍是短期加仓良机',
@@ -272,7 +271,6 @@ let articleMore =[
         createTime: '2017-09-13 09:57'
     }
 ]
-
 router.get('/api/articlelist',function(ctx,next){
     ctx.body = initialState.articlelist
 })
@@ -282,8 +280,8 @@ router.get('/api/productlist',function(ctx,next){
 router.get('/api/userinfo',function(ctx,next){
     ctx.body = initialState.userinfo
 })
-router.get('/api/articlelist/load',function(ctx,next){
-    ctx.body = articleMore
+router.get('/api/articlelist/load?page=5',function(ctx,next){
+    ctx.body = articleLoad
 })
 router.get('/api/article/:id',function(ctx,next){
     let article = {};

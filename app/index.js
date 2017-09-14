@@ -11,6 +11,9 @@ import configureStore from './store/configureStore'
 
 import {
     BrowserRouter,
+    StaticRouter,
+    MemoryRouter,
+    HashRouter,
     Route,
     Redirect
 } from 'react-router-dom'
@@ -32,7 +35,7 @@ if (__DEV__) {
 
 const store = configureStore()
 let App = () => (
-    <BrowserRouter>
+    <HashRouter>
         <div className="container">
             <Route exact path="/" render={() => (
                 <Redirect to="/product"/>
@@ -47,7 +50,7 @@ let App = () => (
             <Route path="/notfound/:reason" component={NotFound} />
             <RegisterStatement />
         </div>
-    </BrowserRouter>
+    </HashRouter>
 )
 render(
     <Provider  store={store}>

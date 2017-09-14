@@ -1,7 +1,5 @@
 import * as actionTypes from '../constants/productlist'
 
-import pic from '../static/img/product/lvxiangzhao.jpg'
-
 const _initialState = [];
 _initialState.sort(function (a, b) {
     return parseInt(a.rank) - parseInt(b.rank)

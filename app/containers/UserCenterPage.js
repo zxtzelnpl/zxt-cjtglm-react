@@ -12,6 +12,7 @@ import Footer from '../components/Footer'
 class UserCenterPage extends React.Component{
     constructor(props,content){
         super(props,content)
+        this.url='/ashx/users_id.ashx'+'?openid=oijVfszBRm_nxYzNH6RAchSKXFxE'
     }
 
     showRegisterStatement(){
@@ -20,7 +21,7 @@ class UserCenterPage extends React.Component{
 
     componentDidMount(){
         if(!this.props.userinfo.inline){
-            fetch('/api/userinfo',{
+            fetch( this.url,{
                 method:'get'
             })
                 .then((response)=>{
@@ -29,7 +30,7 @@ class UserCenterPage extends React.Component{
                 .then((json)=>{
                     console.log('****json****')
                     console.log(json)
-                    this.props.userInfoActions.load(json)
+                    this.props.userInfoActions.load(json[0])
                     console.log('****json****')
                 })
                 .catch((err)=>{
@@ -41,12 +42,12 @@ class UserCenterPage extends React.Component{
     }
 
     render(){
-        let {img,nickname,name,phone,account,ID,customer} = this.props.userinfo
+        let {head_log,nike_name,name,phone,account,ID,customer} = this.props.userinfo
         return(
             <div className="usercenter-page">
                 <section className="head">
-                    <img src={img} alt=""/>
-                    <p>{nickname}</p>
+                    <img src={head_log} alt=""/>
+                    <p>{nike_name}</p>
                 </section>
                 <section>
                     <InfoBox data={{

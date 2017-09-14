@@ -12,10 +12,11 @@ class ArticleDetailPage extends React.Component{
     constructor(props,context){
         super(props,context)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
+        this.state={}
     }
 
     componentDidMount(){
-        if(!this.article_data){
+        if(!this.props.articlelist.get(this.props.match.params.id)&&!this.state.fail){
             let url = '/api/article/'+this.props.match.params.id
             fetch(url,{
                 method:'get'
@@ -34,22 +35,33 @@ class ArticleDetailPage extends React.Component{
                 .catch((err)=>{
                     console.log('****err****')
                     console.log(err)
+                    let createTime = new Date().toLocaleString()
+                    let article_data = {
+                        fail:err.fail,
+                        description:err.reason,
+                        createTime :createTime
+                    }
+                    this.setState({article_data:article_data})
                     console.log('****err****')
-                    window.location = '/notfound/'+err.reason
                 })
         }
     }
 
     render(){
-        let article_data =this.article_data =  this.props.articlelist.get(this.props.match.params.id);
+        let article_data
+        if(this.props.articlelist.get(this.props.match.params.id)){
+            article_data = this.props.articlelist.get(this.props.match.params.id)
+        }
+        else if(this.state.article_data){
+            article_data = this.state.article_data
+        }
+
         if(article_data){
             return (
                 <div className="article-detial-page">
                     <h4 className="title">{article_data.description}</h4>
-                    <span className="sub">{article_data.createTime}</span>
-                    <div className="content">
-                        这里面是文章的主体
-                    </div>
+                    <span className="sub">{article_data.create_time}</span>
+                    <div dangerouslySetInnerHTML={{__html:article_data.content}} className="content" />
                     <Footer footerIndex={0}/>
                 </div>
             )

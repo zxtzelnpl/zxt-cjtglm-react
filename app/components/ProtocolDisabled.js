@@ -14,6 +14,21 @@ class ProtocolDisabled extends React.Component{
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
 
+    componentDidMount() {
+    }
+
+    handleClick(tab){
+        if(tab==='a'){
+            this.wrap.scrollTop = 0
+        }
+        if(tab==='b'){
+            this.wrap.scrollTop = this.a.getBoundingClientRect().height
+        }
+        if(tab==='c'){
+            this.wrap.scrollTop = this.a.getBoundingClientRect().height + this.b.getBoundingClientRect().height
+        }
+    }
+
     render(){
         let questions_html
         let questions = this.props.questions
@@ -48,16 +63,16 @@ class ProtocolDisabled extends React.Component{
                     <p className="title">超级投顾联盟</p>
                     <p className="attation"><span className="red">*</span>微信公众号一经绑定成功，以下电子协议即为生效，其协议内容与纸质协议具有同等法律效应</p>
                     <p className="links">
-                        <a href="#a"><span className="num">1</span><span className="text">投顾用户电子服务协议</span></a>
-                        <a href="#b"><span className="num">2</span><span className="text">投资顾问业务风险揭示书</span></a>
-                        <a href="#c"><span className="num">3</span><span className="text">适当性调查表</span></a>
+                        <a onClick={this.handleClick.bind(this,'a')}><span className="num">1</span><span className="text">投顾用户电子服务协议</span></a>
+                        <a onClick={this.handleClick.bind(this,'b')}><span className="num">2</span><span className="text">投资顾问业务风险揭示书</span></a>
+                        <a onClick={this.handleClick.bind(this,'c')}><span className="num">3</span><span className="text">适当性调查表</span></a>
                     </p>
                 </section>
                 <section className="content">
-                    <div className="content-wrap">
-                        <div className="xy" id="a"><img src={xy2} alt=""/></div>
-                        <div className="xy" id="b"><img src={xy3} alt=""/></div>
-                        <div className="xy" id="c"><img src={xy4} alt=""/></div>
+                    <div className="content-wrap" ref={(div)=>{this.wrap=div}}>
+                        <div className="xy" ref={(div)=>{this.a=div}}><img src={xy2} alt=""/></div>
+                        <div className="xy" ref={(div)=>{this.b=div}}><img src={xy3} alt=""/></div>
+                        <div className="xy" ref={(div)=>{this.c=div}}><img src={xy4} alt=""/></div>
                         <div className="question-box">
                             <div className="question-title">
                                 <p>风险测评</p>

@@ -1,5 +1,5 @@
 import * as actionTypes from '../constants/userinfo'
-import img from '../static/img/user/img.jpg'
+import img from '../static/img/user/user.png'
 
 const initialState = {
     inline:false,

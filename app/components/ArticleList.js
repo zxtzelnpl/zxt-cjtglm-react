@@ -2,6 +2,7 @@ import './ArticleList.less'
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Link} from 'react-router-dom'
+import moment from 'moment'
 
 class ArticleList extends React.Component {
     constructor(props, context) {
@@ -14,7 +15,7 @@ class ArticleList extends React.Component {
             return (
                 <Link className="box" key={article.id} to={"/article/"+article.id}>
                     <p className="description">{article.description}</p>
-                    <span className="createTime">{article.createTime}</span>
+                    <span className="createTime">{moment(article.create_time).format('YYYY-MM-DD hh:mm')}</span>
                 </Link>
             )
         })

@@ -10,9 +10,6 @@ import {Provider} from 'react-redux'
 import configureStore from './store/configureStore'
 
 import {
-    BrowserRouter,
-    StaticRouter,
-    MemoryRouter,
     HashRouter,
     Route,
     Redirect
@@ -35,10 +32,10 @@ if (__DEV__) {
 
 const store = configureStore()
 let App = () => (
-    <BrowserRouter>
+    <HashRouter>
         <div className="container">
             <Route exact path="/" render={() => (
-                <Redirect to="/product"/>
+                <Redirect to="/articlelist"/>
             )}/>
             <Route path="/teacher/:id" component={TeacherPage} />
             <Route path="/product" component={ProductPage} />
@@ -50,7 +47,7 @@ let App = () => (
             <Route path="/notfound/:reason" component={NotFound} />
             <RegisterStatement />
         </div>
-    </BrowserRouter>
+    </HashRouter>
 )
 render(
     <Provider  store={store}>

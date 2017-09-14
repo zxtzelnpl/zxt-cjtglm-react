@@ -11,18 +11,24 @@ import Footer from '../components/Footer'
 class ArticleListPage extends  React.Component{
     constructor(props,content){
         super(props,content)
+        this.url = '/ashx/Articlelist.ashx'
     }
 
     componentDidMount(){
-        if(this.props.articlelist.size<6){
-            fetch('/api/articlelist',{
+        console.log(this.props.match)
+        if(this.props.articlelist.size<5){
+            let url = this.url+'?page=0'
+            fetch(url,{
                 method:'get'
             })
                 .then((response)=>{
+                    console.log(response)
                     return response.json()
                 })
                 .then((json)=>{
+                    console.log(json)
                     this.props.articleListmentActions.first(json)
+                    this.index++
                 })
                 .catch((err)=>{
                     console.log('****err****')
@@ -33,7 +39,8 @@ class ArticleListPage extends  React.Component{
     }
 
     load(){
-        fetch('/api/articlelist/load',{
+        let url = this.url+'?page='+(this.props.articlelist.size-1)
+        fetch(url,{
             method:'get'
         })
             .then((response)=>{
@@ -50,7 +57,7 @@ class ArticleListPage extends  React.Component{
     }
 
     render(){
-        if(this.props.articlelist.size<6){
+        if(this.props.articlelist.size<5){
             return (
                 <div className="none" />
             )
@@ -63,9 +70,6 @@ class ArticleListPage extends  React.Component{
                     list.push(article)
                 }
             })
-            console.log('*******url*******')
-            console.log(url)
-            console.log('*******url*******')
             return (
                 <div className="article-list-page">
                     <div className="header">
@@ -73,7 +77,7 @@ class ArticleListPage extends  React.Component{
                     </div>
                     <div className="content">
                         <ArticleList articlelist={list}/>
-                        <span onClick={this.load.bind(this)}>加载</span>
+                        <span className="more" onClick={this.load.bind(this)}>点击加载更多</span>
                     </div>
                     <Footer footerIndex={0}/>
                 </div>

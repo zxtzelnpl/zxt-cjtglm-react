@@ -11,11 +11,12 @@ import Footer from '../components/Footer'
 class ProductPage extends  React.Component{
     constructor(props,content){
         super(props,content)
+        this.url = '/ashx/productlist.ashx'
     }
 
     componentDidMount(){
         if(this.props.productlist.size<3){
-            fetch('/api/productlist',{
+            fetch(this.url,{
                 method:'get'
             })
                 .then((response)=>{

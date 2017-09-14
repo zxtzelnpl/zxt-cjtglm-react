@@ -40,7 +40,6 @@ class TeacherPage extends  React.Component{
                     console.log('****err****')
                     console.log(err)
                     console.log('****err****')
-                    window.location = '/notfound/'+err.reason
                 })
         }
     }

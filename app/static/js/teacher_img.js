@@ -5,6 +5,7 @@ import wuweiwei from '../img/product/wuweiwei.jpg'
 import yuliang from '../img/product/yuliang.jpg'
 import zhoukang from '../img/product/zhoukang.jpg'
 import zhouyu from '../img/product/zhouyu.jpg'
+import shaojunjie from '../img/product/shaojunjie.jpg'
 
 export default function(name){
     switch(name){
@@ -22,6 +23,8 @@ export default function(name){
             return zhoukang
         case '周煜':
             return zhouyu
+        case '邵军杰':
+            return shaojunjie
         default:
             return zhouyu
     }

@@ -1,23 +1,26 @@
-import chart_format from 'chart_format'
-import teacher_img from 'teacher_img'
-import teacher_stock from 'teacher_stock'
+import chart_format from './chart_format'
+import teacher_img from './teacher_img'
+import teacher_stock from './teacher_stock'
+import teacher_position from './teacher_position'
 
-export default function(list){
-    let new_list=[]
-    list.forEach((product)=>{
+export default function(products){
+    products.forEach((product)=>{
         let records=[];
         if(product.fiveday!==''){
-            records.push(chart_format[product.fiveday])
+            records.push(chart_format(product.fiveday))
         }
         if(product.nextday!==''){
-            records.push(chart_format[product.nextday])
+            records.push(chart_format(product.nextday))
         }
         if(product.risen!==''){
-            records.push(chart_format[product.risen])
+            records.push(chart_format(product.risen))
         }
         if(product.threeday!==''){
-            records.push(chart_format[product.threeday])
+            records.push(chart_format(product.threeday))
         }
-
+        product.records = records;
+        product.stock = teacher_stock(product.name)
+        product.half_body_img = teacher_img(product.name)
+        product.lables = teacher_position(product.position)
     })
 }

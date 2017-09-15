@@ -12,23 +12,23 @@ class TeacherBrief extends React.Component{
     }
     render(){
 
-        let {pic_s,name,title,brief,special} = this.props.teacher
+        let {pic,name,title,brief,special,lables} = this.props.teacher
         return (
             <div className="teacher-brief">
                 <div className="people">
                     <div className="photo">
 
-                        <img src={pic_s}/>
+                        <img src={pic}/>
 
 
                     </div>
                     <div className="nicks">
                         <div className="up">
                             <span>{name}</span>
-                            <span id="title">{title}</span>
+                            <span id="title">{lables[0]}</span>
                         </div>
                         <div className="down">
-                            <span className="honor" style={{display:'inline'}}><img src={honor} alt="" />{title}</span>
+                            <span className="honor" style={{display:'inline'}}><img src={honor} alt="" />{lables[2]}</span>
                             <span className="honorSub">{special}</span>
                         </div>
                     </div>

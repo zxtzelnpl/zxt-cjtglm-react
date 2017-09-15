@@ -8,6 +8,8 @@ import ProductList from '../components/ProductList'
 import ProductListHot from '../components/ProductListHot'
 import Footer from '../components/Footer'
 
+import teacher_data_format from '../static/js/teacher_data_format'
+
 class ProductPage extends  React.Component{
     constructor(props,content){
         super(props,content)
@@ -24,6 +26,8 @@ class ProductPage extends  React.Component{
                 })
                 .then((json)=>{
                     console.log('****json****')
+                    console.log(json)
+                    teacher_data_format(json)
                     console.log(json)
                     this.props.productListActions.load(json)
                     console.log('****json****')

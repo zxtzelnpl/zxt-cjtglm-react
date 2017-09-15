@@ -16,14 +16,14 @@ class Product extends React.Component {
     }
 
     render() {
-        let {id, name, special, title, records, pic_s} = this.props.data
+        let {id, name, special, records, pic,lables} = this.props.data
         return (
             <li>
                 <Link to={"/teacher/"+id} className="box">
                     <div className="teacher-img">
-                        <img src={pic_s}/>
+                        <img src={pic}/>
                         <p className="name">{name}</p>
-                        <p className="honor">{title}</p>
+                        <p className="honor">{lables[2]}</p>
                     </div>
                     <div className="teacher-data">
                         <div className="up">

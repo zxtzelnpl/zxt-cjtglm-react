@@ -42,11 +42,11 @@ class Product extends React.Component {
     }
 
     render() {
-        let {id, name, special, records, pic,stock} = this.props.data
+        let {id, name, special, records,half_body_img,stock} = this.props.data
         return (
             <li>
                 <Link to={"/teacher/"+id} className="box">
-                    <div className="teacher-img"><img src={pic}/></div>
+                    <div className="teacher-img"><img src={half_body_img}/></div>
                     <div className="teacher-data">
                         <div className="up">
                             <span className="up1">

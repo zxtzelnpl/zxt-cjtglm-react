@@ -23,6 +23,12 @@ export function average(){
     return average
 }
 
+export function sum(arr){
+    return arr.reduce((prev, curr) => {
+        return prev + curr
+    }, 0);
+}
+
 export function formatDate(data){
     if(data.title.indexOf('平均涨幅')>-1){
         let num = average(data.data)

@@ -2,8 +2,6 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Link} from 'react-router-dom'
 
-import {formatDate} from '../static/js/tools'
-
 import './ProductListHot.less'
 
 
@@ -15,38 +13,32 @@ class Product extends React.Component {
 
     render() {
         let {id, name, special, records,half_body_img,stock} = this.props.data
+        console.log(this.props.data)
         return (
             <li>
                 <Link to={"/teacher/"+id} className="box">
-                    <div className="teacher-img"><img src={half_body_img}/></div>
-                    <div className="teacher-data">
-                        <div className="up">
-                            <span className="up1">
-                                <span>
-                                   {name}
-                                </span>
-                            </span>
-                            <span className="up2">{special}</span>
-                            <span className="link">查看详情 &gt;</span>
-                        </div>
-                        <div className="down">
-                            <div className="down1">
-                                <span className="stock">{stock.name}</span>
-                                <span className="time">{stock.time}</span>
-                                <span className="words">{stock.word}</span>
-                                <span className="result">{stock.rise}</span>
-                            </div>
-                            <div className="down3">
-                                <span>{records[0].title}</span>
-                                <span>{formatDate(records[0])}</span>
-                            </div>
-                        </div>
+                    <div className="stock">
+                        <p className="result">{stock.result}</p>
+                        <p className="name"><span>{stock.name}</span><span className="code">{stock.code}</span></p>
+                    </div>
+                    <div className="user">
+                        <p>
+                            <span className="special">{special}</span><span>：</span><span className="name">{name}</span>
+                            <span className="day-count">{stock.dayCount}</span><span>：</span><span className="result">{stock.result}</span>
+                        </p>
+                        <p className="day-send">
+                            <span className="key">推出日期</span><span>：</span><span className="value">{stock.daySend}</span>
+                        </p>
+                        <p className="result_one">
+                            <span className="key">{records[0].title}</span><span>：</span>
+                            <span className="progress"><b className="water" style={{width:records[0].water}}/></span>
+                            <span className="value">{records[0].result}</span>
+                        </p>
                     </div>
                 </Link>
             </li>
         )
     }
-
 }
 
 
@@ -66,6 +58,7 @@ class ProductListHot extends React.Component {
                 <div className="product-hot">
                     <div className="title">
                         <span className="word">明星牛人</span>
+                        <span className="fa fa-chevron-right"></span>
                     </div>
                     <div className="list">
                         <ul>

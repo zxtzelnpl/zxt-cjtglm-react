@@ -16,30 +16,35 @@ class Product extends React.Component {
     }
 
     render() {
-        let {id, name, special, records, pic,lables} = this.props.data
+        let {id, name, special, records, pic, lables} = this.props.data
         return (
             <li>
-                <Link to={"/teacher/"+id} className="box">
-                    <div className="teacher-img">
-                        <img src={pic}/>
-                        <p className="name">{name}</p>
-                        <p className="honor">{lables[2]}</p>
-                    </div>
-                    <div className="teacher-data">
-                        <div className="up">
-                            <span className="up1">操作风格</span>
-                            <span className="up2">{special}</span>
-                            <span className="link">查看详情 ></span>
+                <Link to={"/teacher/" + id} className="box">
+                    <div className="up">
+                        <div className="user">
+                            <div className="photo">
+                                <img src={pic} alt={name} />
+                            </div>
+                            <div className="info">
+                                <p className="name">{name}</p>
+                                <p className="label"><span>{lables[2]}</span><span>{lables[1]}</span></p>
+                            </div>
                         </div>
-                        <div className="down">
-                            <div className="down1">
-                                <span>{records[0].title}</span>
-                                <span>{formatDate(records[0])}</span>
-                            </div>
-                            <div className="down3">
-                                <span>{records[1].title}</span>
-                                <span>{formatDate(records[1])}</span>
-                            </div>
+                        <div className="link">
+                            立即订阅
+                        </div>
+                    </div>
+                    <div className="down">
+                        <div className="record">
+                            <p>{records[0].title}</p>
+                            <p>{records[0].result}</p>
+                        </div>
+                        <div className="line">
+
+                        </div>
+                        <div className="record">
+                            <p>{records[1].title}</p>
+                            <p>{records[1].result}</p>
                         </div>
                     </div>
                 </Link>
@@ -58,7 +63,7 @@ class ProductList extends React.Component {
     }
 
     render() {
-        if(this.props.list.length>0){
+        if (this.props.list.length > 0) {
             let productHtml = this.props.list.map(data => (
                 <Product key={data.id} data={data}/>
             ))
@@ -69,6 +74,7 @@ class ProductList extends React.Component {
                     <span className="word">
                         选股牛人
                     </span>
+                        <span className="fa fa-chevron-right"/>
                     </div>
                     <div className="list">
                         <ul>
@@ -78,9 +84,9 @@ class ProductList extends React.Component {
                 </div>
             )
         }
-        else{
+        else {
             return (
-                <div className="none" />
+                <div className="none"/>
             )
         }
 

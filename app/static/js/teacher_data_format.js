@@ -1,5 +1,4 @@
 import chart_format from './chart_format'
-import teacher_img from './teacher_img'
 import teacher_stock from './teacher_stock'
 import teacher_position from './teacher_position'
 
@@ -20,7 +19,6 @@ export default function(products){
         }
         product.records = records;
         product.stock = teacher_stock(product.name)
-        product.half_body_img = teacher_img(product.name)
         product.lables = teacher_position(product.position)
     })
 }

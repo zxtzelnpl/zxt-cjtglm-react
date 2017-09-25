@@ -25,18 +25,14 @@ class ProductPage extends  React.Component{
                     return response.json()
                 })
                 .then((json)=>{
-                    console.log('****json****')
-                    console.log(json)
                     teacher_data_format(json)
-                    console.log(json)
                     this.props.productListActions.load(json)
-                    console.log('****json****')
                 })
-                .catch((err)=>{
-                    console.log('****err****')
-                    console.log(err)
-                    console.log('****err****')
-                })
+                // .catch((err)=>{
+                //     console.log('****err****')
+                //     console.log(err)
+                //     console.log('****err****')
+                // })
         }
     }
 

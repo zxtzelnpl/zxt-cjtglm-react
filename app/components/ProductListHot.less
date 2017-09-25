@@ -1,141 +1,144 @@
 .product-hot{
+  margin-bottom: .2rem;
   .title{
     display:flex;
-    margin:.2rem .2rem 0;
-    padding-left:.8rem;
-
-    width:6.3rem;
-    height:.6rem;
-    box-shadow: 1px 1px 3px 1px #ddd;
-    background: #fff url(../static/img/winniuren.png) .2rem .06rem no-repeat;
-    background-size:.48rem .48rem;
+    justify-content: space-between;
+    align-items: center;
+    padding:0 .2rem;
+    height:.7rem;
+    border-bottom:1px solid #f0f0f0;
+    background:#ffffff;
     .word{
-      width:1.4rem;
-      line-height:.6rem;
-      height:.6rem;
-      font-size:.32rem;
-      color:#F46A63;
       font-weight:bold;
+      font-size:.26rem;
+    }
+    .fa{
+      &:before{
+        display:block;
+        font-size:.26rem;
+      }
     }
   }
-  ul{
-    .box{
-      display:flex;
-      margin:.2rem;
-      height:2rem;
-      box-shadow: 1px 1px 3px 1px #ddd;
-      background:#fff;
-      .teacher-img{
-        box-sizing: border-box;
-        padding:.2rem;
-        width:1.6rem;
-        height:2rem;
-        img{
-          display:block;
-          width:100%;
-          height:auto;
-        }
-      }
-      .teacher-data{
-        box-sizing: border-box;
-        padding:.1rem .2rem .1rem 0;
-        width:5.5rem;
-        height:2rem;
-        .up{
-          height:.4rem;
-          .up1{
-            display:inline-block;
-            width:1.3rem;
-            span{
-              display:inline-block;
-              padding-right:.4rem;
-              height:.4rem;
-              line-height:.4rem;
-              font-size:.28rem;
-              font-weight:bold;
-              background: url(../static/img/v.jpg) right center no-repeat;
-              background-size: .32rem .32rem;
-            }
-          }
-          .up2{
-            display:inline-block;
-            padding:0 .1rem;
-            height:.4rem;
-            line-height:.4rem;
-            color: #fff;
-            background: #f8913e;
-          }
-          .link{
-            float:right;
-            margin-top:-1px;
-            height:.4rem;
-            line-height:.4rem;
-            padding: 0 .1rem;
-            color: #f24c4c;
-            border: 1px solid #f24c4c;
-            border-radius: 5px;
-          }
-        }
-        .down{
-          margin-top:.1rem;
-          height:1.25rem;
+  .list{
+    background:#ffffff;
+    li{
+      .box{
+        display:flex;
+        align-items: center;
+        margin:0 .2rem;
+        height:1.8rem;
+        .stock{
+          width:1.75rem;
+          height:1.3rem;
           color:#ffffff;
-          span{
-            display: block;
-            text-align: center;
+          text-align: center;
+          .result{
+            padding-top:.3rem;
+            font-size:.36rem;
           }
-          .down1{
-            float: left;
-            height: 1.2rem;
-            width: 2rem;
-            border-radius: 5px;
-            box-shadow: 4px 4px 10px 0 #fe7f55;
-            background: #fe7f55;
-            .stock{
-              height: .36rem;
-              border-bottom:1px solid #ffffff;
-              line-height: .36rem;
+          .name{
+            padding-top:.1rem;
+            span:nth-child(1){
+              font-size:.22rem;
+              vertical-align: middle;
             }
-            .time{
-              height: .28rem;
-              line-height: .28rem;
-              font-size: .2rem;
-            }
-            .words{
-              height: .28rem;
-              line-height: .28rem;
-              font-size: .2rem;
-            }
-            .result{
-              height: .32rem;
-              line-height: .32rem;
-              font-weight: bold;
+            span:nth-child(2){
+              font-size:.18rem;
+              vertical-align: middle;
             }
           }
-          .down3{
-            float: left;
-            margin-left: .3rem;
-            height: 1.25rem;
-            width: 2rem;
-            border-radius: 5px;
-            box-shadow: 4px 4px 10px 0 #2ea6f5;
-            background: #2ea6f5;
-            span{
-              display: block;
-              height: .6rem;
-              line-height: .6rem;
-              color: #fff;
-              &:nth-child(2){
-                border-top:1px solid #ffffff;
-                height: .6rem;
-                line-height: .6rem;
-                font-weight: bold;
-                font-size: .32rem;
+        }
+        .user{
+          padding-left:.2rem;
+          display:flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height:1.3rem;
+          .special{
+            font-size:.2rem;
+            font-weight:bold;
+          }
+          .special+span{
+            font-size:.2rem;
+            font-weight:bold;
+          }
+          .name{
+            font-size:.22rem;
+            color:#337bf7;
+            font-weight:bold;
+          }
+          .day-count{
+            padding-left: 1em;
+            font-size:.2rem;
+            font-weight:bold;
+          }
+          .day-count+span{
+            font-size:.2rem;
+            font-weight:bold;
+          }
+          .result{
+            font-size:.2rem;
+            font-weight:bold;
+            color:#ff605d;
+          }
+
+          .day-send{
+            font-size:.2rem;
+            .key{
+              font-weight:bold;
+            }
+            .key+span{
+              font-weight:bold;
+            }
+          }
+          .result_one{
+            display:flex;
+            align-items: center;
+            .progress{
+              width:1.8rem;
+              height:.25rem;
+              border-radius:20px;
+              background:#d1d1d1;
+              overflow: hidden;
+              .water{
+                display:block;
+                height:.25rem;
+                background:#02b0ff;
               }
             }
+            .value{
+              padding-left:.1rem;
+              color:#337bf7;
+            }
+          }
+        }
+      }
+
+      &:nth-child(1){
+        .box{
+          border-bottom:1px solid #f0f0f0;
+          .stock{
+            background:#ff605d;
+          }
+        }
+      }
+      &:nth-child(2){
+        .box{
+          border-bottom:1px solid #f0f0f0;
+          .stock{
+            background:#f8b243;
+          }
+        }
+      }
+      &:nth-child(3){
+        .box{
+          .stock{
+            background:#589cf7;
           }
         }
       }
     }
+
+
   }
 }

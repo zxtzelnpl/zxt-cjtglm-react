@@ -7,8 +7,9 @@ import TeachaerBrief from '../components/TeacherBrief'
 import DownImage from '../components/DownImage'
 import Subscribe from '../components/Subscribe'
 import Footer from '../components/Footer'
-/*Charts*/
+import teacher_data_format from '../static/js/teacher_data_format'
 import Charts from '../components/Charts'
+/*Charts*/
 
 
 
@@ -19,7 +20,7 @@ class TeacherPage extends  React.Component{
 
     componentDidMount(){
         if(!this.teacher_data){
-            let url = '/api/product/'+this.props.match.params.id
+            let url = '/ashx/productlist.ashx?id='+this.props.match.params.id
             fetch(url,{
                 method:'get'
             })
@@ -32,7 +33,9 @@ class TeacherPage extends  React.Component{
                         return Promise.reject(json)
                     }
                     else{
-                        this.props.productListActions.add(json)
+                        console.log(json);
+                        teacher_data_format(json)
+                        this.props.productListActions.add(json[0])
                     }
                     console.log('****json****')
                 })
@@ -46,7 +49,8 @@ class TeacherPage extends  React.Component{
 
     render(){
         let teacher_data = this.teacher_data = this.props.productlist.get(this.props.match.params.id);
-
+        console.log(this.props.productlist)
+        console.log(teacher_data)
         if(teacher_data){
             return (
                 <div className="teacher-page">

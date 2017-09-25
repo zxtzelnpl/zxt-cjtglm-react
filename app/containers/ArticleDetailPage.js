@@ -17,7 +17,7 @@ class ArticleDetailPage extends React.Component{
 
     componentDidMount(){
         if(!this.props.articlelist.get(this.props.match.params.id)&&!this.state.fail){
-            let url = '/api/article/'+this.props.match.params.id
+            let url = '/ashx/Article_id.ashx?id='+this.props.match.params.id
             fetch(url,{
                 method:'get'
             })
@@ -29,7 +29,7 @@ class ArticleDetailPage extends React.Component{
                         return Promise.reject(json)
                     }
                     else{
-                        this.props.articleListmentActions.add(json)
+                        this.props.articleListmentActions.add(json[0])
                     }
                 })
                 .catch((err)=>{

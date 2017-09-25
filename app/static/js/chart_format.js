@@ -1,6 +1,5 @@
 import {average,sum} from './tools'
 
-
 export default function (str) {
     let obj = {}
     let arr = str.split('---')

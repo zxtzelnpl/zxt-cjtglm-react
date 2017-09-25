@@ -1,69 +1,100 @@
-let lvxiangzhao = {
+import shaojunjie1 from '../img/stocks/shaojunjie1.jpg'
+let lvxiangzhao = [{
     name: '汉王科技',
     code: '002362',
     result: '71.40%',
     daySend: '2017.08.16',
     day: '阶段',
-    dayCount: '阶段最高涨幅'
-}
-let maxin = {
+    dayCount: '阶段最高涨幅',
+    img: shaojunjie1
+}]
+let maxin = [{
     name: '汉王科技',
     code: '002362',
     result: '71.40%',
     daySend: '2017.08.16',
     day: '阶段',
-    dayCount: '阶段最高涨幅'
-}
-let suxuepeng = {
-    name: '汉王科技',
-    time: '2017.08.16',
-    word: '阶段涨幅',
-    rise: '71.40%'
-}
-let wuweiwei = {
-    name: '乐心医疗',
-    code: '300562',
-    result: '24.87%',
-    daySend: '2017.09.05',
-    day: 4,
-    dayCount: '四日最高涨幅'
-}
-let yuliang = {
-    name: '汉王科技',
-    time: '2017.08.16',
-    word: '阶段涨幅',
-    rise: '71.40%'
-}
-let zhoukang = {
-    name: '汉王科技',
-    time: '2017.08.16',
-    word: '阶段涨幅',
-    rise: '71.40%'
-}
-let zhouyu = {
-    name: '乐心医疗',
-    code: '300562',
-    result: '24.87%',
-    daySend: '2017.09.05',
-    day: 4,
-    dayCount: '四日最高涨幅'
-}
-let nobody = {
-    name: '汉王科技',
-    time: '2017.08.16',
-    word: '阶段涨幅',
-    rise: '71.40%'
-}
-let shaojunjie = {
+    dayCount: '阶段最高涨幅',
+    img: shaojunjie1
+}]
+let suxuepeng = [{
     name: '陕西黑猫',
     code: '601015',
     result: '20.75%',
     daySend: '2017.09.07',
     day: 4,
     dayCount: '四日最高涨幅',
-    img: 'shaojunjie1.jpg'
-}
-
+    img: shaojunjie1
+}]
+let wuweiwei = [{
+    name: '乐心医疗',
+    code: '300562',
+    result: '24.87%',
+    daySend: '2017.09.05',
+    day: 4,
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
+}]
+let yuliang = [{
+    name: '陕西黑猫',
+    code: '601015',
+    result: '20.75%',
+    daySend: '2017.09.07',
+    day: 4,
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
+}]
+let zhoukang = [{
+    name: '陕西黑猫',
+    code: '601015',
+    result: '20.75%',
+    daySend: '2017.09.07',
+    day: 4,
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
+}]
+let zhouyu = [{
+    name: '乐心医疗',
+    code: '300562',
+    result: '24.87%',
+    daySend: '2017.09.05',
+    day: 4,
+    dayCount: '四日最高涨幅'
+}]
+let nobody = [{
+    name: '陕西黑猫',
+    code: '601015',
+    result: '20.75%',
+    daySend: '2017.09.07',
+    day: 4,
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
+}]
+let shaojunjie = [{
+    name: '陕西黑猫',
+    code: '601012',
+    result: '20.75%',
+    daySend: '2017.09.07',
+    day: 4,
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
+},{
+    name: '陕西黑猫',
+    code: '601011',
+    result: '20.75%',
+    daySend: '2017.09.07',
+    day: 4,
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
+},{
+    name: '陕西黑猫',
+    code: '601015',
+    result: '20.75%',
+    daySend: '2017.09.07',
+    day: 4,
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
+}]
 export default function (name) {
     switch (name) {
         case '吕向召':

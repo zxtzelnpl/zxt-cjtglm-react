@@ -12,7 +12,8 @@ class Product extends React.Component {
     }
 
     render() {
-        let {id, name, special, records,half_body_img,stock} = this.props.data
+        let {id, name, special, records,half_body_img,stocks} = this.props.data
+        let stock = stocks[0]
         console.log(this.props.data)
         return (
             <li>
@@ -58,7 +59,7 @@ class ProductListHot extends React.Component {
                 <div className="product-hot">
                     <div className="title">
                         <span className="word">明星牛人</span>
-                        <span className="fa fa-chevron-right"></span>
+                        <span className="fa fa-chevron-right"/>
                     </div>
                     <div className="list">
                         <ul>

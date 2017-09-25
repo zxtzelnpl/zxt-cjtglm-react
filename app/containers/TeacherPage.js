@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux'
 import * as productListActionsFromOtherFile from '../actions/productlist'
 
 import TeachaerBrief from '../components/TeacherBrief'
+import ScrollStock from '../components/ScrollStock'
 import DownImage from '../components/DownImage'
 import Subscribe from '../components/Subscribe'
 import Footer from '../components/Footer'
 import teacher_data_format from '../static/js/teacher_data_format'
 import Charts from '../components/Charts'
+import detail from '../static/img/teacher/detail.jpg'
 /*Charts*/
 
 
@@ -55,11 +57,9 @@ class TeacherPage extends  React.Component{
             return (
                 <div className="teacher-page">
                     <TeachaerBrief teacher={teacher_data}/>
-                    <DownImage pic={teacher_data.img1}/>
-                    <DownImage pic={teacher_data.img2}/>
-                    <DownImage pic={teacher_data.img_result}/>
+                    <ScrollStock stocks={teacher_data.stocks}/>
                     <Charts records = {teacher_data.records}/>
-                    <DownImage pic={teacher_data.img3}/>
+                    <DownImage pic={detail}/>
                     <Subscribe productID = {this.props.match.params.id}/>
                     <Footer footerIndex={1} />
                 </div>

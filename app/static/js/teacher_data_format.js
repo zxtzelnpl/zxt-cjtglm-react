@@ -18,7 +18,7 @@ export default function(products){
             records.push(chart_format(product.threeday))
         }
         product.records = records;
-        product.stock = teacher_stock(product.name)
-        product.lables = teacher_position(product.position)
+        product.stocks = teacher_stock(product.name)
+        product.lables = teacher_position(product.position)//取标签后面的3个
     })
 }

@@ -8,21 +8,42 @@ class ScrollStock extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-        this.swipers=[];
+        this.swipers = [];
+
+        this.index=0;
+
     }
 
     render() {
+        let me=this;
         let stocks = this.props.stocks;
+        this.len = this.props.stocks.length;
+        this.prev = this.index-1>0?this.index-1:this.index-1+this.len;
+        this.next = this.index+1<this.len?this.index+1:this.index+1-this.len;
         console.log(stocks)
-        let htmlList = stocks.map((stock,index) => {
+        let htmlList = stocks.map((stock, index) => {
+            let className="swiper-slide"
+            if(index===this.index){
+                className="swiper-slide swiper-curr"
+            }
+            else if(index === this.prev){
+                className="swiper-slide swiper-prev"
+            }
+            else if(index === this.next){
+                className="swiper-slide swiper-next"
+            }
             return (
-                <div className="box" key={stock.code} ref={(swiper)=>{this.swipers[index]=swiper}}>
-                    <img src={stock.img} alt=""/>
-                    <div>
-                        <p><span>推出标的：</span><span className="em name">{stock.name}</span></p>
-                        <p><span>推出日期：</span><span className="daySend">{stock.daySend}</span></p>
-                        <p><span>交易日个数：</span><span className="day">{stock.day}</span></p>
-                        <p><span>涨幅情况：</span><span className="em result">{stock.result}</span></p>
+                <div className={className} key={stock.code}  ref={(swiper) => {
+                    this.swipers[index] = swiper
+                }}>
+                    <div className="box">
+                        <img src={stock.img} alt=""/>
+                        <div>
+                            <p><span>推出标的：</span><span className="em name">{stock.name}</span></p>
+                            <p><span>推出日期：</span><span className="daySend">{stock.daySend}</span></p>
+                            <p><span>交易日个数：</span><span className="day">{stock.day}</span></p>
+                            <p><span>涨幅情况：</span><span className="em result">{stock.result}</span></p>
+                        </div>
                     </div>
                 </div>
             )
@@ -32,47 +53,54 @@ class ScrollStock extends React.Component {
         return (
             <div className="scroll-stock">
                 <ReactSwipe
+                    className=""
                     swipeOptions={
                         {
-                            startSlide:2,
                             speed: 400,
-                            // auto: 1000,
+                            auto: 1000,
                             continuous: true,
-                            callback:(index,elem)=>{
-                                let prev = index-1>=0?index-1:2
-                                let next = index+1<=2?index+1:0
-
-                            },
+                            transitionEnd:function(index,ele){
+                                console.log(index,ele)
+                                let curr = index,
+                                    prev = index-1>0?index-1:index-1+me.len,
+                                    next = index+1<me.len?index+1:index+1-me.len
+                                me.swipers.forEach((swiper,index)=>{
+                                    let className="swiper-slide"
+                                    if(index===curr){
+                                        className="swiper-slide swiper-curr"
+                                    }
+                                    else if(index === prev){
+                                        className="swiper-slide swiper-prev"
+                                    }
+                                    else if(index === next){
+                                        className="swiper-slide swiper-next"
+                                    }
+                                    swiper.className=className
+                                })
+                            }
                         }
                     }
                     style={
                         {
                             container: {
-                                overflow:'visible',
                                 visibility: 'hidden',
                                 position: 'relative',
-                                margin:'0 auto',
-                                width:'6.5rem',
-                                height:'3rem'
+                                width: '6.5rem',
+                                height: '100%',
+                                margin: '0 .5rem'
                             },
-                            wrapper:{
-                                position: 'relative'
+                            wrapper: {
+                                position: 'relative',
+                                display: 'flex',
+                                width: '19.5rem',
+                                height: '100%'
                             },
                             child: {
-                                float: 'left',
+                                width:'6.5rem',
                                 position: 'relative',
                                 transitionProperty: 'transform',
-                                display:'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width:'5.6rem',
-                                height:'2.5rem',
-                                borderRadius:'5px',
-                                background:'#ffffff',
-                                transformOrigin: 'center center',
-                                transition: 'transform .5s',
-                                transform:'scale(1,1)'
                             }
+
                         }
                     }
                 >

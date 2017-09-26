@@ -84,16 +84,16 @@ class UserCenterPage extends React.Component{
                 <section>
                     <div className="link-box">
                         我的订阅
-                        <Link to="/product">
+                        <Link to="/mysubscirbe/1">
                             <span className="btn fa fa-angle-right" />
                         </Link>
                     </div>
-                    <div className="link-box">
-                        我的订单
-                        <Link to="/product">
-                            <span className="btn fa fa-angle-right" />
-                        </Link>
-                    </div>
+                    {/*<div className="link-box">*/}
+                        {/*我的订单*/}
+                        {/*<Link to="/product">*/}
+                            {/*<span className="btn fa fa-angle-right" />*/}
+                        {/*</Link>*/}
+                    {/*</div>*/}
                     <div className="link-box">
                         注册申明
                         <span

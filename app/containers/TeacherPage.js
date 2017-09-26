@@ -51,8 +51,6 @@ class TeacherPage extends  React.Component{
 
     render(){
         let teacher_data = this.teacher_data = this.props.productlist.get(this.props.match.params.id);
-        console.log(this.props.productlist)
-        console.log(teacher_data)
         if(teacher_data){
             return (
                 <div className="teacher-page">

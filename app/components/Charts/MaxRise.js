@@ -1,7 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import echarts from '../../static/js/echarts.min'
-import {numToChinese} from "../../static/js/tools";
+import {ChartMaxRise} from '../../static/js/tools'
 
 import './Charts.less'
 
@@ -16,75 +15,7 @@ class MaxRise extends React.Component {
     }
 
     showChart(main,record){
-        this.charts = echarts.init(main)
-        let {title,date,data1,data2} = record
-        let data3 = []
-        record.data1.forEach((item,index)=>{
-            let num = (parseInt(item)+parseInt(record.data2[index]))/2
-            data3.push(num)
-        })
-        let option = {
-            title: {
-                text: title,
-                x: 'center'
-            },
-            tooltip: {
-                show: false
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: date,
-                    axisTick: {
-                        show: false
-                    },
-                    axisLabel: {
-                        show: false
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    axisLabel: {
-                        formatter: '{value}%'
-                    }
-                }
-            ],
-            series: [
-                {
-                    name: '股票1',
-                    type: 'bar',
-                    barWidth: '30%',
-                    data: data1,
-                    silent: true,
-                    color: ['#3398DB']
-                },
-                {
-                    name: '股票2',
-                    type: 'bar',
-                    barWidth: '30%',
-                    data: data2,
-                    silent: true,
-                    color: ['#FF7A78']
-                },
-                {
-                    name: '股票',
-                    type: 'line',
-                    barWidth: '30%',
-                    data: data3,
-                    silent: true,
-                    color: ['#3398DB']
-                }
-            ]
-        };
-        this.charts.setOption(option);
+        ChartMaxRise()(main,record)
     }
 
     render() {
@@ -96,7 +27,6 @@ class MaxRise extends React.Component {
             data3.push(num)
         })
         let date_len = record.date.length
-        let date_len_chinese = numToChinese(date_len)
         let data_len = data.length
         let data_max = Math.max.apply(undefined,data)
         let data_l_5=0,data_l_10=0,data_o_10=0;
@@ -119,10 +49,10 @@ class MaxRise extends React.Component {
                     <p>数据统计：</p>
                     <p>1、统计阶段: 最近<span>{date_len}</span>个交易日，共计<span>{data_len}</span>只标的；</p>
                     <p>2、统计结果：</p>
-                    <p>（1）推出标的{date_len_chinese}个交易日最大涨幅低于5%的有 <span className="red" >{data_l_5}</span>只；</p>
-                    <p>（2）推出标的{date_len_chinese}个交易日最大涨幅在5%-10%之间的有 <span className="red" >{data_l_10}</span>只;</p>
-                    <p>（3）推出标的{date_len_chinese}个交易日最大涨幅超过10%的有 <span className="red" >{data_o_10}</span>只;</p>
-                    <p>（4）单只标的{date_len_chinese}个交易日最高涨幅为 <span className="red" >{data_max}%</span>；</p>
+                    <p>（1）推出标的<span>{date_len}</span>个交易日最大涨幅低于5%的有 <span className="red" >{data_l_5}</span>只；</p>
+                    <p>（2）推出标的<span>{date_len}</span>个交易日最大涨幅在5%-10%之间的有 <span className="red" >{data_l_10}</span>只;</p>
+                    <p>（3）推出标的<span>{date_len}</span>个交易日最大涨幅超过10%的有 <span className="red" >{data_o_10}</span>只;</p>
+                    <p>（4）单只标的<span>{date_len}</span>个交易日最高涨幅为 <span className="red" >{data_max}%</span>；</p>
                 </div>
             </div>
         )

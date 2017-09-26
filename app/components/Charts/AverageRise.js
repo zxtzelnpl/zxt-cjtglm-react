@@ -1,9 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {average} from '../../static/js/tools'
+import {ChartAverageRise} from '../../static/js/tools'
 
 import './Charts.less'
-import echarts from '../../static/js/echarts.min'
 
 
 let record = {
@@ -23,89 +22,22 @@ class AverageRise extends React.Component {
     }
 
     showChart(main,record){
-        this.charts = echarts.init(main)
-        let links = record.data.map(function (item, i) {
-            return {
-                source: i,
-                target: i + 1
-            };
-        });
-        links.pop();
-        let option = {
-            title: {
-                text: record.title,
-                x: 'center'
-            },
-            grid: {
-                top: 80,
-                bottom: 40
-            },
-            tooltip: {
-                show: false
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: record.date,
-                axisLabel: {
-                    show: false
-                },
-                axisTick: {
-                    show: false
-                }
-            },
-            yAxis: {
-                type: 'value',
-                maxMin: 'auto',
-                minMin: 'auto',
-                axisLabel: {
-                    formatter: '{value}%'
-                }
-            },
-            series: [
-                {
-                    type: 'line',
-                    layout: 'none',
-                    coordinateSystem: 'cartesian2d',
-                    symbolSize: 5,
-                    label: {
-                        normal: {
-                            show: true,
-                            position:[5,5],
-                            formatter: function (data) {
-                                return data.value + '%'
-                            }
-                        }
-                    },
-                    edgeSymbol: ['circle', 'arrow'],
-                    edgeSymbolSize: [2, 4],
-                    data: record.data,
-                    links: links,
-                    lineStyle: {
-                        normal: {
-                            color: '#2f4554'
-                        }
-                    },
-                    silent: true
-                }
-            ]
-        };
-        this.charts.setOption(option);
+        ChartAverageRise()(main,record)
     }
 
     render() {
-        let {date,data} = this.props.record
+        let {date,data,result} = this.props.record
         let date_len,data_len,data_max,data_min,data_aver;
         date_len = date.length
         data_len = data.length
         data_max = Math.max(...data)
         data_min = Math.min(...data)
-        data_aver = average(data)
+        data_aver = result
         return (
             <div className="average-rise charts">
                 <div className="main" ref={(main)=>{this.main=main}}/>
                 <div className="text">
-                    <p>数据统计：</p>
+                    <p className="title">数据统计：</p>
                     <p>
                         1、统计阶段：最近
                         <span>{date_len}</span>
@@ -119,7 +51,7 @@ class AverageRise extends React.Component {
                         ，五日平均最高涨幅为
                         <span className="red">{data_max}%</span>
                         ,五日平均涨幅为
-                        <span className="red">{data_aver}%</span>。
+                        <span className="red">{data_aver}</span>。
                     </p>
                 </div>
             </div>

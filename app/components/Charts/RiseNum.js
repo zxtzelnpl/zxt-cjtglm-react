@@ -1,8 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
+import {ChartRiseNum} from '../../static/js/tools'
 
 import './Charts.less'
-import echarts from '../../static/js/echarts.min'
 
 class RiseNum extends React.Component {
     constructor(props, context) {
@@ -15,59 +15,7 @@ class RiseNum extends React.Component {
     }
 
     showChart(main,record){
-        let {title,data} = record
-        this.charts = echarts.init(main)
-        let option = {
-            title: {
-                text: title,
-                x: 'center'
-            },
-            tooltip: {
-                show: false
-            },
-            legend: {
-                show: false
-            },
-            grid: {
-                top: 100,
-                bottom: 20
-            },
-            series: [
-                {
-                    name: title,
-                    type: 'pie',
-                    radius: '50%',
-                    center: ['50%', '60%'],
-                    data: [
-                        {
-                            value: data[0],
-                            name: '上涨个数'
-                        },
-                        {
-                            value: data[1],
-                            name: '下跌个数'
-                        }
-                    ],
-                    color: ['#FF7A78', '#91C7AF'],
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            length: 15,
-                            length2: 10
-                        }
-
-                    },
-                    silent: true
-                }
-            ]
-        };
-        this.charts.setOption(option);
+        ChartRiseNum()(main,record)
     }
 
     render() {

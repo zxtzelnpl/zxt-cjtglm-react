@@ -20,7 +20,6 @@ class ScrollStock extends React.Component {
         this.len = this.props.stocks.length;
         this.prev = this.index-1>0?this.index-1:this.index-1+this.len;
         this.next = this.index+1<this.len?this.index+1:this.index+1-this.len;
-        console.log(stocks)
         let htmlList = stocks.map((stock, index) => {
             let className="swiper-slide"
             if(index===this.index){
@@ -49,7 +48,6 @@ class ScrollStock extends React.Component {
             )
         });
 
-        console.log(stocks)
         return (
             <div className="scroll-stock">
                 <ReactSwipe
@@ -60,7 +58,6 @@ class ScrollStock extends React.Component {
                             auto: 1000,
                             continuous: true,
                             transitionEnd:function(index,ele){
-                                console.log(index,ele)
                                 let curr = index,
                                     prev = index-1>0?index-1:index-1+me.len,
                                     next = index+1<me.len?index+1:index+1-me.len
@@ -85,18 +82,17 @@ class ScrollStock extends React.Component {
                             container: {
                                 visibility: 'hidden',
                                 position: 'relative',
-                                width: '6.5rem',
+                                width: '5.6rem',
                                 height: '100%',
-                                margin: '0 .5rem'
+                                margin: '0 .4rem'
                             },
                             wrapper: {
                                 position: 'relative',
                                 display: 'flex',
-                                width: '19.5rem',
                                 height: '100%'
                             },
                             child: {
-                                width:'6.5rem',
+                                width:'5.6rem',
                                 position: 'relative',
                                 transitionProperty: 'transform',
                             }

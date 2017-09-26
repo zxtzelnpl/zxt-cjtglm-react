@@ -23,7 +23,7 @@ class Product extends React.Component {
                         <p className="name"><span>{stock.name}</span><span className="code">{stock.code}</span></p>
                     </div>
                     <div className="user">
-                        <p>
+                        <p className="user-info">
                             <span className="special">{special}</span><span>：</span><span className="name">{name}</span>
                             <span className="day-count">{stock.dayCount}</span><span>：</span><span className="result">{stock.result}</span>
                         </p>

@@ -13,6 +13,7 @@ class UserCenterPage extends React.Component{
     constructor(props,content){
         super(props,content)
         this.url='/ashx/users_id.ashx'+'?openid=oijVfszBRm_nxYzNH6RAchSKXFxE'
+        this.customer='021-51572500'
     }
 
     showRegisterStatement(){
@@ -42,7 +43,8 @@ class UserCenterPage extends React.Component{
     }
 
     render(){
-        let {head_log,nike_name,name,phone,account,ID,customer} = this.props.userinfo
+        let {head_log,nike_name,name,phone,account,ID} = this.props.userinfo
+        let customer = this.customer
         return(
             <div className="usercenter-page">
                 <section className="head">

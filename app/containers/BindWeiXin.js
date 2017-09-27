@@ -5,7 +5,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
-import {Link} from 'react-router-dom'
 
 let text = 'right;111111;15921433951';
 

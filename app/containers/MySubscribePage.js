@@ -1,6 +1,6 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
-import * as articleListmentActionsFromOtherFile from '../actions/articlelist'
+import * as buyListmentActionsFromOtherFile from '../actions/buylist'
 import {connect} from 'react-redux'
 
 import SubscribeList from '../components/SubscribeList'
@@ -32,12 +32,13 @@ class MySubscribePage extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        subscribelist: ''
+        subscribelist: state.buylist
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        newsListmentActions:bindActionCreators(buyListmentActionsFromOtherFile, dispatch)
     }
 }
 

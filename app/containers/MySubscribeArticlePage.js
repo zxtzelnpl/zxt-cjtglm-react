@@ -2,7 +2,7 @@ import './MySubscribeArticlePage.less'
 
 import React from 'react'
 import {bindActionCreators} from 'redux'
-import * as articleListmentActionsFromOtherFile from '../actions/articlelist'
+import * as newsListmentActionsFromOtherFile from '../actions/newslist'
 import {connect} from 'react-redux'
 
 import SubscribeArticleList from '../components/SubscribeArticleList'
@@ -33,7 +33,7 @@ class MySubscribeArticlePage extends React.Component {
 
                         <a>续 费</a>
                     </div>
-                    <SubscribeArticleList list={this.props.subscribearticlelist}/>
+                    <SubscribeArticleList list={this.props.newslist}/>
                 </div>
                 <Footer footerIndex={2}/>
             </div>
@@ -45,13 +45,13 @@ class MySubscribeArticlePage extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        subscribearticlelist: ''
+        newslist: state.newslist
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-
+        newsListmentActions:bindActionCreators(newsListmentActionsFromOtherFile, dispatch)
     }
 }
 

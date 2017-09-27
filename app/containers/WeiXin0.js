@@ -3,6 +3,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 
 import React from 'react'
 import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as newsListmentActionsFromOtherFile from '../actions/newslist'
 import Footer from '../components/Footer'
 
 class WeiXin0 extends React.Component {
@@ -49,13 +51,13 @@ class WeiXin0 extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        userinfo:state.userinfo
+        newslist: state.newslist
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-
+        newsListmentActions:bindActionCreators(newsListmentActionsFromOtherFile, dispatch)
     }
 }
 export default connect(

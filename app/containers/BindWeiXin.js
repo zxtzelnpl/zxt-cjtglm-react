@@ -2,8 +2,8 @@ import './BindWeiXin.less'
 
 import './RegisterStatement.less'
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
 
 class BindWeiXin extends React.Component {
@@ -15,6 +15,7 @@ class BindWeiXin extends React.Component {
             word: '获取验证码'
         }
         this.partten = /^(13\d{9})|(15\d{9})|(14\d{9})|(16\d{9})|(17\d{9})|(18\d{9})|(0\d{10,11})$/;
+        this.url = '/ashx/getCode.ashx?Mobile=';
     }
 
     onChangePhone() {
@@ -30,34 +31,50 @@ class BindWeiXin extends React.Component {
     }
 
     onClickCode() {
-        if(!this.partten.test(this.state.phone)){
+        if (this.counts > 0) {
+            return alert('请在' + this.counts + '秒后获取');
+        }
+        if (!this.partten.test(this.state.phone)) {
             return alert('号码错误')
         }
         let me = this;
-        this.secret = '1111';
-        this.counts = 60;
-        this.setState({
-            word:this.counts+'秒'
+        fetch(this.url + this.state.phone, {
+            method: 'get'
         })
-        this.interval = setInterval(function(){
-            if(me.counts<0){
-                clearInterval(this.interval)
-                me.setState({
-                    word:'获取验证码'
-                })
-            }
-            else{
-                me.counts--;
-                me.setState({
-                    word:me.counts+'秒'
-                })
-            }
+            .then((response) => {
+                return response.text()
+            })
+            .then((text) => {
+                let arr = text.split(';');
+                if (arr[0] === 'right') {
+                    this.secret = arr[1];
+                    this.checkMobile = arr[2];
+                    this.counts = 60;
+                    this.setState({
+                        word: this.counts + '秒'
+                    })
+                    this.interval = setInterval(function () {
+                        if (me.counts <= 0) {
+                            clearInterval(this.interval)
+                            me.setState({
+                                word: '获取验证码'
+                            })
+                        }
+                        else {
+                            me.counts--;
+                            me.setState({
+                                word: me.counts + '秒'
+                            })
+                        }
 
-        },1000)
+                    }, 1000)
+                }
+
+            })
     }
 
     onClickSub() {
-        if (this.state.code === this.secret) {
+        if (this.state.code === this.secret && this.state.phone === this.checkMobile) {
             alert('yes')
         }
         else {
@@ -65,8 +82,8 @@ class BindWeiXin extends React.Component {
         }
     }
 
-    onClickShow(){
-        this.props.registerStatementActions.change({show:true})
+    onClickShow() {
+        this.props.registerStatementActions.change({show: true})
     }
 
 
@@ -119,13 +136,13 @@ class BindWeiXin extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        registerstatement:state.registerstatement
+        registerstatement: state.registerstatement
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        registerStatementActions:bindActionCreators(registerStatementActionsFromOtherFile, dispatch)
+        registerStatementActions: bindActionCreators(registerStatementActionsFromOtherFile, dispatch)
     }
 }
 

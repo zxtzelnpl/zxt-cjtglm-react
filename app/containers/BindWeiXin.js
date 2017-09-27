@@ -5,6 +5,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
+import {Link} from 'react-router-dom'
+
+let text = 'right;111111;15921433951';
 
 class BindWeiXin extends React.Component {
     constructor(props, context) {
@@ -31,54 +34,69 @@ class BindWeiXin extends React.Component {
     }
 
     onClickCode() {
+        let me = this;
         if (this.counts > 0) {
             return alert('请在' + this.counts + '秒后获取');
         }
         if (!this.partten.test(this.state.phone)) {
             return alert('号码错误')
         }
-        let me = this;
-        fetch(this.url + this.state.phone, {
-            method: 'get'
-        })
-            .then((response) => {
-                return response.text()
-            })
-            .then((text) => {
-                let arr = text.split(';');
-                if (arr[0] === 'right') {
-                    this.secret = arr[1];
-                    this.checkMobile = arr[2];
-                    this.counts = 60;
-                    this.setState({
-                        word: this.counts + '秒'
-                    })
-                    this.interval = setInterval(function () {
-                        if (me.counts <= 0) {
-                            clearInterval(this.interval)
-                            me.setState({
-                                word: '获取验证码'
-                            })
-                        }
-                        else {
-                            me.counts--;
-                            me.setState({
-                                word: me.counts + '秒'
-                            })
-                        }
 
-                    }, 1000)
-                }
+        me.onCounting.call(this,text)
 
-            })
+        // fetch(this.url + this.state.phone, {
+        //     method: 'get'
+        // })
+        //     .then((response) => {
+        //         return response.text()
+        //     })
+        //     .then((text) => {
+        //         me.onCounting.call(this,text)
+        //
+        //     })
     }
 
-    onClickSub() {
-        if (this.state.code === this.secret && this.state.phone === this.checkMobile) {
-            alert('yes')
+    onCounting(text){
+        let me = this;
+        let arr = text.split(';');
+        if (arr[0] === 'right') {
+            this.secret = arr[1];
+            this.checkMobile = arr[2];
+            this.counts = 60;
+            this.setState({
+                word: this.counts + '秒'
+            })
+            this.interval = setInterval(function () {
+                if (me.counts <= 0) {
+                    clearInterval(this.interval)
+                    me.setState({
+                        word: '获取验证码'
+                    })
+                }
+                else {
+                    me.counts--;
+                    me.setState({
+                        word: me.counts + '秒'
+                    })
+                }
+
+            }, 1000)
+        }
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval)
+    }
+
+    onClickSub(e) {
+        if (this.state.code !== this.secret) {
+            alert('验证码错误')
+        }
+        else if(this.state.phone !== this.checkMobile){
+            alert('手机号码错误')
         }
         else {
-            alert('no')
+            window.location.hash='/protocol'
         }
     }
 

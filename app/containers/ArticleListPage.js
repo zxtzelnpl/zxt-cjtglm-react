@@ -15,18 +15,15 @@ class ArticleListPage extends  React.Component{
     }
 
     componentDidMount(){
-        console.log(this.props.match)
         if(this.props.articlelist.size<5){
             let url = this.url+'?page=0'
             fetch(url,{
                 method:'get'
             })
                 .then((response)=>{
-                    console.log(response)
                     return response.json()
                 })
                 .then((json)=>{
-                    console.log(json)
                     this.props.articleListmentActions.first(json)
                     this.index++
                 })

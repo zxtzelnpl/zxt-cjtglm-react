@@ -33,7 +33,6 @@ if (__DEV__) {
     window.Perf = Perf
 }
 
-const store = configureStore()
 let App = () => (
     <HashRouter>
         <div className="container">
@@ -55,6 +54,8 @@ let App = () => (
         </div>
     </HashRouter>
 )
+
+const store = configureStore()
 render(
     <Provider  store={store}>
         <App/>
@@ -62,6 +63,4 @@ render(
     ,
     document.getElementById('root')
 )
-
-
 

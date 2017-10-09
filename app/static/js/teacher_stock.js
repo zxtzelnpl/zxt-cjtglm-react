@@ -99,21 +99,11 @@ export default function (name) {
     switch (name) {
         case '吕向召':
             return lvxiangzhao
-        case '马鑫':
-            return maxin
-        case '苏学鹏':
-            return suxuepeng
-        case '吴伟伟':
-            return wuweiwei
-        case '俞亮':
-            return yuliang
-        case '周康':
-            return zhoukang
         case '周煜':
             return zhouyu
         case '邵军杰':
             return shaojunjie
         default:
-            return nobody
+            return []
     }
 }

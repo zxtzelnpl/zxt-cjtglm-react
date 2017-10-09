@@ -13,7 +13,7 @@ class Protocol extends React.Component{
     constructor(props,context){
         super(props,context)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-        this.score=[]
+        this.score=[1,1,1,1,1,1,1,1,1,1]
     }
 
     handleChange(key,value){
@@ -33,15 +33,6 @@ class Protocol extends React.Component{
     }
 
     subScore(){
-        let questions = this.props.questions
-        for(let i=0;i<questions.length;i++){
-            let question = questions[i]
-            let question_num = i+1
-            if(!this.score[i]){
-                alert('第'+question_num+'条题目:'+question.ask+'还未勾选')
-                return;
-            }
-        }
         console.log(this.score)
         this.props.userInfomentActions.change_score(this.score)
     }
@@ -52,17 +43,34 @@ class Protocol extends React.Component{
         questions_html = questions.map((question,question_index)=>{
             let choice_html = question.choices.map((choice,choice_index)=>{
                 let value = choice_index+1
-                return (
-                    <label key={choice_index}>
-                        <input
-                            type="radio"
-                            name={question.key}
-                            value={value}
-                            onChange={this.handleChange.bind(this,question_index,value)}
-                        />
-                        {choice}
-                    </label>
-                )
+                if(value===1){
+                    return (
+                        <label key={choice_index}>
+                            <input
+                                type="radio"
+                                name={question.key}
+                                value={value}
+                                onChange={this.handleChange.bind(this,question_index,value)}
+                                checked="checked"
+                            />
+                            {choice}
+                        </label>
+                    )
+                }
+                else{
+                    return (
+                        <label key={choice_index}>
+                            <input
+                                type="radio"
+                                name={question.key}
+                                value={value}
+                                onChange={this.handleChange.bind(this,question_index,value)}
+                            />
+                            {choice}
+                        </label>
+                    )
+                }
+
             })
             return (
                 <div className="question" key={question.key}>
@@ -84,7 +92,7 @@ class Protocol extends React.Component{
                     </p>
                 </section>
                 <section className="content">
-                    <div className="content-wrap">
+                    <div className="content-wrap" ref={(div)=>{this.wrap=div}}>
                         <div className="xy" ref={(div)=>{this.a=div}}><img src={xy2} alt=""/></div>
                         <div className="xy" ref={(div)=>{this.b=div}}><img src={xy3} alt=""/></div>
                         <div className="xy" ref={(div)=>{this.c=div}}><img src={xy4} alt=""/></div>

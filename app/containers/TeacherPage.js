@@ -22,7 +22,7 @@ class TeacherPage extends  React.Component{
 
     componentDidMount(){
         if(!this.teacher_data){
-            let url = '/ashx/productlist.ashx?id='+this.props.match.params.id
+            let url = '/ashx/productlist.ashx'
             fetch(url,{
                 method:'get'
             })
@@ -30,16 +30,13 @@ class TeacherPage extends  React.Component{
                     return response.json()
                 })
                 .then((json)=>{
-                    console.log('****json****')
                     if(json.fail){
                         return Promise.reject(json)
                     }
                     else{
-                        console.log(json);
                         teacher_data_format(json)
-                        this.props.productListActions.add(json[0])
+                        this.props.productListActions.load(json)
                     }
-                    console.log('****json****')
                 })
                 .catch((err)=>{
                     console.log('****err****')

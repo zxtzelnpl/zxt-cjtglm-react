@@ -3,17 +3,57 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 
 import './Subscribe.less'
 
-class Subscribe extends React.Component{
-    constructor(props,context){
-        super(props,context)
+var wxJsApiParam;
+
+function jsApiCall() {
+    WeixinJSBridge.invoke(
+        'getBrandWCPayRequest',
+        wxJsApiParam, /*josn串*/
+        function (res) {
+            WeixinJSBridge.log(res.err_msg);
+            if (res.err_msg === "get_brand_wcpay_request:ok") {
+
+            }
+        }
+    );
+}
+
+function callpay() {
+    if (typeof WeixinJSBridge === "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+        }
+        else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+            document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+        }
+    }
+    else {
+        jsApiCall();
+    }
+}
+
+class Subscribe extends React.Component {
+    constructor(props, context) {
+        super(props, context)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
     }
 
-    getSubscribe(){
-        console.log(this.props.productID)
+    getSubscribe() {
+        let url = '';//获取wxJsApiParam
+        fetch(url, {
+            method: 'get'
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((json) => {
+                wxJsApiParam = json;
+                callpay()
+            })
     }
 
-    render(){
+    render() {
         return (
             <a className="subscribe" href="javascript:void(0);" onClick={this.getSubscribe.bind(this)}>
                 <p>￥39.00</p>

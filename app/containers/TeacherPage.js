@@ -44,6 +44,7 @@ class TeacherPage extends  React.Component{
                     console.log('****err****')
                 })
         }
+        document.body.scrollTop=0;
     }
 
     render(){

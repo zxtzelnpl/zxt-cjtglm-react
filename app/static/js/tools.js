@@ -1093,7 +1093,7 @@ export function ChartMaxRise(){
 
 export function ChartRiseProbablity(){
     var distinguish = '上涨个数',
-        title_en_end = 'RISE PROBABILITY',
+        title_en_end = 'RISE PRO',
         remark = '注：推出当时价格为核算的基准价',
         base_width = 300,//设计稿宽度为600
         base_height = 250,//设计稿高度为500

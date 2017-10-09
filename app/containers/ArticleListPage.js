@@ -1,4 +1,5 @@
 import './ArticleListPage.less'
+import article_banner from '../static/img/banner/article.jpg'
 
 import React from 'react'
 import { bindActionCreators } from 'redux'
@@ -70,7 +71,7 @@ class ArticleListPage extends  React.Component{
             return (
                 <div className="article-list-page">
                     <div className="header">
-                        <img src={url}/>
+                        <img src={article_banner}/>
                     </div>
                     <div className="content">
                         <ArticleList articlelist={list}/>

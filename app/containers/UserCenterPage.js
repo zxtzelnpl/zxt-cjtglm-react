@@ -112,9 +112,9 @@ class UserCenterPage extends React.Component{
                     <div className="link-box">
                         联系我们<span className="single-word">：</span>
                         {customer}
-                        <Link to={"tel:"+customer}>
+                        <a href={"tel:"+customer}>
                             <span className="btn fa fa-angle-right" />
-                        </Link>
+                        </a>
                     </div>
                 </section>
                 <Footer footerIndex={2}/>

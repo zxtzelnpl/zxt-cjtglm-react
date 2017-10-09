@@ -13,7 +13,7 @@ const initialState = {
     ID: '******************',
     orders: [],
     subscribe: [],
-    score: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    score: [],
     customer: '021-51572550'
 }
 

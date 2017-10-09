@@ -8,15 +8,24 @@ class TeacherBrief extends React.Component{
     constructor(props,context){
         super(props,context)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-        this.state = {brief:'text close'}
+        this.state = {
+            brief:'text close',
+            arrow:'fa fa-chevron-up'
+        }
     }
 
     handleClick(){
         if(this.state.brief === 'text close'){
-            this.setState({brief:'text'})
+            this.setState({
+                brief:'text',
+                arrow:'fa fa-chevron-down'
+            })
         }
         else{
-            this.setState({brief:'text close'})
+            this.setState({
+                brief:'text close',
+                arrow:'fa fa-chevron-up'
+            })
         }
 
     }
@@ -47,7 +56,7 @@ class TeacherBrief extends React.Component{
                         className={this.state.brief}
                         ref={(brief)=>{this.brief=brief}}
                     >{brief}</div>
-                    <div className="fa fa-chevron-down"/>
+                    <div className={this.state.arrow}/>
                 </div>
             </div>
         )

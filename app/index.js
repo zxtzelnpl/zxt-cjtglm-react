@@ -121,9 +121,10 @@ function getUserInfo() {
             + query.code
             + '&grant_type=authorization_code '
 
-        window.location = urlOpenId;
-    }
+        console.log(urlOpenId)
+        window.location.href = urlOpenId;
 
+    }
 }
 
 function getQuery() {
@@ -135,7 +136,7 @@ function getQuery() {
     })
     return query
 }
-
 getUserInfo()
+// window.location = 'http://zjw.jyzqsh.com/ashx/wx_openid_user_is.aspx'
 
 

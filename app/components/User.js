@@ -1,10 +1,6 @@
-import './UserCenterPage.less'
+import './User.less'
 
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
-import * as userInfoActionsFromOtherFile from '../actions/userinfo'
 import {Link} from 'react-router-dom'
 import InfoBox from '../components/InfoBox'
 import Footer from '../components/Footer'
@@ -12,8 +8,6 @@ import Footer from '../components/Footer'
 class UserCenterPage extends React.Component{
     constructor(props,content){
         super(props,content)
-        this.url='/ashx/users_id.ashx'+'?openid=oijVfszBRm_nxYzNH6RAchSKXFxE'
-        this.customer='021-51572500'
     }
 
     showRegisterStatement(){
@@ -21,12 +15,12 @@ class UserCenterPage extends React.Component{
     }
 
     render(){
-        let {head_log,nike_name,name,phone,account,ID} = this.props.userinfo
+        let {img,nike_name,name,phone,account,ID} = this.props.userinfo
         let customer = this.customer
         return(
             <div className="usercenter-page">
                 <section className="head">
-                    <img src={head_log} alt=""/>
+                    <img src={img} alt=""/>
                     <p>{nike_name}</p>
                 </section>
                 <section>
@@ -95,21 +89,4 @@ class UserCenterPage extends React.Component{
     }
 }
 
-// -------------------redux react 绑定--------------------
-
-function mapStateToProps(state) {
-    return {
-        userinfo:state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        registerStatementActions:bindActionCreators(registerStatementActionsFromOtherFile, dispatch),
-        userInfoActions:bindActionCreators(userInfoActionsFromOtherFile, dispatch)
-    }
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(UserCenterPage)
+export default UserCenterPage

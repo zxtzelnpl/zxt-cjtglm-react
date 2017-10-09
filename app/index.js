@@ -37,7 +37,7 @@ let App = () => (
     <HashRouter>
         <div className="container">
             <Route exact path="/" render={() => (
-                <Redirect to="/articlelist"/>
+                <Redirect to="/center"/>
             )}/>
             <Route path="/teacher/:id" component={TeacherPage}/>
             <Route path="/product" component={ProductPage}/>
@@ -55,37 +55,42 @@ let App = () => (
     </HashRouter>
 )
 
-let initialState={},store;
-let userPromise = new Promise(function(resolve){
+const wxConfig = {
+    AppID: 'wx0b172217f0472b86',
+    AppSecret: '5f073ab7160493eca6f5c0870b7186b5',
+    urlCode: 'https://open.weixin.qq.com/connect/oauth2/authorize',
+    urlOpenId: 'https://api.weixin.qq.com/sns/oauth2/access_token'
+}
+
+
+let initialState = {}, store;
+let userPromise = new Promise(function (resolve) {
     localStorage.clear();
-    if(localStorage.getItem('userinfo')){
+    if (localStorage.getItem('userinfo')) {
         console.log(localStorage.getItem('userinfo'))
         resolve(JSON.parse(localStorage.getItem('userinfo')));
-    }else{
-        fetch('/ashx/wx_openid_user_is.aspx',{method:'get',mode: 'no-cors'})
-            .then((response)=>{
+    } else {
+        fetch('/ashx/wx_openid_user_is.aspx', {method: 'get', mode: 'no-cors'})
+            .then((response) => {
                 console.log(response)
                 return response.text()
             })
-            .then((json)=>{
-                alert(JSON.stringify(json))
-                resolve(json)
+            .then((json) => {
+                resolve({})
             })
     }
 })
 
 Promise
     .all([userPromise])
-    .then(function([userinfo]){
+    .then(function ([userinfo]) {
         // localStorage.setItem('userinfo',JSON.stringify(userinfo))
         initialState.userinfo = userinfo
         initial()
     })
 
 
-
-
-function initial(){
+function initial() {
     store = configureStore(initialState)
     render(
         <Provider store={store}>
@@ -97,5 +102,40 @@ function initial(){
 }
 
 
+function getUserInfo() {
+    let query = getQuery();
+    console.log(query);
+    if (!query.code) {
+        let urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='
+            + wxConfig.AppID
+            + '&redirect_uri='
+            + location.href
+            + '&response_type=code&scope=snsapi_base&state=lk#wechat_redirect'
+        window.location = urlCode
+    } else {
+        let urlOpenId = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='
+            + wxConfig.AppID
+            + '&secret='
+            + wxConfig.AppSecret
+            + '&code='
+            + query.code
+            + '&grant_type=authorization_code '
+
+        window.location = urlOpenId;
+    }
+
+}
+
+function getQuery() {
+    let query = {}
+    let _query = location.search.slice(1).split('&')
+    _query.forEach((str) => {
+        let arr = str.split('=')
+        query[arr[0]] = arr[1]
+    })
+    return query
+}
+
+getUserInfo()
 
 

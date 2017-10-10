@@ -14,22 +14,47 @@ class UserCenterPage extends React.Component{
         this.props.registerStatementActions.change({show:true})
     }
 
+    componentDidMount(){
+        let openid = this.props.wxinfo.openid
+        this.getUserInfo(openid)
+    }
+
+    getUserInfo(openid){
+        let url = `/ashx/users_id.ashx?openid=${openid}`
+        fetch(url)
+            .then((res)=>{return res.json()})
+            .then((json)=>{
+                console.log(json)
+                if(json.length>0){
+                    this.props.userInfoActions.load(json[0])
+                }
+                else{
+
+                }
+
+            })
+    }
+
     render(){
-        let {img,nike_name,name,phone,account,ID} = this.props.userinfo
+        let {headimgurl,nick_name,openid} = this.props.wxinfo
+        let {name,phone,account,ID} = this.props.userinfo
+        let {change_name,change_id,change_account} = this.props.userInfoActions
         let customer = this.customer
         return(
             <div className="usercenter-page">
                 <section className="head">
-                    <img src={img} alt=""/>
-                    <p>{nike_name}</p>
+                    <img src={headimgurl} alt=""/>
+                    <p>{nick_name}</p>
                 </section>
                 <section>
                     <InfoBox data={{
-                        inputName:'name',
+                        inputName:'user_name',
                         word:'姓名',
                         content:name,
                         placeholder:'请输入您新的姓名',
-                        canChange:true
+                        canChange:true,
+                        userInfoChange:change_name,
+                        openid : openid
                     }}/>
                     <InfoBox data={{
                         inputName:'phone',
@@ -41,18 +66,22 @@ class UserCenterPage extends React.Component{
                 </section>
                 <section>
                     <InfoBox data={{
-                        inputName:'name',
+                        inputName:'number',
                         word:'身份证号',
                         content:ID,
                         placeholder:'请输入您新的身份证',
-                        canChange:true
+                        canChange:true,
+                        userInfoChange:change_id,
+                        openid :openid
                     }}/>
                     <InfoBox data={{
-                        inputName:'name',
+                        inputName:'account',
                         word:'用户账户',
                         content:account,
                         placeholder:'请输入您新的账户',
-                        canChange:true
+                        canChange:true,
+                        userInfoChange:change_account,
+                        openid : openid
                     }}/>
                 </section>
                 <section>

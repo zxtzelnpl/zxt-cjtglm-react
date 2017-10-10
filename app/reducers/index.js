@@ -5,6 +5,7 @@ import productlist from './productlist'
 import articlelist from './articlelist'
 import buylist from './buylist'
 import newslist from './newslist'
+import wxinfo from './wxinfo'
 
 export default combineReducers({
     userinfo,
@@ -12,5 +13,6 @@ export default combineReducers({
     registerstatement,
     articlelist,
     buylist,
-    newslist
+    newslist,
+    wxinfo
 })

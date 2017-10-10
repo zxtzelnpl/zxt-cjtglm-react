@@ -1,12 +1,11 @@
-import img from '../static/img/user/user.png'
-
 import React from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
 import * as userInfoActionsFromOtherFile from '../actions/userinfo'
-import UserCenterPage from '../components/User' //用户中心页面
+import * as wxInfoActionsFromOtherFile from '../actions/wxinfo'
+import User from '../components/User' //用户中心页面
 import BindWeiXin from '../components/BindWeiXin' //注册页面
 
 class CenterPage extends React.Component{
@@ -38,15 +37,20 @@ class CenterPage extends React.Component{
     }
 
     render(){
-        if(this.props.userinfo){
-            return <UserCenterPage
+        let user_count = this.props.wxinfo.user_count||0;
+        if(user_count!=='0'){
+            return <User
+                wxinfo = {this.props.wxinfo}
                 userinfo = {this.props.userinfo}
                 registerStatementActions = {this.props.registerStatementActions}
+                userInfoActions={this.props.userInfoActions}
             />
         }
         else if(this.props.userinfo){
             return <BindWeiXin
+                wxinfo = {this.props.wxinfo}
                 registerStatementActions = {this.props.registerStatementActions}
+                wxInfoActions = {this.props.wxInfoActions}
             />
         }
         else{
@@ -66,14 +70,16 @@ CenterPage.defaultProps = {
 function mapStateToProps(state) {
     return {
         userinfo:state.userinfo,
-        registerstatement: state.registerstatement
+        registerstatement: state.registerstatement,
+        wxinfo:state.wxinfo
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         registerStatementActions:bindActionCreators(registerStatementActionsFromOtherFile, dispatch),
-        userInfoActions:bindActionCreators(userInfoActionsFromOtherFile, dispatch)
+        userInfoActions:bindActionCreators(userInfoActionsFromOtherFile, dispatch),
+        wxInfoActions:bindActionCreators(wxInfoActionsFromOtherFile, dispatch)
     }
 }
 export default connect(

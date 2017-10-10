@@ -13,3 +13,24 @@ export function load(data) {
         data
     }
 }
+
+export function change_name(name) {
+    return {
+        type: actionTypes.USERINFO_NAME,
+        name
+    }
+}
+
+export function change_account(account) {
+    return {
+        type: actionTypes.USERINFO_ACCOUNT,
+        account
+    }
+}
+
+export function change_id(id) {
+    return {
+        type: actionTypes.USERINFO_ID,
+        id
+    }
+}

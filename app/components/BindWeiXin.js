@@ -28,6 +28,12 @@ class BindWeiXin extends React.Component {
         })
     }
 
+    componentDidMount() {
+        console.log('########')
+        console.log(this.props.wxinfo)
+        console.log('########')
+    }
+
     onClickCode() {
         let me = this;
         if (this.counts > 0) {
@@ -37,7 +43,7 @@ class BindWeiXin extends React.Component {
             return alert('号码错误')
         }
 
-        me.onCounting.call(this,text)
+        me.onCounting.call(this, text)
 
         // fetch(this.url + this.state.phone, {
         //     method: 'get'
@@ -51,7 +57,7 @@ class BindWeiXin extends React.Component {
         //     })
     }
 
-    onCounting(text){
+    onCounting(text) {
         let me = this;
         let arr = text.split(';');
         if (arr[0] === 'right') {
@@ -79,20 +85,44 @@ class BindWeiXin extends React.Component {
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(this.interval)
     }
 
     onClickSub(e) {
+        let phone = this.state.phone;
+        let openid = this.props.wxinfo.openid
+        let head_log = this.props.wxinfo.headimgurl
+        let nick_name = this.props.wxinfo.nick_name
+        let city = this.props.wxinfo.city
+        let url = `/ashx/Add_users.ashx?type=1&phone=${phone}&openid=${openid}&head_log=${head_log}&nike_name=${nick_name}&city=${city}`;
         if (this.state.code !== this.secret) {
             alert('验证码错误')
         }
-        else if(this.state.phone !== this.checkMobile){
+        else if (this.state.phone !== this.checkMobile) {
             alert('手机号码错误')
         }
         else {
-            window.location.hash='/protocol'
+            fetch(url, {
+                method: 'get'
+            })
+                .then((res) => {
+                    return res.json()
+                })
+                .then((json) => {
+                    console.log(json)
+                    if(json[0].erro === '1'){
+                        let _wxinfo = Object.assign({},this.props.wxinfo)
+                        _wxinfo.user_count = '1'
+                        localStorage.setItem('wxinfo',JSON.stringify(_wxinfo))
+                        this.props.wxInfoActions.update(_wxinfo)
+                    }
+                    else{
+                        alert('数据连接错误，请稍后重试')
+                    }
+                })
         }
+
     }
 
     onClickShow() {

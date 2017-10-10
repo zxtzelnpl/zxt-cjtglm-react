@@ -5,7 +5,6 @@ class InfoBox extends React.Component{
         super(props,context)
         this.state={
             value:'',
-
         }
     }
 
@@ -18,7 +17,23 @@ class InfoBox extends React.Component{
     }
 
     handleClick(){
-        console.log(this.state.value)
+        let openid = this.props.data.openid;
+        let name = this.props.data.inputName;
+        let value = this.state.value
+        let url = `/ashx/Add_users.ashx?type=2&openid=${openid}&${name}=${value}`;
+        fetch(url)
+            .then((res)=>{
+                return res.json()
+            })
+            .then((json)=>{
+                if(json[0].erro === '1'){
+                    this.props.userInfoChange(this.state.value)
+                }
+                else{
+                    alert('数据连接错误，请稍后重试')
+                }
+            })
+
     }
 
     handleChange(){

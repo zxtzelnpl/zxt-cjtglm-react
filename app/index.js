@@ -1,6 +1,5 @@
 import './static/css/font-awesome.less'
 import './static/css/public.less'
-import user_img from './static/img/user/user.png'
 
 import React from 'react'
 import {render} from 'react-dom'
@@ -58,34 +57,30 @@ let App = () => (
 const wxConfig = {
     AppID: 'wx0b172217f0472b86',
     AppSecret: '5f073ab7160493eca6f5c0870b7186b5',
-    urlCode: 'https://open.weixin.qq.com/connect/oauth2/authorize',
-    urlOpenId: 'https://api.weixin.qq.com/sns/oauth2/access_token'
+    urlCode: 'https://open.weixin.qq.com/connect/oauth2/authorize'
 }
 
 
 let initialState = {}, store;
-let userPromise = new Promise(function (resolve) {
-    localStorage.clear();
-    if (localStorage.getItem('userinfo')) {
-        console.log(localStorage.getItem('userinfo'))
-        resolve(JSON.parse(localStorage.getItem('userinfo')));
+let wxinfoPromise = new Promise(function (resolve) {
+    if (localStorage.getItem('wxinfo')) {
+        console.log('########wxinfolocalstorage########');
+        console.log(localStorage.getItem('wxinfo'));
+        console.log('########wxinfolocalstorage########');
+        resolve(JSON.parse(localStorage.getItem('wxinfo')));
     } else {
-        fetch('/ashx/wx_openid_user_is.aspx', {method: 'get', mode: 'no-cors'})
-            .then((response) => {
-                console.log(response)
-                return response.text()
-            })
-            .then((json) => {
-                resolve({})
-            })
+        let wxinfo = getWeiXinInfo()
+        wxinfo.then((json)=>{
+            localStorage.setItem('wxinfo',JSON.stringify(json))
+            resolve(json)
+        })
     }
 })
 
 Promise
-    .all([userPromise])
-    .then(function ([userinfo]) {
-        // localStorage.setItem('userinfo',JSON.stringify(userinfo))
-        initialState.userinfo = userinfo
+    .all([wxinfoPromise])
+    .then(function ([wxinfo]) {
+        initialState.wxinfo = wxinfo
         initial()
     })
 
@@ -102,9 +97,8 @@ function initial() {
 }
 
 
-function getUserInfo() {
+function getWeiXinInfo() {
     let query = getQuery();
-    console.log(query);
     if (!query.code) {
         let urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='
             + wxConfig.AppID
@@ -113,17 +107,10 @@ function getUserInfo() {
             + '&response_type=code&scope=snsapi_base&state=lk#wechat_redirect'
         window.location = urlCode
     } else {
-        let urlOpenId = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='
-            + wxConfig.AppID
-            + '&secret='
-            + wxConfig.AppSecret
-            + '&code='
-            + query.code
-            + '&grant_type=authorization_code '
-
-        console.log(urlOpenId)
-        window.location.href = urlOpenId;
-
+        return fetch('/ashx/wx_openid_user_is.ashx?code=' + query.code)
+            .then((res) => {
+                return res.json()
+            })
     }
 }
 
@@ -136,7 +123,7 @@ function getQuery() {
     })
     return query
 }
-getUserInfo()
-// window.location = 'http://zjw.jyzqsh.com/ashx/wx_openid_user_is.aspx'
+
+
 
 

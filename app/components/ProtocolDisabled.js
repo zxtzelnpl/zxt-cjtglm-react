@@ -33,6 +33,26 @@ class ProtocolDisabled extends React.Component{
         let questions_html
         let questions = this.props.questions
         let score = this.props.score.split('a')
+        let sum = 0
+        let type
+        score.forEach((_score)=>{
+            sum+=parseInt(_score)
+        })
+        if(sum<=12){
+            type = '保守型'
+        }
+        else if(sum<=17){
+            type = '谨慎型'
+        }
+        else if(sum<=23){
+            type = '稳健型'
+        }
+        else if(sum<=28){
+            type = '积极型'
+        }
+        else{
+            type = '激进型'
+        }
 
         questions_html = questions.map((question,question_index)=>{
             let choice_html = question.choices.map((choice,choice_index)=>{
@@ -84,7 +104,7 @@ class ProtocolDisabled extends React.Component{
                     </div>
                 </section>
                 <section className="footer">
-                    <p>您的投资类型为保守类型</p>
+                    <p>您的投资类型为{type}</p>
                 </section>
             </div>
         )

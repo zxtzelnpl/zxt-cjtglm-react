@@ -34,7 +34,7 @@ class Protocol extends React.Component{
 
     subScore(){
         let openid = this.props.openid;
-        let score = this.state.score.join('a')
+        let score = this.score.join('a')
         let url = `/ashx/Add_users.ashx?type=2&openid=${openid}&score=${score}`
         fetch(url)
             .then((res)=>{

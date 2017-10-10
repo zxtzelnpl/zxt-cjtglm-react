@@ -99,9 +99,9 @@ class BindWeiXin extends React.Component {
         if (this.state.code !== this.secret) {
             alert('验证码错误')
         }
-        else if (this.state.phone !== this.checkMobile) {
-            alert('手机号码错误')
-        }
+        // else if (this.state.phone !== this.checkMobile) {
+        //     alert('手机号码错误')
+        // }
         else {
             fetch(url, {
                 method: 'get'

@@ -1,6 +1,7 @@
 import './static/css/font-awesome.less'
 import './static/css/public.less'
 
+import 'whatwg-fetch'
 import React from 'react'
 import {render} from 'react-dom'
 
@@ -62,6 +63,7 @@ const wxConfig = {
 
 
 let initialState = {}, store;
+
 let wxinfoPromise = new Promise(function (resolve) {
     if (localStorage.getItem('wxinfo')) {
         console.log('########wxinfolocalstorage########');

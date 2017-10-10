@@ -27,7 +27,8 @@ class InfoBox extends React.Component{
             })
             .then((json)=>{
                 if(json[0].erro === '1'){
-                    this.props.userInfoChange(this.state.value)
+                    this.props.data.userInfoChange(this.state.value)
+                    this.moveLeft()
                 }
                 else{
                     alert('数据连接错误，请稍后重试')

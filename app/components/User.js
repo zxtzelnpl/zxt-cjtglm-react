@@ -20,24 +20,28 @@ class UserCenterPage extends React.Component{
     }
 
     getUserInfo(openid){
-        let url = `/ashx/users_id.ashx?openid=${openid}`
-        fetch(url)
-            .then((res)=>{return res.json()})
-            .then((json)=>{
-                console.log(json)
-                if(json.length>0){
-                    this.props.userInfoActions.load(json[0])
-                }
-                else{
+        if(this.props.userinfo.phone){
+            console.log(this.props.userinfo.phone)
+        }
+        else{
+            let url = `/ashx/users_id.ashx?openid=${openid}`
+            fetch(url)
+                .then((res)=>{return res.json()})
+                .then((json)=>{
+                    console.log(json)
+                    if(json.length>0){
+                        this.props.userInfoActions.load(json[0])
+                    }
+                    else{
 
-                }
-
-            })
+                    }
+                })
+        }
     }
 
     render(){
         let {headimgurl,nick_name,openid} = this.props.wxinfo
-        let {name,phone,account,ID} = this.props.userinfo
+        let {name,phone,account,id} = this.props.userinfo
         let {change_name,change_id,change_account} = this.props.userInfoActions
         let customer = this.customer
         return(
@@ -68,7 +72,7 @@ class UserCenterPage extends React.Component{
                     <InfoBox data={{
                         inputName:'number',
                         word:'身份证号',
-                        content:ID,
+                        content:id,
                         placeholder:'请输入您新的身份证',
                         canChange:true,
                         userInfoChange:change_id,

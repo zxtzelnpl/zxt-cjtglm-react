@@ -27,6 +27,8 @@ import MySubscribeArticlePage from './containers/MySubscribeArticlePage' //个�
 import NotFound from './components/NotFound' //Not Found
 import RegisterStatement from './containers/RegisterStatement' //注册声明弹出框
 import WeiXin0 from './containers/WeiXin0' //微信模版1
+import wxConfig from './config/weixin'
+
 
 if (__DEV__) {
     console.info('__DEV__是' + __DEV__ + '这里是测试环境')
@@ -54,13 +56,6 @@ let App = () => (
         </div>
     </HashRouter>
 )
-
-const wxConfig = {
-    AppID: 'wx0b172217f0472b86',
-    AppSecret: '5f073ab7160493eca6f5c0870b7186b5',
-    urlCode: 'https://open.weixin.qq.com/connect/oauth2/authorize'
-}
-
 
 let initialState = {}, store;
 

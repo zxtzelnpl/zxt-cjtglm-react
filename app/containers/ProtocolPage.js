@@ -24,6 +24,7 @@ class ProtocolPage extends React.Component{
             return <Protocol
                 questions = {questions}
                 userInfomentActions = {this.props.userInfomentActions}
+                openid = {this.props.openid}
             />
         }
     }
@@ -35,7 +36,8 @@ class ProtocolPage extends React.Component{
 
 function mapStateToProps(state) {
     return {
-        score:state.userinfo.score
+        score:state.userinfo.score,
+        openid:state.wxinfo.openid
     }
 }
 

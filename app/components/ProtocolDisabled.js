@@ -32,11 +32,11 @@ class ProtocolDisabled extends React.Component{
     render(){
         let questions_html
         let questions = this.props.questions
-        let score = this.props.score
+        let score = this.props.score.split('a')
 
         questions_html = questions.map((question,question_index)=>{
             let choice_html = question.choices.map((choice,choice_index)=>{
-                let user_choice = score[question_index]
+                let user_choice = parseInt(score[question_index])
                 let value = choice_index+1
                 if(user_choice===value){
                     return (

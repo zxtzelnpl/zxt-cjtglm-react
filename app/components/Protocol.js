@@ -33,8 +33,22 @@ class Protocol extends React.Component{
     }
 
     subScore(){
-        console.log(this.score)
-        this.props.userInfomentActions.change_score(this.score)
+        let openid = this.props.openid;
+        let score = this.state.score.join('a')
+        let url = `/ashx/Add_users.ashx?type=2&openid=${openid}&score=${score}`
+        fetch(url)
+            .then((res)=>{
+                return res.json()
+            })
+            .then((json)=>{
+                if(json[0].erro === '1'){
+                    this.props.userInfomentActions.change_score(score)
+                }
+                else{
+                    alert('数据连接错误，请稍后重试')
+                }
+            })
+
     }
 
     render(){

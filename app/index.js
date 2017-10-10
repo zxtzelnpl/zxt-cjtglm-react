@@ -27,7 +27,7 @@ import MySubscribeArticlePage from './containers/MySubscribeArticlePage' //个�
 import NotFound from './components/NotFound' //Not Found
 import RegisterStatement from './containers/RegisterStatement' //注册声明弹出框
 import WeiXin0 from './containers/WeiXin0' //微信模版1
-import wxConfig from './config/weixin'
+import wxConfig from './config/weixin' // 微信APP和SecretID
 
 
 if (__DEV__) {

@@ -28,7 +28,6 @@ class UserCenterPage extends React.Component{
             fetch(url)
                 .then((res)=>{return res.json()})
                 .then((json)=>{
-                    console.log(json)
                     if(json.length>0){
                         this.props.userInfoActions.load(json[0])
                     }

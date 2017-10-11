@@ -20,7 +20,9 @@ class MySubscribePage extends React.Component {
 
     componentDidMount() {
         let productsPromise = new Promise((resolve, reject) => {
-            if (this.props.productlist && this.props.productlist.size > 3) {
+            if (this.props.productlist!=null && this.props.productlist.size > 3) {
+                console.log('productlist有了')
+                console.log(this.props.productlist)
                 resolve(this.props.productlist)
             }
             else {
@@ -32,6 +34,7 @@ class MySubscribePage extends React.Component {
                     })
                     .then((productlist) => {
                         teacher_data_format(productlist)
+                        this.props.productListActions.load(productlist)
                         resolve(productlist)
                     })
             }
@@ -53,7 +56,7 @@ class MySubscribePage extends React.Component {
 
         Promise.all([productsPromise, subscribesPromise])
             .then(([productlist, subscribelist]) => {
-                this.props.productListActions.load(productlist)
+
                 this.setState({
                     initDom: true,
                     subscribelist: subscribelist

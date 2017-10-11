@@ -44,7 +44,8 @@ function callpay() {
 class MySubscribeArticlePage extends React.Component {
     constructor(props, content) {
         super(props, content)
-        // this.url = '/ashx/SubscribeList.ashx'
+        this.produce_id = this.props.match.params.id.split('a')[0]
+        this.user_id = this.props.match.params.id.split('a')[1]
     }
 
     componentDidMount() {
@@ -69,8 +70,9 @@ class MySubscribeArticlePage extends React.Component {
     }
 
     render() {
-        let teacher_data = this.teacher_data = this.props.productlist.get(this.props.match.params.productid);
+        let teacher_data = this.teacher_data = this.props.productlist.get(this.produce_id);
         if (teacher_data) {
+            console.log(teacher_data)
             return (
                 <div className="subscribe-list-page">
                     <div className="content">
@@ -87,7 +89,8 @@ class MySubscribeArticlePage extends React.Component {
                         </div>
                         <SubscribeArticleList
                             product_name = {teacher_data.name}
-                            list={this.props.newslist}
+                            product_id = {teacher_data.id}
+                            user_id = {this.user_id}
                         />
                     </div>
                     <Footer footerIndex={2}/>
@@ -103,10 +106,10 @@ class MySubscribeArticlePage extends React.Component {
         if (this.props.wxinfo.user_count === '1') {
             let openid = this.props.wxinfo.openid
             let money = 1;
-            let user_id = this.props.userinfo.id
+            let user_id = this.user_id
             let user_name = this.props.wxinfo.nick_name
             let user_phone = this.props.userinfo.phone
-            let produce_id = this.props.match.params.productid
+            let produce_id = this.produce_id
             let produce_name = this.teacher_data.name
             let periods = 5
             let url = `/wx_pay/pay_Inter.aspx?openid=${openid}&money=${money}&user_id=${user_id}&user_name=${user_name}&user_phone=${user_phone}&produce_id=${produce_id}&produce_name=${produce_name}&periods=${periods}`;//获取wxJsApiParam

@@ -11,6 +11,29 @@ class WeiXin0 extends React.Component {
     constructor(props,content){
         super(props,content)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
+        this.state={
+            time:null,
+            stocks:null
+        }
+    }
+
+    componentDidMount(){
+        // let article_id = this.match.params.id
+        let article_id = 3114
+        let url =`/ashx/Article_Selce.ashx?article_id=${article_id}`
+        window.fetch(url)
+            .then((res)=>{
+            return res.json()
+            })
+            .then((json)=>{
+                let stocks = json[0].strategy
+                let time = json[0].create_time.replace(/\//ig,'\-')
+
+                this.setState({
+                    time:time,
+                    stocks:null
+                })
+            })
     }
 
     render(){
@@ -23,7 +46,7 @@ class WeiXin0 extends React.Component {
                                 选股策略
                             </div>
                             <div className="right">
-                                2017-09-13 14:26
+                                {this.state.time}
                             </div>
                         </div>
                         <div className="leftD" />

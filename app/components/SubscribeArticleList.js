@@ -164,19 +164,34 @@ const listZxt = [
 class SubscribeList extends React.Component {
     constructor(props, context) {
         super(props, context)
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
+        this.state={
+            list:[]
+        }
     }
 
     componentDidMount(){
+        let produce_id = this.props.product_id
+        let user_id = this.props.user_id
+        let url =`/ashx/user_analysts_list.ashx?user_id=${user_id}&produce_id=${produce_id}`
+        window.fetch(url)
+            .then((res)=>{
+                return res.json()
+            })
+            .then((json)=>{
+                console.log(json)
+                this.setState({
+                    list:json
+                })
+            })
 
     }
 
     render() {
-        let list = listZxt;
+        let list = this.state.list;
         let htmlArr = list.map((subscribe) => {
             return (
-                <Link  className="box" to={"/weixin0/1212"} key={subscribe.id}>
-                    <h4>选股牛人-{this.props.product_name}</h4><span>2017-09-21 10:14</span>
+                <Link  className="box" to={"/weixin0/"+subscribe.analysts_article_id} key={subscribe.id}>
+                    <h4>选股牛人-{this.props.product_name}</h4><span>{subscribe.create_time.replace(/\//ig,'\-')}</span>
                 </Link>
             )
         })

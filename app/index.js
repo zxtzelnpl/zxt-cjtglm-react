@@ -1,6 +1,5 @@
 import './static/css/font-awesome.less'
 import './static/css/public.less'
-
 import 'whatwg-fetch'
 import React from 'react'
 import {render} from 'react-dom'
@@ -27,11 +26,14 @@ import MySubscribeArticlePage from './containers/MySubscribeArticlePage' //个�
 import NotFound from './components/NotFound' //Not Found
 import RegisterStatement from './containers/RegisterStatement' //注册声明弹出框
 import WeiXin0 from './containers/WeiXin0' //微信模版1
-import wxConfig from './config/weixin' // 微信APP和SecretID
 
+/**上线后一定要删除啊,别忘了啊**/
+localStorage.clear() // 上线后一定要删除啊
+/**上线后一定要删除啊,别忘了啊**/
 
 if (__DEV__) {
     console.info('__DEV__是' + __DEV__ + '这里是测试环境')
+    localStorage.setItem('wxinfo','{"openid":"oy4PmwjoPAe6-eEUSIUcPm-4jYdQ","nick_name":"Aaron Z","province":"内蒙古","country":"中国","city":"兴安","sex":"1","headimgurl":"http://wx.qlogo.cn/mmopen/E0cm3AJSvSCZodaMYE3TQImBpsGb6HmhXicwVWJ6NFf66RN10CA4D3IOpDHgITfpHjqJv4libmofd1Wp4zfIlt9RueSw9XoNQF/0","channel":"其他","user_count":"1","erro":"OK"}')
     window.Perf = Perf
 }
 
@@ -57,69 +59,16 @@ let App = () => (
     </HashRouter>
 )
 
-let initialState = {}, store;
-
-let wxinfoPromise = new Promise(function (resolve) {
-    if (localStorage.getItem('wxinfo')) {
-        console.log('########wxinfolocalstorage########');
-        console.log(localStorage.getItem('wxinfo'));
-        console.log('########wxinfolocalstorage########');
-        resolve(JSON.parse(localStorage.getItem('wxinfo')));
-    } else {
-        let wxinfo = getWeiXinInfo()
-        wxinfo.then((json)=>{
-            localStorage.setItem('wxinfo',JSON.stringify(json))
-            resolve(json)
-        })
-    }
-})
-
-Promise
-    .all([wxinfoPromise])
-    .then(function ([wxinfo]) {
-        initialState.wxinfo = wxinfo
-        initial()
-    })
+let store = configureStore()
+render(
+    <Provider store={store}>
+        <App/>
+    </Provider>
+    ,
+    document.getElementById('root')
+)
 
 
-function initial() {
-    store = configureStore(initialState)
-    render(
-        <Provider store={store}>
-            <App/>
-        </Provider>
-        ,
-        document.getElementById('root')
-    )
-}
-
-
-function getWeiXinInfo() {
-    let query = getQuery();
-    if (!query.code) {
-        let urlCode = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='
-            + wxConfig.AppID
-            + '&redirect_uri='
-            + location.href
-            + '&response_type=code&scope=snsapi_base&state=lk#wechat_redirect'
-        window.location = urlCode
-    } else {
-        return fetch('/ashx/wx_openid_user_is.ashx?code=' + query.code)
-            .then((res) => {
-                return res.json()
-            })
-    }
-}
-
-function getQuery() {
-    let query = {}
-    let _query = location.search.slice(1).split('&')
-    _query.forEach((str) => {
-        let arr = str.split('=')
-        query[arr[0]] = arr[1]
-    })
-    return query
-}
 
 
 

@@ -43,18 +43,18 @@ class BindWeiXin extends React.Component {
             return alert('号码错误')
         }
 
-        me.onCounting.call(this, text)
+        // me.onCounting.call(this, text)
 
-        // fetch(this.url + this.state.phone, {
-        //     method: 'get'
-        // })
-        //     .then((response) => {
-        //         return response.text()
-        //     })
-        //     .then((text) => {
-        //         me.onCounting.call(this,text)
-        //
-        //     })
+        fetch(this.url + this.state.phone, {
+            method: 'get'
+        })
+            .then((response) => {
+                return response.text()
+            })
+            .then((text) => {
+                me.onCounting.call(this,text)
+
+            })
     }
 
     onCounting(text) {

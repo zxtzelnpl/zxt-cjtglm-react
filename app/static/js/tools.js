@@ -1413,3 +1413,13 @@ export function ChartRiseProbablity(){
         main.appendChild(CANVAS);
     }
 }
+
+export function getQuery(search) {
+    let query = {}
+    let _query = search.slice(1).split('&')
+    _query.forEach((str) => {
+        let arr = str.split('=')
+        query[arr[0]] = arr[1]
+    })
+    return query
+}

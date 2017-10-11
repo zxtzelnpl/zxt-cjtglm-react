@@ -16,6 +16,7 @@ class ArticleListPage extends  React.Component{
     }
 
     componentDidMount(){
+        console.log(this.props)
         if(this.props.articlelist.size<5){
             let url = this.url+'?page=0'
             fetch(url,{

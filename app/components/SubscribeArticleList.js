@@ -167,12 +167,16 @@ class SubscribeList extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
     }
 
+    componentDidMount(){
+
+    }
+
     render() {
         let list = listZxt;
         let htmlArr = list.map((subscribe) => {
             return (
-                <Link  className="box" to={"/notfound/willgoon"} key={subscribe.id}>
-                    <h4>选股牛人-俞亮</h4><span>2017-09-21 10:14</span>
+                <Link  className="box" to={"/weixin0/1212"} key={subscribe.id}>
+                    <h4>选股牛人-{this.props.product_name}</h4><span>2017-09-21 10:14</span>
                 </Link>
             )
         })

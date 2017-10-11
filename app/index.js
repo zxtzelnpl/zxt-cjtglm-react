@@ -65,8 +65,8 @@ let App = () => (
             <Route path="/articlelist" component={ArticleListPage}/>
             <Route path="/article/:id" component={ArticleDetailPage}/>
             <Route path="/mysubscirbe/:id" component={MySubscribePage}/>
-            <Route path="/mysubscribearticle/:productid/:userid" component={MySubscribeArticlePage}/>
-            <Route path="/weixin0" component={WeiXin0}/>
+            <Route path="/mysubscribearticle/:productid" component={MySubscribeArticlePage}/>
+            <Route path="/weixin0/:id" component={WeiXin0}/>
             <Route path="/center" component={CenterPage}/>
             <Route path="/notfound/:reason" component={NotFound}/>
             <RegisterStatement/>

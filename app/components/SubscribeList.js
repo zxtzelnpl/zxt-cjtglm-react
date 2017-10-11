@@ -18,7 +18,7 @@ class SubscribeList extends React.Component {
             let overplus_produces = subscribe.overplus_produces
             let {pic,name,special} = product
             return (
-                <Link  className="box" to={"/mysubscribearticle/"+product_id+"/"+this.props.user_id} key={subscribe.id}>
+                <Link  className="box" to={"/mysubscribearticle/"+product_id} key={subscribe.id}>
                     <div className="wrap">
                         <div className="photo">
                             <img src={pic}/>

@@ -2,14 +2,17 @@ import './MySubscribeArticlePage.less'
 
 import React from 'react'
 import {bindActionCreators} from 'redux'
+import * as productListActionsFromOtherFile from '../actions/productlist'
 import * as newsListmentActionsFromOtherFile from '../actions/newslist'
 import * as wxInfoActionsFromOtherFile from '../actions/wxinfo'
 import {connect} from 'react-redux'
 
 import SubscribeArticleList from '../components/SubscribeArticleList'
 import Footer from '../components/Footer'
+import teacher_data_format from '../static/js/teacher_data_format'
 
 var wxJsApiParam
+
 function jsApiCall() {
     WeixinJSBridge.invoke(
         'getBrandWCPayRequest',
@@ -45,35 +48,68 @@ class MySubscribeArticlePage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.match)
+        if (!this.teacher_data) {
+            let url = '/ashx/productlist.ashx'
+            fetch(url, {
+                method: 'get'
+            })
+                .then((response) => {
+                    return response.json()
+                })
+                .then((json) => {
+                    if (json.fail) {
+                        return Promise.reject(json)
+                    }
+                    else {
+                        teacher_data_format(json)
+                        this.props.productListActions.load(json)
+                    }
+                })
+        }
     }
 
     render() {
-        return (
-            <div className="subscribe-list-page">
-                <div className="content">
-                    <div className="head">
-                        <div className="wrap">
-                            <img src="http://weixin.cjtglm.com/txsecurities_pics/analysts/00/201612281745545.png"/>
-                            <div>
-                                <p>瑜亮</p>
-                                <p>进攻K线创始人</p>
+        let teacher_data = this.teacher_data = this.props.productlist.get(this.props.match.params.productid);
+        if (teacher_data) {
+            return (
+                <div className="subscribe-list-page">
+                    <div className="content">
+                        <div className="head">
+                            <div className="wrap">
+                                <img src={teacher_data.pic}/>
+                                <div>
+                                    <p>{teacher_data.name}</p>
+                                    <p>{teacher_data.special}</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <a onClick={this.getSubscribe.bind(this)}>续 费</a>
+                            <a onClick={this.getSubscribe.bind(this)}>续 费</a>
+                        </div>
+                        <SubscribeArticleList
+                            product_name = {teacher_data.name}
+                            list={this.props.newslist}
+                        />
                     </div>
-                    <SubscribeArticleList list={this.props.newslist}/>
+                    <Footer footerIndex={2}/>
                 </div>
-                <Footer footerIndex={2}/>
-            </div>
-        )
+            )
+        }
+        else {
+            return <div className="none"/>
+        }
     }
 
     getSubscribe() {
-        if(this.props.wxinfo.user_count === '1'){
+        if (this.props.wxinfo.user_count === '1') {
+            let openid = this.props.wxinfo.openid
             let money = 1;
-            let url = `/wx_pay/pay_Inter.aspx?openid=${this.props.wxinfo.openid}&money=${money}`;//获取wxJsApiParam
+            let user_id = this.props.userinfo.id
+            let user_name = this.props.wxinfo.nick_name
+            let user_phone = this.props.userinfo.phone
+            let produce_id = this.props.match.params.productid
+            let produce_name = this.teacher_data.name
+            let periods = 5
+            let url = `/wx_pay/pay_Inter.aspx?openid=${openid}&money=${money}&user_id=${user_id}&user_name=${user_name}&user_phone=${user_phone}&produce_id=${produce_id}&produce_name=${produce_name}&periods=${periods}`;//获取wxJsApiParam
             fetch(url, {
                 method: 'get'
             })
@@ -84,11 +120,11 @@ class MySubscribeArticlePage extends React.Component {
                     wxJsApiParam = eval("(" + text + ")");
                     callpay()
                 })
-                .catch((err)=>{
+                .catch((err) => {
                     alert('连接失败，请稍后重试')
                 })
         }
-        else{
+        else {
             alert('请先完成注册后购买')
             location.hash = 'center'
         }
@@ -100,14 +136,17 @@ class MySubscribeArticlePage extends React.Component {
 function mapStateToProps(state) {
     return {
         newslist: state.newslist,
-        wxinfo:state.wxinfo
+        wxinfo: state.wxinfo,
+        userinfo: state.userinfo,
+        productlist:state.productlist
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        newsListmentActions:bindActionCreators(newsListmentActionsFromOtherFile, dispatch),
-        wxInfoActions:bindActionCreators(wxInfoActionsFromOtherFile,dispatch)
+        productListActions:bindActionCreators(productListActionsFromOtherFile,dispatch),
+        newsListmentActions: bindActionCreators(newsListmentActionsFromOtherFile, dispatch),
+        wxInfoActions: bindActionCreators(wxInfoActionsFromOtherFile, dispatch)
     }
 }
 

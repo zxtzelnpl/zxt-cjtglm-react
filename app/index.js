@@ -28,29 +28,44 @@ import RegisterStatement from './containers/RegisterStatement' //注册声明弹
 import WeiXin0 from './containers/WeiXin0' //微信模版1
 
 /**上线后一定要删除啊,别忘了啊**/
-localStorage.clear() // 上线后一定要删除啊
+// localStorage.clear()
 /**上线后一定要删除啊,别忘了啊**/
 
 if (__DEV__) {
     console.info('__DEV__是' + __DEV__ + '这里是测试环境')
-    localStorage.setItem('wxinfo','{"openid":"oy4PmwjoPAe6-eEUSIUcPm-4jYdQ","nick_name":"Aaron Z","province":"内蒙古","country":"中国","city":"兴安","sex":"1","headimgurl":"http://wx.qlogo.cn/mmopen/E0cm3AJSvSCZodaMYE3TQImBpsGb6HmhXicwVWJ6NFf66RN10CA4D3IOpDHgITfpHjqJv4libmofd1Wp4zfIlt9RueSw9XoNQF/0","channel":"其他","user_count":"1","erro":"OK"}')
+    localStorage.setItem('wxinfo', '{"openid":"oy4PmwjoPAe6-eEUSIUcPm-4jYdQ","nick_name":"Aaron Z","province":"内蒙古","country":"中国","city":"兴安","sex":"1","headimgurl":"http://wx.qlogo.cn/mmopen/E0cm3AJSvSCZodaMYE3TQImBpsGb6HmhXicwVWJ6NFf66RN10CA4D3IOpDHgITfpHjqJv4libmofd1Wp4zfIlt9RueSw9XoNQF/0","channel":"其他","user_count":"1","erro":"OK"}')
     window.Perf = Perf
 }
+
+
+
 
 let App = () => (
     <HashRouter>
         <div className="container">
-            <Route exact path="/" render={() => (
-                <Redirect to="/center"/>
-            )}/>
-            <Route path="/teacher/:id" component={TeacherPage}/>
+            <Route exact path="/" render={() => {
+                let prePage =localStorage.getItem('prePage')
+                console.log(localStorage.getItem('prePage'))
+                if(prePage==null){
+                    return (
+                        <Redirect to="/center"/>
+                    )
+                }
+                else{
+                    return (
+                        <Redirect to={prePage}/>
+                    )
+                }
+
+            }}/>
             <Route path="/product" component={ProductPage}/>
+            <Route path="/teacher/:id" component={TeacherPage}/>
             <Route path="/usercenter" component={CenterPage}/>
             <Route path="/protocol" component={ProtocolPage}/>
             <Route path="/articlelist" component={ArticleListPage}/>
             <Route path="/article/:id" component={ArticleDetailPage}/>
             <Route path="/mysubscirbe/:id" component={MySubscribePage}/>
-            <Route path="/mysubscirbearticle/:id" component={MySubscribeArticlePage}/>
+            <Route path="/mysubscribearticle/:id" component={MySubscribeArticlePage}/>
             <Route path="/weixin0" component={WeiXin0}/>
             <Route path="/center" component={CenterPage}/>
             <Route path="/notfound/:reason" component={NotFound}/>

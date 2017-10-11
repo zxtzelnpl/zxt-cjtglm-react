@@ -49,7 +49,7 @@ class CenterPage extends React.Component {
                 console.log('########wxinfolocalstorage########');
                 this.props.wxInfoActions.get(JSON.parse(localStorage.getItem('wxinfo')))
             } else {
-                this.getWeiXinInfo()
+                this.getWeiXinInfo.call(this)
             }
         }
     }
@@ -65,11 +65,17 @@ class CenterPage extends React.Component {
                     return res.json()
                 })
                 .then((json) => {
-                    localStorage.setItem('wxinfo', JSON.stringify(json))
-                    this.props.wxInfoActions.get(json)
+                    if(json.openid==null){
+                        location.href = url
+                    }
+                    else{
+                        localStorage.setItem('wxinfo', JSON.stringify(json))
+                        this.props.wxInfoActions.get(json)
+                    }
                 })
         }
     }
+
 }
 
 CenterPage.propTypes = {}

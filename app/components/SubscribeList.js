@@ -171,7 +171,7 @@ class SubscribeList extends React.Component {
         let list = listZxt;
         let htmlArr = list.map((subscribe) => {
             return (
-                <Link  className="box" to={"/mysubscirbearticle/1"} key={subscribe.id}>
+                <Link  className="box" to={"/mysubscribearticle/1"} key={subscribe.id}>
                     <div className="wrap">
                         <div className="photo">
                             <img src="http://weixin.cjtglm.com/txsecurities_pics/analysts/00/201612281745545.png"/>

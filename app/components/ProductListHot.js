@@ -14,7 +14,6 @@ class Product extends React.Component {
     render() {
         let {id, name, special, records,half_body_img,stocks} = this.props.data
         let stock = stocks[0]||{result:'',name:''}
-        console.log(this.props.data)
         return (
             <li>
                 <Link to={"/teacher/"+id} className="box">

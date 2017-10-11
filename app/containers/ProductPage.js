@@ -17,6 +17,7 @@ class ProductPage extends  React.Component{
     }
 
     componentDidMount(){
+
         if(this.props.productlist.size<3){
             fetch(this.url,{
                 method:'get'
@@ -37,6 +38,7 @@ class ProductPage extends  React.Component{
     }
 
     render(){
+        console.log(this.props.productlist)
         if(this.props.productlist.size>0){
             let normal = [];
             let hot = [];

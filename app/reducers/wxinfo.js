@@ -1,6 +1,8 @@
 import * as actionTypes from '../constants/wxinfo'
 
-export default function wxinfo(state={}, action) {
+let initialState = localStorage.getItem('wxinfo')?JSON.parse(localStorage.getItem('wxinfo')):{}
+
+export default function wxinfo(state=initialState, action) {
     let _state = Object.assign({},state)
     switch (action.type) {
         case actionTypes.WEIXIN_GET:

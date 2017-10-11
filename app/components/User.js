@@ -16,7 +16,7 @@ class UserCenterPage extends React.Component{
 
     componentDidMount(){
         let openid = this.props.wxinfo.openid
-        this.getUserInfo(openid)
+        this.getUserInfo.call(this,openid)
     }
 
     getUserInfo(openid){

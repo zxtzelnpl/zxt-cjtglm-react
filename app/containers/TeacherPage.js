@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as productListActionsFromOtherFile from '../actions/productlist'
+import * as wxInfoActionsFromOtherFile from '../actions/wxinfo'
+import * as userInfoActionsFromOtherFile from '../actions/userinfo'
 
 import TeachaerBrief from '../components/TeacherBrief'
 import ScrollStock from '../components/ScrollStock'
@@ -21,6 +23,7 @@ class TeacherPage extends  React.Component{
     }
 
     componentDidMount(){
+        console.log(location.hash)
         if(!this.teacher_data){
             let url = '/ashx/productlist.ashx'
             fetch(url,{
@@ -44,7 +47,33 @@ class TeacherPage extends  React.Component{
                     console.log('****err****')
                 })
         }
+        this.getUserInfo.call(this)
         document.body.scrollTop=0;
+    }
+
+    getUserInfo(){
+        let user_count = this.props.wxinfo.user_count
+        if(user_count!=='1'){
+            return
+        }
+        if(this.props.userinfo.phone){
+            console.log(this.props.userinfo.phone)
+        }
+        else{
+            let openid = this.props.wxinfo.openid
+            let url = `/ashx/users_id.ashx?openid=${openid}`
+            fetch(url)
+                .then((res)=>{return res.json()})
+                .then((json)=>{
+                    console.log(json)
+                    if(json.length>0){
+                        this.props.userInfoActions.load(json[0])
+                    }
+                    else{
+
+                    }
+                })
+        }
     }
 
     render(){
@@ -56,7 +85,12 @@ class TeacherPage extends  React.Component{
                     <ScrollStock stocks={teacher_data.stocks}/>
                     <Charts records = {teacher_data.records}/>
                     <DownImage pic={detail}/>
-                    <Subscribe productID = {this.props.match.params.id}/>
+                    <Subscribe
+                        product = {teacher_data}
+                        userinfo = {this.props.userinfo}
+                        wxinfo = {this.props.wxinfo}
+                        wxInfoActions = {this.props.wxInfoActions}
+                    />
                     <Footer footerIndex={1} />
                 </div>
             )
@@ -71,16 +105,22 @@ class TeacherPage extends  React.Component{
 
 function mapStateToProps(state) {
     return {
-        productlist:state.productlist
+        productlist:state.productlist,
+        wxinfo:state.wxinfo,
+        userinfo:state.userinfo
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        productListActions:bindActionCreators(productListActionsFromOtherFile,dispatch)
+        productListActions:bindActionCreators(productListActionsFromOtherFile,dispatch),
+        wxInfoActions:bindActionCreators(wxInfoActionsFromOtherFile,dispatch),
+        userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch),
     }
 }
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(TeacherPage)
+
+

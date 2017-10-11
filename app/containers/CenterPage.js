@@ -5,9 +5,11 @@ import {bindActionCreators} from 'redux'
 import * as registerStatementActionsFromOtherFile from '../actions/registerstatement'
 import * as userInfoActionsFromOtherFile from '../actions/userinfo'
 import * as wxInfoActionsFromOtherFile from '../actions/wxinfo'
+import * as productListActionsFromOtherFile from '../actions/productlist'
 import User from '../components/User' //用户中心页面
 import BindWeiXin from '../components/BindWeiXin' //注册页面
 import wxConfig from '../config/weixin'
+import teacher_data_format from '../static/js/teacher_data_format'
 
 
 class CenterPage extends React.Component {
@@ -86,7 +88,8 @@ function mapStateToProps(state) {
     return {
         userinfo: state.userinfo,
         registerstatement: state.registerstatement,
-        wxinfo: state.wxinfo
+        wxinfo: state.wxinfo,
+        productlist:state.productlist
     }
 }
 
@@ -94,7 +97,8 @@ function mapDispatchToProps(dispatch) {
     return {
         registerStatementActions: bindActionCreators(registerStatementActionsFromOtherFile, dispatch),
         userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch),
-        wxInfoActions: bindActionCreators(wxInfoActionsFromOtherFile, dispatch)
+        wxInfoActions: bindActionCreators(wxInfoActionsFromOtherFile, dispatch),
+        productListActions:bindActionCreators(productListActionsFromOtherFile, dispatch)
     }
 }
 

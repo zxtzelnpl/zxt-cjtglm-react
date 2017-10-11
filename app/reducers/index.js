@@ -3,7 +3,7 @@ import userinfo from './userinfo'
 import registerstatement from './registerstatement'
 import productlist from './productlist'
 import articlelist from './articlelist'
-import buylist from './buylist'
+import subscriblelist from './subscriblelist'
 import newslist from './newslist'
 import wxinfo from './wxinfo'
 
@@ -12,7 +12,7 @@ export default combineReducers({
     productlist,
     registerstatement,
     articlelist,
-    buylist,
+    subscriblelist,
     newslist,
     wxinfo
 })

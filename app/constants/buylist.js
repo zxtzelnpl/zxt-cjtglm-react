@@ -1,1 +1,0 @@
-export const BUYLIST_INIT = 'BUYLIST_INIT'

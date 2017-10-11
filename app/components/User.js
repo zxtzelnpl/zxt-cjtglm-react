@@ -91,7 +91,7 @@ class UserCenterPage extends React.Component{
                 <section>
                     <div className="link-box">
                         我的订阅
-                        <Link to="/mysubscirbe/1">
+                        <Link to={"/mysubscirbe/"+id}>
                             <span className="btn fa fa-angle-right" />
                         </Link>
                     </div>

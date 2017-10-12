@@ -10,12 +10,9 @@ import ScrollStock from '../components/ScrollStock'
 import DownImage from '../components/DownImage'
 import Subscribe from '../components/Subscribe'
 import Footer from '../components/Footer'
-import teacher_data_format from '../static/js/teacher_data_format'
 import Charts from '../components/Charts'
 import detail from '../static/img/teacher/detail.jpg'
 /*Charts*/
-
-
 
 class TeacherPage extends  React.Component{
     constructor(props,content){
@@ -23,7 +20,6 @@ class TeacherPage extends  React.Component{
     }
 
     componentDidMount(){
-        console.log(location.hash)
         if(!this.teacher_data){
             let url = '/ashx/productlist.ashx'
             fetch(url,{
@@ -37,15 +33,14 @@ class TeacherPage extends  React.Component{
                         return Promise.reject(json)
                     }
                     else{
-                        teacher_data_format(json)
                         this.props.productListActions.load(json)
                     }
                 })
-                .catch((err)=>{
-                    console.log('****err****')
-                    console.log(err)
-                    console.log('****err****')
-                })
+                // .catch((err)=>{
+                //     console.log('****err****')
+                //     console.log(err)
+                //     console.log('****err****')
+                // })
         }
         this.getUserInfo.call(this)
         document.body.scrollTop=0;

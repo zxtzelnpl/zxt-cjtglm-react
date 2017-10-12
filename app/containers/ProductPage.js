@@ -8,7 +8,6 @@ import ProductList from '../components/ProductList'
 import ProductListHot from '../components/ProductListHot'
 import Footer from '../components/Footer'
 
-import teacher_data_format from '../static/js/teacher_data_format'
 
 class ProductPage extends  React.Component{
     constructor(props,content){
@@ -18,7 +17,7 @@ class ProductPage extends  React.Component{
 
     componentDidMount(){
 
-        if(this.props.productlist.size<3){
+        if(this.props.productlist.size===0){
             fetch(this.url,{
                 method:'get'
             })
@@ -26,7 +25,6 @@ class ProductPage extends  React.Component{
                     return response.json()
                 })
                 .then((json)=>{
-                    teacher_data_format(json)
                     this.props.productListActions.load(json)
                 })
                 // .catch((err)=>{

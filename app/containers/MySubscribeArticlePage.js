@@ -9,7 +9,6 @@ import {connect} from 'react-redux'
 
 import SubscribeArticleList from '../components/SubscribeArticleList'
 import Footer from '../components/Footer'
-import teacher_data_format from '../static/js/teacher_data_format'
 
 var wxJsApiParam
 
@@ -97,13 +96,12 @@ class MySubscribeArticlePage extends React.Component {
                         return response.json()
                     })
                     .then((productlist) => {
-                        resolve(productlist)
-                        teacher_data_format(productlist)
                         this.props.productListActions.load(productlist)
+                        resolve(true)
                     })
             }
             else {
-                resolve(this.props.productlist)
+                resolve(true)
             }
         })
 

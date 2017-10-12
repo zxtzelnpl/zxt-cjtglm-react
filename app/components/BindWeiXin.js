@@ -53,7 +53,6 @@ class BindWeiXin extends React.Component {
             })
             .then((text) => {
                 me.onCounting.call(this,text)
-
             })
     }
 

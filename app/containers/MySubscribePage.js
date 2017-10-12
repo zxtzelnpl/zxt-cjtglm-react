@@ -18,53 +18,6 @@ class MySubscribePage extends React.Component {
         }
     }
 
-    componentDidMount() {
-        let productsPromise = new Promise((resolve, reject) => {
-            if (this.props.productlist!=null && this.props.productlist.size > 3) {
-                console.log('productlist有了')
-                console.log(this.props.productlist)
-                resolve(this.props.productlist)
-            }
-            else {
-                return fetch('/ashx/productlist.ashx', {
-                    method: 'get'
-                })
-                    .then((response) => {
-                        return response.json()
-                    })
-                    .then((productlist) => {
-                        teacher_data_format(productlist)
-                        this.props.productListActions.load(productlist)
-                        resolve(productlist)
-                    })
-            }
-        })
-
-        let subscribesPromise = new Promise((resolve, reject) => {
-            let user_id = this.props.match.params.id
-            let url = `/ashx/user_subscribe.ashx?user_id=${user_id}`
-            return fetch(url, {
-                method: 'get'
-            })
-                .then((response) => {
-                    return response.json()
-                })
-                .then((json) => {
-                    resolve(json)
-                })
-        })
-
-        Promise.all([productsPromise, subscribesPromise])
-            .then(([productlist, subscribelist]) => {
-
-                this.setState({
-                    initDom: true,
-                    subscribelist: subscribelist
-                })
-            })
-
-    }
-
     render() {
         return (
             <div className="subscribe-list-page">
@@ -84,6 +37,54 @@ class MySubscribePage extends React.Component {
             </div>
         )
 
+    }
+
+    componentDidMount() {
+        let productsPromise = new Promise((resolve, reject) => {
+            if (this.props.productlist.size === 0) {
+                return fetch('/ashx/productlist.ashx', {
+                    method: 'get'
+                })
+                    .then((response) => {
+                        return response.json()
+                    })
+                    .then((productlist) => {
+                        resolve(productlist)
+                        teacher_data_format(productlist)
+                        this.props.productListActions.load(productlist)
+                    })
+            }
+            else {
+                resolve(this.props.productlist)
+            }
+        })
+
+        let subscribesPromise = new Promise((resolve, reject) => {
+            let user_id = this.props.match.params.id
+            let url = `/ashx/user_subscribe.ashx?user_id=${user_id}`
+            return fetch(url, {
+                method: 'get'
+            })
+                .then((response) => {
+                    return response.json()
+                })
+                .then((json) => {
+                    resolve(json)
+                })
+        })
+
+        Promise.all([productsPromise, subscribesPromise])
+            .then(([productlist, subscribelist]) => {
+                this.setState({
+                    initDom: true,
+                    subscribelist: subscribelist
+                })
+            })
+
+    }
+
+    shouldComponentUpdate(nextProp,nextState){
+        return nextState.initDom
     }
 }
 

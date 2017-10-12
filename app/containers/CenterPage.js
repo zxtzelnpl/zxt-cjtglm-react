@@ -24,8 +24,8 @@ class CenterPage extends React.Component {
         }
         else if (user_count === '1') {
             return <User
-                wxinfo={this.props.wxinfo}
                 userinfo={this.props.userinfo}
+                wxinfo={this.props.wxinfo}
                 registerStatementActions={this.props.registerStatementActions}
                 userInfoActions={this.props.userInfoActions}
             />
@@ -50,7 +50,7 @@ class CenterPage extends React.Component {
                 console.log('########wxinfolocalstorage########');
                 this.props.wxInfoActions.get(JSON.parse(localStorage.getItem('wxinfo')))
             } else {
-                this.getWeiXinInfo.call(this)
+                this.getWeiXinInfo()
             }
         }
     }
@@ -114,7 +114,6 @@ function getQuery(search) {
     })
     return query
 }
-
 
 function getCode() {
     let url = 'http://zjw.jyzqsh.com/';

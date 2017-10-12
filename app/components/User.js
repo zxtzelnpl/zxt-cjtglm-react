@@ -94,8 +94,7 @@ class UserCenterPage extends React.Component{
 
     componentDidMount(){
         let openid = this.props.wxinfo.openid
-        this.getUserInfo.call(this,openid)
-        this.test()
+        this.getUserInfo(openid)
     }
 
     showRegisterStatement(){
@@ -104,7 +103,7 @@ class UserCenterPage extends React.Component{
 
     getUserInfo(openid){
         if(this.props.userinfo.phone){
-            console.log(this.props.userinfo.phone)
+
         }
         else{
             let url = `/ashx/users_id.ashx?openid=${openid}`
@@ -119,12 +118,6 @@ class UserCenterPage extends React.Component{
                     }
                 })
         }
-    }
-
-    test(){
-        console.log('########')
-        console.log(this)
-        console.log('########')
     }
 }
 

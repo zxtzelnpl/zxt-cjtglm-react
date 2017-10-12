@@ -46,32 +46,16 @@ class MySubscribeArticlePage extends React.Component {
         super(props, content)
         this.produce_id = this.props.match.params.id.split('a')[0]
         this.user_id = this.props.match.params.id.split('a')[1]
-    }
-
-    componentDidMount() {
-        if (!this.teacher_data) {
-            let url = '/ashx/productlist.ashx'
-            fetch(url, {
-                method: 'get'
-            })
-                .then((response) => {
-                    return response.json()
-                })
-                .then((json) => {
-                    if (json.fail) {
-                        return Promise.reject(json)
-                    }
-                    else {
-                        teacher_data_format(json)
-                        this.props.productListActions.load(json)
-                    }
-                })
+        this.state = {
+            initDom: false,
+            newslist: []
         }
     }
 
     render() {
+        console.log('MySubscribeArticlePage')
         let teacher_data = this.teacher_data = this.props.productlist.get(this.produce_id);
-        if (teacher_data) {
+        if (teacher_data && this.state.initDom) {
             console.log(teacher_data)
             return (
                 <div className="subscribe-list-page">
@@ -88,9 +72,10 @@ class MySubscribeArticlePage extends React.Component {
                             <a onClick={this.getSubscribe.bind(this)}>续 费</a>
                         </div>
                         <SubscribeArticleList
-                            product_name = {teacher_data.name}
-                            product_id = {teacher_data.id}
-                            user_id = {this.user_id}
+                            product_name={teacher_data.name}
+                            product_id={teacher_data.id}
+                            user_id={this.user_id}
+                            list={this.state.newslist}
                         />
                     </div>
                     <Footer footerIndex={2}/>
@@ -100,6 +85,54 @@ class MySubscribeArticlePage extends React.Component {
         else {
             return <div className="none"/>
         }
+    }
+
+    componentDidMount() {
+        let productsPromise = new Promise((resolve, reject) => {
+            if (this.props.productlist.size === 0) {
+                return fetch('/ashx/productlist.ashx', {
+                    method: 'get'
+                })
+                    .then((response) => {
+                        return response.json()
+                    })
+                    .then((productlist) => {
+                        resolve(productlist)
+                        teacher_data_format(productlist)
+                        this.props.productListActions.load(productlist)
+                    })
+            }
+            else {
+                resolve(this.props.productlist)
+            }
+        })
+
+        let newsPromise = new Promise((resolve, reject) => {
+            let user_id = this.user_id
+            let produce_id = this.produce_id
+            let url = `/ashx/user_analysts_list.ashx?user_id=${user_id}&produce_id=${produce_id}`
+            return fetch(url, {
+                method: 'get'
+            })
+                .then((res) => {
+                    return res.json()
+                })
+                .then((json) => {
+                    resolve(json)
+                })
+        })
+
+        Promise.all([productsPromise, newsPromise])
+            .then(([productlist, newslist]) => {
+                this.setState({
+                    initDom: true,
+                    newslist: newslist
+                })
+            })
+    }
+
+    shouldComponentUpdate(nextProp, nextState) {
+        return nextState.initDom
     }
 
     getSubscribe() {
@@ -141,13 +174,13 @@ function mapStateToProps(state) {
         newslist: state.newslist,
         wxinfo: state.wxinfo,
         userinfo: state.userinfo,
-        productlist:state.productlist
+        productlist: state.productlist
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        productListActions:bindActionCreators(productListActionsFromOtherFile,dispatch),
+        productListActions: bindActionCreators(productListActionsFromOtherFile, dispatch),
         newsListmentActions: bindActionCreators(newsListmentActionsFromOtherFile, dispatch),
         wxInfoActions: bindActionCreators(wxInfoActionsFromOtherFile, dispatch)
     }

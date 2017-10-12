@@ -3,8 +3,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 
 import React from 'react'
 import { connect } from 'react-redux'
-import {bindActionCreators} from 'redux'
-import * as newsListmentActionsFromOtherFile from '../actions/newslist'
 import Footer from '../components/Footer'
 
 class WeiXin0 extends React.Component {
@@ -15,11 +13,11 @@ class WeiXin0 extends React.Component {
             time:null,
             stocks:null
         }
+        console.log(this.props.dispatch)
     }
 
     componentDidMount(){
         let article_id = this.props.match.params.id
-        // let article_id = 3114
         let url =`/ashx/Article_Selce.ashx?article_id=${article_id}`
         window.fetch(url)
             .then((res)=>{
@@ -99,12 +97,7 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        newsListmentActions:bindActionCreators(newsListmentActionsFromOtherFile, dispatch)
-    }
-}
+
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(WeiXin0)

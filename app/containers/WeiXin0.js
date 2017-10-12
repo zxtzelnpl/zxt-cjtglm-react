@@ -18,25 +18,54 @@ class WeiXin0 extends React.Component {
     }
 
     componentDidMount(){
-        // let article_id = this.match.params.id
-        let article_id = 3114
+        let article_id = this.props.match.params.id
+        // let article_id = 3114
         let url =`/ashx/Article_Selce.ashx?article_id=${article_id}`
         window.fetch(url)
             .then((res)=>{
             return res.json()
             })
             .then((json)=>{
-                let stocks = json[0].strategy
+                let stocks = null
+                let _stocks = json[0].strategy.split('---')
                 let time = json[0].create_time.replace(/\//ig,'\-')
-
+                if(_stocks.length>0){
+                    stocks = _stocks.map((stock)=>{
+                        let arr = stock.split(/[*]|[+]|zjw/gi)
+                        return arr
+                    })
+                }
                 this.setState({
                     time:time,
-                    stocks:null
+                    stocks:stocks
                 })
+
+
             })
     }
 
     render(){
+        let stocks = this.state.stocks;
+        console.log(stocks)
+        let htmlStocks;
+        if(stocks!=null){
+            htmlStocks = stocks.map((stock,index)=>{
+                return (
+                    <div className="box" key={index}>
+                        <div className="up">
+                            <span>{stock[0]}</span><span>{stock[1]}</span>
+                        </div>
+                        <div className="down">
+                            <span className="label">看好理由：</span>
+                            <span className="text">{stock[2]}</span>
+                        </div>
+                    </div>
+                )
+            })
+        }
+        else{
+            htmlStocks = <div className="none"/>
+        }
         return (
             <div className="wei-xin-0">
                 <div className="wrap">
@@ -53,15 +82,7 @@ class WeiXin0 extends React.Component {
                         <div className="rightD" />
                     </div>
                     <div className="board">
-                        <div className="box">
-                            <div className="up">
-                                <span>603385</span><span>惠达卫浴</span>
-                            </div>
-                            <div className="down">
-                                <span className="label">看好理由：</span>
-                                <span className="text">位列卫生陶瓷四大龙头，中报业绩超预期</span>
-                            </div>
-                        </div>
+                        {htmlStocks}
                     </div>
                 </div>
                 <Footer footerIndex={0}/>

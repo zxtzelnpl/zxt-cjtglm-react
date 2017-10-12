@@ -15,7 +15,6 @@ import teacher_data_format from '../static/js/teacher_data_format'
 class CenterPage extends React.Component {
     constructor(props, content) {
         super(props, content)
-        this.url = '/ashx/users_id.ashx' + '?openid=oijVfszBRm_nxYzNH6RAchSKXFxE'
     }
 
     render() {
@@ -77,7 +76,6 @@ class CenterPage extends React.Component {
                 })
         }
     }
-
 }
 
 CenterPage.propTypes = {}

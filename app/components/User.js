@@ -10,39 +10,11 @@ class UserCenterPage extends React.Component{
         super(props,content)
     }
 
-    showRegisterStatement(){
-        this.props.registerStatementActions.change({show:true})
-    }
-
-    componentDidMount(){
-        let openid = this.props.wxinfo.openid
-        this.getUserInfo.call(this,openid)
-    }
-
-    getUserInfo(openid){
-        if(this.props.userinfo.phone){
-            console.log(this.props.userinfo.phone)
-        }
-        else{
-            let url = `/ashx/users_id.ashx?openid=${openid}`
-            fetch(url)
-                .then((res)=>{return res.json()})
-                .then((json)=>{
-                    if(json.length>0){
-                        this.props.userInfoActions.load(json[0])
-                    }
-                    else{
-
-                    }
-                })
-        }
-    }
-
     render(){
         let {headimgurl,nick_name,openid} = this.props.wxinfo
         let {name,phone,account,id} = this.props.userinfo
         let {change_name,change_id,change_account} = this.props.userInfoActions
-        let customer = this.customer
+        let customer = '021-51572550'
         return(
             <div className="usercenter-page">
                 <section className="head">
@@ -118,6 +90,41 @@ class UserCenterPage extends React.Component{
                 <Footer footerIndex={2}/>
             </div>
         )
+    }
+
+    componentDidMount(){
+        let openid = this.props.wxinfo.openid
+        this.getUserInfo.call(this,openid)
+        this.test()
+    }
+
+    showRegisterStatement(){
+        this.props.registerStatementActions.change({show:true})
+    }
+
+    getUserInfo(openid){
+        if(this.props.userinfo.phone){
+            console.log(this.props.userinfo.phone)
+        }
+        else{
+            let url = `/ashx/users_id.ashx?openid=${openid}`
+            fetch(url)
+                .then((res)=>{return res.json()})
+                .then((json)=>{
+                    if(json.length>0){
+                        this.props.userInfoActions.load(json[0])
+                    }
+                    else{
+
+                    }
+                })
+        }
+    }
+
+    test(){
+        console.log('########')
+        console.log(this)
+        console.log('########')
     }
 }
 

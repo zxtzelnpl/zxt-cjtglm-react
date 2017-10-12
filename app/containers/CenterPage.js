@@ -8,8 +8,8 @@ import * as wxInfoActionsFromOtherFile from '../actions/wxinfo'
 import * as productListActionsFromOtherFile from '../actions/productlist'
 import User from '../components/User' //用户中心页面
 import BindWeiXin from '../components/BindWeiXin' //注册页面
-import wxConfig from '../config/weixin'
-import teacher_data_format from '../static/js/teacher_data_format'
+
+import {getQuery,getCode} from "../static/js/tools";
 
 
 class CenterPage extends React.Component {
@@ -104,19 +104,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(CenterPage)
-
-function getQuery(search) {
-    let query = {}
-    let _query = search.slice(1).split('&')
-    _query.forEach((str) => {
-        let arr = str.split('=')
-        query[arr[0]] = arr[1]
-    })
-    return query
-}
-
-function getCode() {
-    let url = 'http://zjw.jyzqsh.com/';
-    let urlCode = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wxConfig.AppID}&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=lk#wechat_redirect`
-    window.location.href = urlCode
-}

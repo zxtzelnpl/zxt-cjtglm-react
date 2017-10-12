@@ -1,3 +1,5 @@
+import wxConfig from '../../config/weixin'
+
 export function average(){
     let array=[],all=0,len,average
     Array.prototype.forEach.call(arguments,(arg)=>{
@@ -1422,4 +1424,10 @@ export function getQuery(search) {
         query[arr[0]] = arr[1]
     })
     return query
+}
+
+export function getCode() {
+    let url = 'http://zjw.jyzqsh.com/';
+    let urlCode = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wxConfig.AppID}&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=lk#wechat_redirect`
+    window.location.href = urlCode
 }

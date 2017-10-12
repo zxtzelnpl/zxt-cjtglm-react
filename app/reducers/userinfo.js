@@ -17,7 +17,7 @@ export default function userinfo(state={}, action) {
             return _state
         case actionTypes.USERINFO_ID:
             _state = Object.assign({}, state)
-            _state.id = action.id
+            _state.ID_number = action.ID_number
             return _state
         case actionTypes.USERINFO_LOAD:
             return action.data

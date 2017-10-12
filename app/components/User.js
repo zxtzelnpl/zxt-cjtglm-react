@@ -12,7 +12,7 @@ class UserCenterPage extends React.Component{
 
     render(){
         let {headimgurl,nick_name,openid} = this.props.wxinfo
-        let {name,phone,account,id} = this.props.userinfo
+        let {name,phone,account,ID_number,id} = this.props.userinfo
         let {change_name,change_id,change_account} = this.props.userInfoActions
         let customer = '021-51572550'
         return(
@@ -43,7 +43,7 @@ class UserCenterPage extends React.Component{
                     <InfoBox data={{
                         inputName:'number',
                         word:'身份证号',
-                        content:id,
+                        content:ID_number,
                         placeholder:'请输入您新的身份证',
                         canChange:true,
                         userInfoChange:change_id,

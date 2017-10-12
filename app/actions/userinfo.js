@@ -28,9 +28,9 @@ export function change_account(account) {
     }
 }
 
-export function change_id(id) {
+export function change_id(ID_number) {
     return {
         type: actionTypes.USERINFO_ID,
-        id
+        ID_number
     }
 }

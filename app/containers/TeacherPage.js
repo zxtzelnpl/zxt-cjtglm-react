@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import * as productListActionsFromOtherFile from '../actions/productlist'
 import * as wxInfoActionsFromOtherFile from '../actions/wxinfo'
 import * as userInfoActionsFromOtherFile from '../actions/userinfo'
@@ -12,87 +12,157 @@ import Subscribe from '../components/Subscribe'
 import Footer from '../components/Footer'
 import Charts from '../components/Charts'
 import detail from '../static/img/teacher/detail.jpg'
+import {getQuery, getCode} from "../static/js/tools";
+
 /*Charts*/
 
-class TeacherPage extends  React.Component{
-    constructor(props,content){
-        super(props,content)
+class TeacherPage extends React.Component {
+    constructor(props, content) {
+        super(props, content)
     }
 
-    componentDidMount(){
-        if(!this.teacher_data){
-            let url = '/ashx/productlist.ashx'
-            fetch(url,{
-                method:'get'
-            })
-                .then((response)=>{
-                    return response.json()
-                })
-                .then((json)=>{
-                    if(json.fail){
-                        return Promise.reject(json)
-                    }
-                    else{
-                        this.props.productListActions.load(json)
-                    }
-                })
-                // .catch((err)=>{
-                //     console.log('****err****')
-                //     console.log(err)
-                //     console.log('****err****')
-                // })
-        }
-        this.getUserInfo.call(this)
-        document.body.scrollTop=0;
-    }
-
-    getUserInfo(){
-        let user_count = this.props.wxinfo.user_count
-        if(user_count!=='1'){
-            return
-        }
-        if(this.props.userinfo.phone){
-            console.log(this.props.userinfo.phone)
-        }
-        else{
-            let openid = this.props.wxinfo.openid
-            let url = `/ashx/users_id.ashx?openid=${openid}`
-            fetch(url)
-                .then((res)=>{return res.json()})
-                .then((json)=>{
-                    console.log(json)
-                    if(json.length>0){
-                        this.props.userInfoActions.load(json[0])
-                    }
-                    else{
-
-                    }
-                })
-        }
-    }
-
-    render(){
+    render() {
+        console.log('render')
         let teacher_data = this.teacher_data = this.props.productlist.get(this.props.match.params.id);
-        if(teacher_data){
+        if (teacher_data) {
             return (
                 <div className="teacher-page">
                     <TeachaerBrief teacher={teacher_data}/>
                     <ScrollStock stocks={teacher_data.stocks}/>
-                    <Charts records = {teacher_data.records}/>
+                    <Charts records={teacher_data.records}/>
                     <DownImage pic={detail}/>
                     <Subscribe
-                        product = {teacher_data}
-                        userinfo = {this.props.userinfo}
-                        wxinfo = {this.props.wxinfo}
-                        wxInfoActions = {this.props.wxInfoActions}
+                        product={teacher_data}
+                        userinfo={this.props.userinfo}
+                        wxinfo={this.props.wxinfo}
+                        wxInfoActions={this.props.wxInfoActions}
                     />
-                    <Footer footerIndex={1} />
+                    <Footer footerIndex={1}/>
                 </div>
             )
         }
-        else{
+        else {
             return <div className="none"/>
         }
+    }
+
+    componentDidMount() {
+        let wxInfoPromise = this.getWeiXinInfo()
+
+        let productsPromise = this.getProducts()
+
+        let userInfoPromise = wxInfoPromise
+            .then((flag) => {
+                return new Promise((resolve, reject) => {
+                    if(this.props.userinfo.phone){
+                        resolve({hasLoad:true})
+                    }
+                    else{
+                        if (flag) {
+                            let openid
+                            if(flag.hasLoad){
+                                openid = this.props.wxinfo.openid
+                            }
+                            else{
+                                openid = flag.openid;
+                            }
+
+                            let url = `/ashx/users_id.ashx?openid=${openid}`
+                            fetch(url)
+                                .then((res) => {
+                                    return res.json()
+                                })
+                                .then((json) => {
+                                    if (json.length > 0) {
+                                        resolve(json[0])
+                                    }
+                                    else {
+                                        resolve(false)
+                                    }
+                                })
+                                .catch(() => {
+                                    resolve(false)
+                                })
+                        }
+                        else {
+                            resolve(false)
+                        }
+                    }
+                })
+            })
+
+
+        Promise.all([wxInfoPromise,productsPromise, userInfoPromise])
+            .then(([wxInfo,products, userInfo]) => {
+                console.log(wxInfo)
+                console.log(products)
+                console.log( userInfo)
+                if(wxInfo&&!wxInfo.hasLoad){
+                    console.log('wxInfo')
+                    this.props.wxInfoActions.get(wxInfo)
+                }
+                if (products&&!products.hasLoad) {
+                    console.log('products')
+                    this.props.productListActions.load(products)
+                }
+                if(userInfo&&!userInfo.hasLoad){
+                    console.log('userInfo')
+                    this.props.userInfoActions.load(userInfo)
+                }
+                document.body.scrollTop = 0;
+            })
+    }
+
+    getWeiXinInfo() {
+        return new Promise((resolve, reject) => {
+            if(this.props.wxinfo.openid){
+                resolve({hasLoad:true})
+            }else if (localStorage.getItem('wxinfo')) {
+                resolve(JSON.parse(localStorage.getItem('wxinfo')))
+            }
+            else {
+                let query = getQuery(location.search);
+                if (!query.code) {
+                    let prePage = '/teacher/' + this.props.match.params.id
+                    localStorage.setItem('prePage', prePage)
+                    getCode()
+                } else {
+                    fetch('/ashx/wx_openid_user_is.ashx?code=' + query.code)
+                        .then((res) => {
+                            return res.json()
+                        })
+                        .then((json) => {
+                            if (json.openid == null) {
+                                alert('数据出现故障，请尝试重新关注微信公众号')
+                                resolve(false)
+                            }
+                            else {
+                                localStorage.setItem('wxinfo', JSON.stringify(json))
+                                resolve(json)
+                            }
+                        })
+                }
+            }
+        })
+    }
+
+    getProducts() {
+        return new Promise((resolve, reject) => {
+            if (this.props.productlist.size === 0) {
+                return fetch('/ashx/productlist.ashx', {
+                    method: 'get'
+                })
+                    .then((response) => {
+                        return response.json()
+                    })
+                    .then((productlist) => {
+                        resolve(productlist)
+                    })
+            }
+            else {
+                resolve({hasLoad:true})
+            }
+        })
     }
 }
 
@@ -100,19 +170,20 @@ class TeacherPage extends  React.Component{
 
 function mapStateToProps(state) {
     return {
-        productlist:state.productlist,
-        wxinfo:state.wxinfo,
-        userinfo:state.userinfo
+        productlist: state.productlist,
+        wxinfo: state.wxinfo,
+        userinfo: state.userinfo
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        productListActions:bindActionCreators(productListActionsFromOtherFile,dispatch),
-        wxInfoActions:bindActionCreators(wxInfoActionsFromOtherFile,dispatch),
+        productListActions: bindActionCreators(productListActionsFromOtherFile, dispatch),
+        wxInfoActions: bindActionCreators(wxInfoActionsFromOtherFile, dispatch),
         userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch),
     }
 }
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

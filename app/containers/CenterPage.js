@@ -74,6 +74,9 @@ class CenterPage extends React.Component {
                         this.props.wxInfoActions.get(json)
                     }
                 })
+                .catch((err)=>{
+                    alert('数据链接错误，请稍后重试')
+                })
         }
     }
 }

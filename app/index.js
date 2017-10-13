@@ -27,7 +27,7 @@ import WeiXin0 from './containers/WeiXin0' //微信模版推送
 import NotFound from './components/NotFound' //Not Found
 
 /**上线后一定要删除啊,别忘了啊**/
-localStorage.clear()
+localStorage.removeItem('wxinfo')
 /**上线后一定要删除啊,别忘了啊**/
 
 if (__DEV__) {
@@ -44,13 +44,13 @@ let App = () => (
         <div className="container">
             <Route exact path="/" render={() => {
                 let prePage =localStorage.getItem('prePage')
-                console.log(localStorage.getItem('prePage'))
                 if(prePage==null){
                     return (
                         <Redirect to="/center"/>
                     )
                 }
                 else{
+                    localStorage.removeItem('prePage')
                     return (
                         <Redirect to={prePage}/>
                     )

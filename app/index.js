@@ -27,7 +27,7 @@ import WeiXin0 from './containers/WeiXin0' //微信模版推送
 import NotFound from './components/NotFound' //Not Found
 
 /**上线后一定要删除啊,别忘了啊**/
-localStorage.removeItem('wxinfo')
+// localStorage.removeItem('wxinfo')
 /**上线后一定要删除啊,别忘了啊**/
 
 if (__DEV__) {

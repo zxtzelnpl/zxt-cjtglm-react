@@ -67,7 +67,7 @@ class CenterPage extends React.Component {
                 })
                 .then((json) => {
                     if(json.openid==null){
-                        location.href = url
+                        alert('数据出现故障，请尝试重新关注微信公众号后注册')
                     }
                     else{
                         localStorage.setItem('wxinfo', JSON.stringify(json))

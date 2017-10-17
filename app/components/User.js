@@ -49,15 +49,6 @@ class UserCenterPage extends React.Component{
                         userInfoChange:change_id,
                         openid :openid
                     }}/>
-                    <InfoBox data={{
-                        inputName:'account',
-                        word:'用户账户',
-                        content:account,
-                        placeholder:'请输入您新的账户',
-                        canChange:true,
-                        userInfoChange:change_account,
-                        openid : openid
-                    }}/>
                 </section>
                 <section>
                     <div className="link-box">

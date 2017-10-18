@@ -8,7 +8,6 @@ import xy7 from '../static/img/protocol/xy07.png'
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
-
 class Protocol extends React.Component{
     constructor(props,context){
         super(props,context)

@@ -43,7 +43,7 @@ class Subscribe extends React.Component {
                 })
                 .then((text) => {
                     wxJsApiParam = eval("(" + text + ")");
-                    callpay()
+                    callpay(this.props.userinfo.score)
                 })
                 .catch((err)=>{
                     alert('连接失败，请稍后重试')
@@ -60,7 +60,7 @@ export default Subscribe
 
 var wxJsApiParam;
 
-function jsApiCall() {
+function jsApiCall(score) {
     WeixinJSBridge.invoke(
         'getBrandWCPayRequest',
         wxJsApiParam, /*josn串*/
@@ -68,12 +68,15 @@ function jsApiCall() {
             WeixinJSBridge.log(res.err_msg);
             if (res.err_msg === "get_brand_wcpay_request:ok") {
                 alert('购买成功')
+                if(!score){
+                    location.hash ='/protocol'
+                }
             }
         }
     );
 }
 
-function callpay() {
+function callpay(score) {
     if (typeof WeixinJSBridge === "undefined") {
         if (document.addEventListener) {
             document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
@@ -84,6 +87,6 @@ function callpay() {
         }
     }
     else {
-        jsApiCall();
+        jsApiCall(score);
     }
 }

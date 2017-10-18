@@ -13,7 +13,6 @@ class ProtocolPage extends React.Component{
     }
 
     render(){
-        console.log(this.props.score)
         if(this.props.score){
             return <ProtocolDisabled
                 questions = {questions}

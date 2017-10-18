@@ -77,28 +77,6 @@ class WeiXin0 extends React.Component {
 
         Promise.all([wxInfoPromise, userInfoPromise, getArticle])
             .then(([wxInfo, userInfo, article]) => {
-                if (wxInfo && !wxInfo.hasLoad) {
-                    this.props.wxInfoActions.get(wxInfo)
-                }
-                if (userInfo && !userInfo.hasLoad) {
-                    this.props.userInfoActions.load(userInfo)
-                }
-                if (article) {
-                    let stocks = null
-                    let _stocks = article[0].strategy.split('---')
-                    let time = article[0].create_time.replace(/\//ig, '\-')
-                    if (_stocks.length > 0) {
-                        stocks = _stocks.map((stock) => {
-                            let arr = stock.split(/[*]|[+]|zjw/gi)
-                            return arr
-                        })
-                    }
-                    this.setState({
-                        initDom: true,
-                        time: time,
-                        stocks: stocks
-                    })
-                }
             })
             .catch((err) => {
                 if (err.msg) {
@@ -129,8 +107,6 @@ class WeiXin0 extends React.Component {
             else {
                 let query = getQuery(location.search);
                 if (!query.code) {
-                    let prePage = '/weixin0/' + this.props.match.params.id
-                    localStorage.setItem('prePage', prePage)
                     getCode()
                 } else {
                     fetch('/ashx/wx_openid_user_is.ashx?code=' + query.code)
@@ -145,6 +121,7 @@ class WeiXin0 extends React.Component {
                                 })
                             }
                             else {
+                                this.props.wxInfoActions.get(json)
                                 resolve(json)
                             }
                         })
@@ -178,18 +155,19 @@ class WeiXin0 extends React.Component {
                             return res.json()
                         })
                         .then((json) => {
-                            if (json.length > 0) {
+                            if (json.length > 0&&json[0].id) {
+                                this.props.userInfoActions.load(json[0])
                                 resolve(json[0])
                             }
                             else {
                                 reject({
-                                    msg: '你未购买次产品，需购买后方可查看'
+                                    msg: '亲，还未注册哦，注册后需购买后方可查看'
                                 })
                             }
                         })
                         .catch(() => {
                             reject({
-                                msg: '你未购买次产品，需购买后方可查看'
+                                msg: '亲，还未注册哦，注册后需购买后方可查看'
                             })
                         })
                 }
@@ -236,6 +214,22 @@ class WeiXin0 extends React.Component {
                 return fetch(url)
                     .then((res) => {
                         return res.json()
+                    })
+                    .then((json)=>{
+                        let stocks = null
+                        let _stocks = json[0].strategy.split('---')
+                        let time = json[0].create_time.replace(/\//ig, '\-')
+                        if (_stocks.length > 0) {
+                            stocks = _stocks.map((stock) => {
+                                let arr = stock.split(/[*]|[+]|zjw/gi)
+                                return arr
+                            })
+                        }
+                        this.setState({
+                            initDom: true,
+                            time: time,
+                            stocks: stocks
+                        })
                     })
             })
     }

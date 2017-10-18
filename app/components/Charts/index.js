@@ -12,7 +12,6 @@ class Charts extends React.Component{
     render(){
         let records = this.props.records
         let record_html = records.map((record)=>{
-            console.log(record)
             let text = record.title.slice(2)
             switch(text){
                 case '平均涨幅':

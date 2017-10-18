@@ -1427,7 +1427,10 @@ export function getQuery(search) {
 }
 
 export function getCode() {
-    let url = 'http://zjw.jyzqsh.com/';
+    let url = encodeURIComponent(window.location.href);
+    alert(url)
     let urlCode = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wxConfig.AppID}&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=lk#wechat_redirect`
+    alert(urlCode)
     window.location.href = urlCode
+
 }

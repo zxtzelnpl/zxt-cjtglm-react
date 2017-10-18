@@ -43,21 +43,7 @@ if (__DEV__) {
 let App = () => (
     <HashRouter>
         <div className="container">
-            <Route exact path="/" render={() => {
-                let prePage =localStorage.getItem('prePage')
-                if(prePage==null){
-                    return (
-                        <Redirect to="/center"/>
-                    )
-                }
-                else{
-                    localStorage.removeItem('prePage')
-                    return (
-                        <Redirect to={prePage}/>
-                    )
-                }
-
-            }}/>
+            <Route exact path="/" render={() =>(<Redirect to="/center"/>)}/>
             <Route path="/articlelist" component={ArticleListPage}/>
             <Route path="/article/:id" component={ArticleDetailPage}/>
             <Route path="/product" component={ProductPage}/>

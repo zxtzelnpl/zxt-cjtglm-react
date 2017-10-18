@@ -121,8 +121,6 @@ class TeacherPage extends React.Component {
             else {
                 let query = getQuery(location.search);
                 if (!query.code) {
-                    let prePage = '/teacher/' + this.props.match.params.id
-                    localStorage.setItem('prePage', prePage)
                     getCode()
                 } else {
                     fetch('/ashx/wx_openid_user_is.ashx?code=' + query.code)

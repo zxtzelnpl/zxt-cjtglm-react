@@ -43,7 +43,6 @@ class Protocol extends React.Component{
             .then((json)=>{
                 if(json[0].erro === '1'){
                     this.props.userInfomentActions.change_score(score)
-                    location.hash = '/weixin0/'+this.props.article_id
                 }
                 else{
                     alert('数据连接错误，请稍后重试')

@@ -83,10 +83,6 @@ class WeiXin0 extends React.Component {
                 if (userInfo && !userInfo.hasLoad) {
                     this.props.userInfoActions.load(userInfo)
                 }
-                if (!userInfo.score || userInfo.score === '') {
-                    return location.hash = '/protocol?article_id=' + this.props.match.params.id
-                }
-
                 if (article) {
                     let stocks = null
                     let _stocks = article[0].strategy.split('---')
@@ -198,7 +194,6 @@ class WeiXin0 extends React.Component {
                         })
                 }
             })
-
         })
     }
 

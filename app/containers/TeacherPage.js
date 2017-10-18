@@ -131,12 +131,16 @@ class TeacherPage extends React.Component {
                         })
                         .then((json) => {
                             if (json.openid == null) {
-                                alert('数据出现故障，请尝试重新关注微信公众号“君银牛人堂”')
+                                alert('关注微信公众号《君银牛人堂》注册后可进行购买')
                                 resolve(false)
                             }
                             else {
                                 resolve(json)
                             }
+                        })
+                        .catch((err)=>{
+                            alert('关注微信公众号《君银牛人堂》注册后可进行购买')
+                            resolve(false)
                         })
                 }
             }

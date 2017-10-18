@@ -21,6 +21,7 @@ class WeiXin0 extends React.Component {
 
     render() {
         this.index++
+        console.log(this.index)
         let stocks = this.state.stocks;
         let htmlStocks;
         if (stocks != null) {
@@ -112,8 +113,12 @@ class WeiXin0 extends React.Component {
             })
     }
 
-    getWeiXinInfo() {
+    shouldComponentUpdate(nextProps,nextState){
+        console.log(nextState)
+        return nextState.initDom
+    }
 
+    getWeiXinInfo() {
         return new Promise((resolve, reject) => {
             if (this.props.wxinfo.openid) {
                 resolve({

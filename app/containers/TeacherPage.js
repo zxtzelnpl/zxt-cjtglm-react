@@ -117,8 +117,6 @@ class TeacherPage extends React.Component {
         return new Promise((resolve, reject) => {
             if(this.props.wxinfo.openid){
                 resolve({hasLoad:true})
-            }else if (localStorage.getItem('wxinfo')) {
-                resolve(JSON.parse(localStorage.getItem('wxinfo')))
             }
             else {
                 let query = getQuery(location.search);
@@ -133,11 +131,10 @@ class TeacherPage extends React.Component {
                         })
                         .then((json) => {
                             if (json.openid == null) {
-                                alert('数据出现故障，请尝试重新关注微信公众号')
+                                alert('数据出现故障，请尝试重新关注微信公众号“君银牛人堂”')
                                 resolve(false)
                             }
                             else {
-                                localStorage.setItem('wxinfo', JSON.stringify(json))
                                 resolve(json)
                             }
                         })

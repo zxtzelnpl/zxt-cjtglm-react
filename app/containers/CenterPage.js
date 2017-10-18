@@ -44,14 +44,7 @@ class CenterPage extends React.Component {
 
     componentDidMount() {
         if (this.props.wxinfo.user_count == null) {
-            if (localStorage.getItem('wxinfo')) {
-                console.log('########wxinfolocalstorage########');
-                console.log(localStorage.getItem('wxinfo'));
-                console.log('########wxinfolocalstorage########');
-                this.props.wxInfoActions.get(JSON.parse(localStorage.getItem('wxinfo')))
-            } else {
-                this.getWeiXinInfo()
-            }
+            this.getWeiXinInfo()
         }
     }
 
@@ -70,7 +63,6 @@ class CenterPage extends React.Component {
                         alert('数据出现故障，请尝试重新关注微信公众号后再次注册')
                     }
                     else{
-                        localStorage.setItem('wxinfo', JSON.stringify(json))
                         this.props.wxInfoActions.get(json)
                     }
                 })

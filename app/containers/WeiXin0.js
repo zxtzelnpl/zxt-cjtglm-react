@@ -83,6 +83,10 @@ class WeiXin0 extends React.Component {
                 if (userInfo && !userInfo.hasLoad) {
                     this.props.userInfoActions.load(userInfo)
                 }
+                if(!userInfo.score||userInfo.score===''){
+                    return location.hash='/protocol'
+                }
+
                 if(article){
                     let stocks = null
                     let _stocks = article[0].strategy.split('---')

@@ -83,7 +83,6 @@ class WeiXin0 extends React.Component {
                 if (userInfo && !userInfo.hasLoad) {
                     this.props.userInfoActions.load(userInfo)
                 }
-                alert(userInfo.score)
                 if (!userInfo.score || userInfo.score === '') {
                     return location.hash = '/protocol?article_id=' + this.props.match.params.id
                 }

@@ -51,14 +51,14 @@ class WeiXin0 extends React.Component {
                                 选股策略
                             </div>
                             <div className="right">
-                                {this.state.initDom?this.state.time:''}
+                                {this.state.initDom ? this.state.time : ''}
                             </div>
                         </div>
                         <div className="leftD"/>
                         <div className="rightD"/>
                     </div>
                     <div className="board">
-                        {this.state.initDom?htmlStocks:''}
+                        {this.state.initDom ? htmlStocks : ''}
                     </div>
                 </div>
                 <Footer footerIndex={0}/>
@@ -75,19 +75,20 @@ class WeiXin0 extends React.Component {
 
         let getArticle = this.getArticle(checkBuyPromise)
 
-        Promise.all([wxInfoPromise, userInfoPromise,getArticle])
-            .then(([wxInfo, userInfo,article]) => {
+        Promise.all([wxInfoPromise, userInfoPromise, getArticle])
+            .then(([wxInfo, userInfo, article]) => {
                 if (wxInfo && !wxInfo.hasLoad) {
                     this.props.wxInfoActions.get(wxInfo)
                 }
                 if (userInfo && !userInfo.hasLoad) {
                     this.props.userInfoActions.load(userInfo)
                 }
-                if(!userInfo.score||userInfo.score===''){
-                    return location.hash='/protocol'
+                alert(userInfo.score)
+                if (!userInfo.score || userInfo.score === '') {
+                    return location.hash = '/protocol?article_id=' + this.props.match.params.id
                 }
 
-                if(article){
+                if (article) {
                     let stocks = null
                     let _stocks = article[0].strategy.split('---')
                     let time = article[0].create_time.replace(/\//ig, '\-')
@@ -105,19 +106,19 @@ class WeiXin0 extends React.Component {
                 }
             })
             .catch((err) => {
-                if(err.msg){
+                if (err.msg) {
                     alert(err.msg)
-                    if(err.reason === 'notBuy'){
+                    if (err.reason === 'notBuy') {
                         location.href = 'http://zjw.jyzqsh.com/#/product'
                     }
                 }
-                else{
+                else {
                     alert('数据出现故障,请稍后再试')
                 }
             })
     }
 
-    shouldComponentUpdate(nextProps,nextState){
+    shouldComponentUpdate(nextProps, nextState) {
         console.log(nextState)
         return nextState.initDom
     }
@@ -127,7 +128,7 @@ class WeiXin0 extends React.Component {
             if (this.props.wxinfo.openid) {
                 resolve({
                     hasLoad: true,
-                    openid:this.props.wxinfo.openid
+                    openid: this.props.wxinfo.openid
                 })
             }
             else {
@@ -144,18 +145,18 @@ class WeiXin0 extends React.Component {
                         .then((json) => {
                             if (json.openid == null) {
                                 reject({
-                                    reason:'notSubscribe',
-                                    msg:'请先关注微信公众号《君银牛人堂》，购买后可查看'
+                                    reason: 'notSubscribe',
+                                    msg: '请先关注微信公众号《君银牛人堂》，购买后可查看'
                                 })
                             }
                             else {
                                 resolve(json)
                             }
                         })
-                        .catch((err)=>{
+                        .catch((err) => {
                             reject({
-                                reason:'notSubscribe',
-                                msg:'请先关注微信公众号《君银牛人堂》，购买后可查看'
+                                reason: 'notSubscribe',
+                                msg: '请先关注微信公众号《君银牛人堂》，购买后可查看'
                             })
                         })
                 }
@@ -165,15 +166,17 @@ class WeiXin0 extends React.Component {
 
     getUserInfo(wxInfoPromise) {
         return new Promise((resolve, reject) => {
-            wxInfoPromise.then((wxinfo)=>{
+            wxInfoPromise.then((wxinfo) => {
                 if (this.props.userinfo.id) {
-                    resolve({
-                        hasLoad: true,
-                        id:this.props.userinfo.id
-                    })
+                    resolve(
+                        Object.assign(
+                            {hasLoad: true},
+                            this.props.userinfo
+                        )
+                    )
                 }
                 else {
-                    let openid= wxinfo.openid;
+                    let openid = wxinfo.openid;
                     let url = `/ashx/users_id.ashx?openid=${openid}`
                     fetch(url)
                         .then((res) => {
@@ -189,7 +192,7 @@ class WeiXin0 extends React.Component {
                                 })
                             }
                         })
-                        .catch(()=>{
+                        .catch(() => {
                             reject({
                                 msg: '你未购买次产品，需购买后方可查看'
                             })
@@ -201,7 +204,7 @@ class WeiXin0 extends React.Component {
     }
 
     checkBuy(userInfoPromise) {
-        return new Promise((resolve,reject)=>{
+        return new Promise((resolve, reject) => {
             userInfoPromise
                 .then((userinfo) => {
                     let user_id = userinfo.id;
@@ -211,19 +214,19 @@ class WeiXin0 extends React.Component {
                         .then((res) => {
                             return res.json()
                         })
-                        .then((json)=>{
-                            if(json.error==='1'){
+                        .then((json) => {
+                            if (json.error === '1') {
                                 reject({
-                                    reason:'notBuy',
-                                    msg:'你未购买次产品，需购买后方可查看'
+                                    reason: 'notBuy',
+                                    msg: '你未购买次产品，需购买后方可查看'
                                 })
                             }
-                            else if(json.error==='0'){
+                            else if (json.error === '0') {
                                 resolve(json)
                             }
-                            else{
+                            else {
                                 reject({
-                                    msg:'数据连接错误请稍后重试'
+                                    msg: '数据连接错误请稍后重试'
                                 })
                             }
                         })

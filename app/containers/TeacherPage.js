@@ -139,7 +139,7 @@ class TeacherPage extends React.Component {
                             }
                         })
                         .catch((err)=>{
-                            alert('关注微信公众号《君银牛人堂》注册后可进行购买')
+                            alert('关注微信公众号《君银牛人堂》注册后，可进行购买')
                             resolve(false)
                         })
                 }

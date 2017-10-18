@@ -22,7 +22,6 @@ class Subscribe extends React.Component {
     }
 
     getSubscribe() {
-        alert(this.props.wxinfo.user_count)
         if (this.props.wxinfo.user_count === '1') {
             let openid = this.props.wxinfo.openid
             let money = 1;

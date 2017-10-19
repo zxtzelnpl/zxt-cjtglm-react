@@ -68,10 +68,9 @@ function jsApiCall(score, history) {
             WeixinJSBridge.log(res.err_msg);
             if (res.err_msg === "get_brand_wcpay_request:ok") {
                 alert('购买成功')
-                // if(!score){
-                //     location.hash ='/protocol'
-                history.push('/protocol')
-                // }
+                if(!score){
+                    history.push('/protocol')
+                }
             }
         }
     );

@@ -78,6 +78,9 @@ class MySubscribePage extends React.Component {
                     subscribelist: subscribelist
                 })
             })
+            .catch((err)=>{
+                alert('数据连接错误请稍后重试')
+            })
 
     }
 

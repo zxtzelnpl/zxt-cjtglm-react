@@ -127,6 +127,9 @@ class MySubscribeArticlePage extends React.Component {
                     newslist: newslist
                 })
             })
+            .catch((err)=>{
+                alert('数据连接错误请稍后重试')
+            })
     }
 
     shouldComponentUpdate(nextProp, nextState) {

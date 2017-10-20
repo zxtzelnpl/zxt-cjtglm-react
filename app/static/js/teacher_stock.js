@@ -59,7 +59,8 @@ let zhouyu = [{
     result: '24.87%',
     daySend: '2017.09.05',
     day: 4,
-    dayCount: '四日最高涨幅'
+    dayCount: '四日最高涨幅',
+    img: shaojunjie1
 }]
 let nobody = [{
     name: '陕西黑猫',

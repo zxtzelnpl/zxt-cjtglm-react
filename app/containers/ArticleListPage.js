@@ -62,7 +62,6 @@ class ArticleListPage extends  React.Component{
             )
         }
         else{
-            let url = this.props.articlelist.get('img').url
             let list = [];
             this.props.articlelist.forEach((article)=>{
                 if(article.id!=='img'){

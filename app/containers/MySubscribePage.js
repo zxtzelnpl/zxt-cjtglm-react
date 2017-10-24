@@ -53,6 +53,9 @@ class MySubscribePage extends React.Component {
                     subscribelist: json
                 })
             })
+            .catch((err)=>{
+                alert('数据连接错误，请稍后重试')
+            })
     }
 
     shouldComponentUpdate(nextProp,nextState){

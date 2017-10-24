@@ -11,17 +11,13 @@ class SubscribeList extends React.Component {
 
     render() {
         let list = this.props.subscribelist;
-        let products = this.props.productlist;
         let htmlArr = list.map((subscribe) => {
-            let product_id = subscribe.produce_id
-            let product = products.get(String(product_id))
-            let overplus_produces = subscribe.overplus_produces
-            let {pic,name,special} = product
+            let {head_log,name,introduce,overplus_produces,produce_id,style} = subscribe
             return (
-                <Link  className="box" to={"/mysubscribearticle/"+product_id+'a'+this.props.user_id} key={subscribe.id}>
+                <Link key={produce_id} className="box" to={"/mysubscribearticle/"+produce_id+'a'+this.props.user_id}>
                     <div className="wrap">
                         <div className="photo">
-                            <img src={pic}/>
+                            <img src={head_log}/>
                         </div>
                         <div className="details">
                             <p className="name">
@@ -36,7 +32,7 @@ class SubscribeList extends React.Component {
                             <p className="style">
                                 <span>操作风格</span>
                                 <span>
-                                      {special}
+                                      {style}
                                 </span>
                             </p>
                         </div>

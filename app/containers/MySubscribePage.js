@@ -26,7 +26,6 @@ class MySubscribePage extends React.Component {
                             (<SubscribeList
                                 user_id={this.props.match.params.id}
                                 subscribelist={this.state.subscribelist}
-                                productlist={this.props.productlist}
                             />  ) :
                             (<div className="none"/>)
                     }
@@ -39,49 +38,21 @@ class MySubscribePage extends React.Component {
     }
 
     componentDidMount() {
-        let productsPromise = new Promise((resolve, reject) => {
-            if (this.props.productlist.size === 0) {
-                return fetch('/ashx/productlist.ashx', {
-                    method: 'get'
-                })
-                    .then((response) => {
-                        return response.json()
-                    })
-                    .then((productlist) => {
-                        this.props.productListActions.load(productlist)
-                        resolve(true)
-                    })
-            }
-            else {
-                resolve(true)
-            }
+        let user_id = this.props.match.params.id
+        let url = `/ashx/user_subscribe.ashx?user_id=${user_id}`
+        fetch(url, {
+            method: 'get'
         })
-
-        let subscribesPromise = new Promise((resolve, reject) => {
-            let user_id = this.props.match.params.id
-            let url = `/ashx/user_subscribe.ashx?user_id=${user_id}`
-            return fetch(url, {
-                method: 'get'
+            .then((response) => {
+                return response.json()
             })
-                .then((response) => {
-                    return response.json()
-                })
-                .then((json) => {
-                    resolve(json)
-                })
-        })
-
-        Promise.all([productsPromise, subscribesPromise])
-            .then(([productlist, subscribelist]) => {
-                this.setState({
+            .then((json) => {
+                console.log(json)
+                this.setState ({
                     initDom: true,
-                    subscribelist: subscribelist
+                    subscribelist: json
                 })
             })
-            .catch((err)=>{
-                alert('数据连接错误请稍后重试')
-            })
-
     }
 
     shouldComponentUpdate(nextProp,nextState){

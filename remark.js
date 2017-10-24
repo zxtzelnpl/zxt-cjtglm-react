@@ -1,4 +1,20 @@
 var json = {
-    error:'1',
-    reason:'notSubscribe'
+    head_log
+        :
+        "\txsecurities_pics\analysts\0\201701051041203.png"
+    introduce
+        :
+        "趋势为王、稳重求胜"
+    name
+        :
+        "黄家诚"
+    overplus_produces
+        :
+        "98"
+    produce_id
+        :
+        "10000034"
+    style
+        :
+        "趋势为王、稳重求胜"
 }

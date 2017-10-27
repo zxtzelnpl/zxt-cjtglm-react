@@ -2,8 +2,6 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Link} from 'react-router-dom'
 
-import {formatDate} from '../static/js/tools'
-
 import './ProductList.less'
 
 class Product extends React.Component {

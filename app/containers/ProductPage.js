@@ -41,7 +41,7 @@ class ProductPage extends  React.Component{
             let normal = [];
             let hot = [];
             [...this.props.productlist.values()].forEach((item)=>{
-                if(parseInt(item.rank)<=3){
+                if(item.stocks.length>0){
                     hot.push(item)
                 }
                 else{

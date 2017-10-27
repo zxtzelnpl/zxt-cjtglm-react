@@ -1,4 +1,7 @@
 import shaojunjie1 from '../img/stocks/shaojunjie1.jpg'
+import wuweiwei1 from '../img/stocks/wuweiwei1.jpg'
+import maxin1 from '../img/stocks/maxin1.jpg'
+import zhouyue1 from '../img/stocks/zhouyue1.jpg'
 let lvxiangzhao = [{
     name: '汉王科技',
     code: '002362',
@@ -8,14 +11,16 @@ let lvxiangzhao = [{
     dayCount: '阶段最高涨幅',
     img: shaojunjie1
 }]
+
+//马鑫
 let maxin = [{
-    name: '汉王科技',
-    code: '002362',
-    result: '71.40%',
-    daySend: '2017.08.16',
-    day: '阶段',
-    dayCount: '阶段最高涨幅',
-    img: shaojunjie1
+    name: '南卫股份',
+    code: '603880',
+    result: '19.16%',
+    daySend: '2017.10.12',
+    day:'2',
+    dayCount: '二日最高涨幅',
+    img: maxin1
 }]
 let suxuepeng = [{
     name: '陕西黑猫',
@@ -26,15 +31,18 @@ let suxuepeng = [{
     dayCount: '四日最高涨幅',
     img: shaojunjie1
 }]
+
+//吴伟伟
 let wuweiwei = [{
     name: '乐心医疗',
     code: '300562',
-    result: '24.87%',
+    result: '63.54%',
     daySend: '2017.09.05',
-    day: 4,
-    dayCount: '四日最高涨幅',
-    img: shaojunjie1
+    day:'阶段',
+    dayCount: '阶段最高涨幅',
+    img: wuweiwei1
 }]
+
 let yuliang = [{
     name: '陕西黑猫',
     code: '601015',
@@ -53,15 +61,18 @@ let zhoukang = [{
     dayCount: '四日最高涨幅',
     img: shaojunjie1
 }]
+
+//周煜
 let zhouyu = [{
-    name: '乐心医疗',
-    code: '300562',
-    result: '24.87%',
-    daySend: '2017.09.05',
-    day: 4,
-    dayCount: '四日最高涨幅',
-    img: shaojunjie1
+    name: '士兰微',
+    code: '600460',
+    result: '24.84%',
+    daySend: '2017.09.28',
+    day:'3',
+    dayCount: '三日最高涨幅',
+    img: zhouyue1
 }]
+
 let nobody = [{
     name: '陕西黑猫',
     code: '601015',
@@ -71,6 +82,7 @@ let nobody = [{
     dayCount: '四日最高涨幅',
     img: shaojunjie1
 }]
+
 let shaojunjie = [{
     name: '陕西黑猫',
     code: '601012',
@@ -96,15 +108,28 @@ let shaojunjie = [{
     dayCount: '四日最高涨幅',
     img: shaojunjie1
 }]
-export default function (name) {
+export function stocks (name) {
     switch (name) {
-        case '吕向召':
-            return lvxiangzhao
+        case '吴伟伟':
+            return wuweiwei
+        case '马鑫':
+            return maxin
         case '周煜':
             return zhouyu
-        case '邵军杰':
-            return shaojunjie
         default:
             return []
+    }
+}
+
+export function ranks (name) {
+    switch (name) {
+        case '吴伟伟':
+            return 1
+        case '马鑫':
+            return 2
+        case '周煜':
+            return 3
+        default:
+            return 4
     }
 }

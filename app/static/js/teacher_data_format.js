@@ -1,5 +1,5 @@
 import chart_format from './chart_format'
-import {stocks,ranks} from './teacher_stock'
+import {stocks,ranks,recordNum} from './teacher_stock'
 import teacher_position from './teacher_position'
 
 export default function(products){
@@ -20,6 +20,7 @@ export default function(products){
         product.records = records;
         product.stocks = stocks(product.name)
         product.rank = ranks(product.name)
+        product.recordNum = recordNum(product.name)
         product.lables = teacher_position(product.position)//取标签后面的3个
     })
 }

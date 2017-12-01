@@ -23,10 +23,10 @@ let maxin = [
     {
         name: '世荣兆业',
         code: '002016',
-        result: '16.29%',
+        result: '21.68%',
         daySend: '2017.11.20',
-        day:'5',
-        dayCount: '五日最高涨幅',
+        day:'9',
+        dayCount: '九日最高涨幅',
         img: maxin3
     }/*,
     {

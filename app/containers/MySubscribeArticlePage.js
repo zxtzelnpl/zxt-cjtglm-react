@@ -2,7 +2,6 @@ import './MySubscribeArticlePage.less'
 
 import React from 'react'
 import {bindActionCreators} from 'redux'
-import * as productListActionsFromOtherFile from '../actions/productlist'
 import * as newsListmentActionsFromOtherFile from '../actions/newslist'
 import * as wxInfoActionsFromOtherFile from '../actions/wxinfo'
 import {connect} from 'react-redux'
@@ -52,27 +51,31 @@ class MySubscribeArticlePage extends React.Component {
     }
 
     render() {
-        console.log('MySubscribeArticlePage')
-        let teacher_data = this.teacher_data = this.props.productlist.get(this.produce_id);
-        if (teacher_data && this.state.initDom) {
-            console.log(teacher_data)
+        let subscribe = null;
+        this.props.subscriblelist.forEach(item=>{
+            if(item.produce_id === this.produce_id){
+                subscribe = item
+            }
+        })
+        if (subscribe && this.state.initDom) {
+            let {head_log,name,produce_id,style} = subscribe
             return (
                 <div className="subscribe-list-page">
                     <div className="content">
                         <div className="head">
                             <div className="wrap">
-                                <img src={teacher_data.pic}/>
+                                <img src={head_log}/>
                                 <div>
-                                    <p>{teacher_data.name}</p>
-                                    <p>{teacher_data.special}</p>
+                                    <p>{name}</p>
+                                    <p>{style}</p>
                                 </div>
                             </div>
 
-                            <a onClick={this.getSubscribe.bind(this)}>续 费</a>
+                            {this.state.canBuy?<a onClick={this.getSubscribe.bind(this,name)}>续 费</a>:''}
                         </div>
                         <SubscribeArticleList
-                            product_name={teacher_data.name}
-                            product_id={teacher_data.id}
+                            product_name={name}
+                            product_id={produce_id}
                             user_id={this.user_id}
                             list={this.state.newslist}
                         />
@@ -87,48 +90,38 @@ class MySubscribeArticlePage extends React.Component {
     }
 
     componentDidMount() {
-        let productsPromise = new Promise((resolve, reject) => {
-            if (this.props.productlist.size === 0) {
-                return fetch('/ashx/productlist.ashx', {
-                    method: 'get'
-                })
-                    .then((response) => {
-                        return response.json()
-                    })
-                    .then((productlist) => {
-                        this.props.productListActions.load(productlist)
-                        resolve(true)
-                    })
-            }
-            else {
-                resolve(true)
-            }
+        let user_id = this.user_id
+        let produce_id = this.produce_id
+        let url = `/ashx/user_analysts_list.ashx?user_id=${user_id}&produce_id=${produce_id}`
+        let check = `/ashx/productlist.ashx?id=${produce_id}`
+        fetch(url, {
+            method: 'get'
         })
-
-        let newsPromise = new Promise((resolve, reject) => {
-            let user_id = this.user_id
-            let produce_id = this.produce_id
-            let url = `/ashx/user_analysts_list.ashx?user_id=${user_id}&produce_id=${produce_id}`
-            return fetch(url, {
-                method: 'get'
+            .then((res) => {
+                return res.text()
             })
-                .then((res) => {
-                    return res.json()
-                })
-                .then((json) => {
-                    resolve(json)
-                })
-        })
-
-        Promise.all([productsPromise, newsPromise])
-            .then(([productlist, newslist]) => {
+            .then((text) => {
+                let json = JSON.parse(text.replace(/\t/ig,''))
                 this.setState({
                     initDom: true,
-                    newslist: newslist
+                    newslist: json
                 })
             })
             .catch((err)=>{
-                alert('数据连接错误请稍后重试')
+                console.log(err)
+            })
+
+        fetch(check,{
+            method: 'get'
+        })
+            .then((res) => {
+                return res.json()
+            })
+            .then(json=>{
+                if(json.length&&json.length!==0)
+                    this.setState({
+                        canBuy:true
+                    })
             })
     }
 
@@ -175,13 +168,12 @@ function mapStateToProps(state) {
         newslist: state.newslist,
         wxinfo: state.wxinfo,
         userinfo: state.userinfo,
-        productlist: state.productlist
+        subscriblelist: state.subscriblelist
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        productListActions: bindActionCreators(productListActionsFromOtherFile, dispatch),
         newsListmentActions: bindActionCreators(newsListmentActionsFromOtherFile, dispatch),
         wxInfoActions: bindActionCreators(wxInfoActionsFromOtherFile, dispatch)
     }

@@ -50,7 +50,7 @@ fetch(`/ashx/Article_id.ashx?id=2741`)
     .then((json) => {
       if (json.length > 0&&json[0].id) {
         console.log('成功获取数据')
-        __render()
+        // __render()
       }
       else {
 

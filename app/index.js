@@ -39,31 +39,32 @@ if (__DEV__) {
 
 
 let App = () => (
-    <HashRouter>
-      <div className="container">
-        <Route exact path="/" render={() => (<Redirect to="/center"/>)}/>
-        <Route path="/articlelist" component={ArticleListPage}/>
-        <Route path="/article/:id" component={ArticleDetailPage}/>
-        <Route path="/product" component={ProductPage}/>
-        <Route path="/teacher/:id" component={TeacherPage}/>
-        <Route path="/usercenter" component={CenterPage}/>
-        <Route path="/center" component={CenterPage}/>
-        <Route path="/protocol" component={ProtocolPage}/>
+    <div className="container">
+      <Route exact path="/" render={() => (<Redirect to="/center"/>)}/>
+      <Route path="/articlelist" component={ArticleListPage}/>
+      <Route path="/article/:id" component={ArticleDetailPage}/>
+      <Route path="/product" component={ProductPage}/>
+      <Route path="/teacher/:id" component={TeacherPage}/>
+      <Route path="/usercenter" component={CenterPage}/>
+      <Route path="/center" component={CenterPage}/>
+      <Route path="/protocol" component={ProtocolPage}/>
 
-        <Route path="/mysubscirbe/:id" component={MySubscribePage}/>
-        <Route path="/mysubscribearticle/:id" component={MySubscribeArticlePage}/>
-        <Route path="/weixin0/:id" component={WeiXin0}/>
+      <Route path="/mysubscirbe/:id" component={MySubscribePage}/>
+      <Route path="/mysubscribearticle/:id" component={MySubscribeArticlePage}/>
+      <Route path="/weixin0/:id" component={WeiXin0}/>
 
-        <Route path="/notfound/:reason" component={NotFound}/>
-        <RegisterStatement/>
-      </div>
-    </HashRouter>
+      <Route path="/notfound/:reason" component={NotFound}/>
+      <RegisterStatement/>
+    </div>
+
 )
 
 let store = configureStore()
 render(
     <Provider store={store}>
-      <App/>
+      <HashRouter>
+        <App/>
+      </HashRouter>
     </Provider>
     ,
     document.getElementById('root')

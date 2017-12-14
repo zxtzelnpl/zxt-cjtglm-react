@@ -16,8 +16,8 @@ import {initialState as userInitialState} from './reducers/userinfo'
 import {getCode, getQuery} from './static/js/tools'
 
 /**上线后一定要删除啊,别忘了啊**/
-localStorage.removeItem('wxinfo')
-localStorage.removeItem('userinfo')
+// localStorage.removeItem('wxinfo')
+// localStorage.removeItem('userinfo')
 /**上线后一定要删除啊,别忘了啊**/
 if (__DEV__) {
   console.info('__DEV__是' + __DEV__ + '这里是测试环境')

@@ -74,6 +74,7 @@ function getInitialState() {
                 let wxinfo = Object.assign(
                     {receviedAt: new Date().getTime()},
                     json)
+                localStorage.setItem('wxinfo', JSON.stringify(wxinfo))
                 resolve(wxinfo)
               }
             })
@@ -91,7 +92,6 @@ function getInitialState() {
   })
 
   getWxinfo.then(wxinfo => {
-    localStorage.setItem('wxinfo', JSON.stringify(wxinfo))
     __render(wxinfo, userinfo)
   })
       .catch(err=>{

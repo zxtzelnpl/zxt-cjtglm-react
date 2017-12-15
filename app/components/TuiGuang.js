@@ -16,6 +16,8 @@ function getTeacherProductId(name){
       return 10000027
     case '董齐安':
       return 10000042
+    case '吕向召':
+      return 10000029
     default:
       return null
   }

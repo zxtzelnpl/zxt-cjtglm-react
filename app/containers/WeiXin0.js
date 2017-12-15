@@ -78,6 +78,7 @@ class WeiXin0 extends React.Component {
           let stocks = null
           let _stocks = article[0].strategy.split('---')
           let time = article[0].create_time.replace(/\//ig, '\-')
+          let id = article[0].id
           if (_stocks.length > 0) {
             stocks = _stocks.map((stock) => {
               let arr = stock.split(/[*]|[+]|zjw/gi)
@@ -86,6 +87,7 @@ class WeiXin0 extends React.Component {
           }
           this.setState({
             initDom: true,
+            id:id,
             time: time,
             stocks: stocks
           })
@@ -102,6 +104,21 @@ class WeiXin0 extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return nextState.initDom
+  }
+
+  componentDidUpdate(){
+    let openid = this.props.wxinfo.openid
+    let id = this.state.id
+    if(openid&&id){
+      fetch(`/ashx/Visit_Record.ashx?openid=${openid}&Article_id=${id}`)
+          .then(res=>res.text())
+          .then(text=>{
+            console.log(text)
+          })
+          .catch(err=>{
+            console.log('记录保存成功')
+          })
+    }
   }
 
   getUserInfo() {

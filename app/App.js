@@ -10,6 +10,7 @@ import MySubscribePage from './containers/MySubscribePage' //个人订阅列表�
 import MySubscribeArticlePage from './containers/MySubscribeArticlePage' //个人订阅单个产品页面
 import RegisterStatement from './containers/RegisterStatement' //注册声明弹出框
 import WeiXin0 from './containers/WeiXin0' //微信模版推送
+import TuiGuang from './containers/TuiGuang' //推广模版推送
 import NotFound from './components/NotFound' //Not Found
 
 class App extends React.Component {
@@ -29,6 +30,7 @@ class App extends React.Component {
           <Route path="/mysubscribearticle/:id" component={MySubscribeArticlePage}/>
           <Route path="/weixin0/:id" component={WeiXin0}/>
 
+          <Route path="/tg/:date" component={TuiGuang}/>
           <Route path="/notfound/:reason" component={NotFound}/>
           <RegisterStatement/>
         </div>

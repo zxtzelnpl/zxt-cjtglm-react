@@ -16,7 +16,10 @@ class ArticleDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    let article = this.props.articlelist.get(this.props.match.params.id)
+    let id = this.props.match.params.id
+    let openid = this.props.wxinfo.openid
+    let article = this.props.articlelist.get(id)
+    this.record(openid,id)
     if (!article && !this.state.fail) {
       let url = '/ashx/Article_id.ashx?id=' + this.props.match.params.id
       fetch(url, {
@@ -48,19 +51,15 @@ class ArticleDetailPage extends React.Component {
     }
   }
 
-  componentDidUpdate(){
-    let article = this.props.articlelist.get(this.props.match.params.id)
-    let openid = this.props.wxinfo.openid
-    if(article&&openid){
-      fetch(`/ashx/Visit_Record.ashx?openid=${openid}&Article_id=${article.id}`)
-          .then(res=>res.text())
-          .then(text=>{
-            console.log(text)
-          })
-          .catch(err=>{
-            console.log('记录保存成功')
-          })
-    }
+  record(openid,id){
+    fetch(`/ashx/Visit_Record.ashx?openid=${openid}&Article_id=${id}`)
+        .then(res=>res.text())
+        .then(text=>{
+          console.log(text)
+        })
+        .catch(err=>{
+          console.log('网络连接错误')
+        })
   }
 
   render() {
